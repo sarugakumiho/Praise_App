@@ -13,9 +13,10 @@ class Member < ApplicationRecord
     end
   end
   
+  # アソシエーション
   has_many :posts, dependent: :destroy
-  has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   
@@ -24,6 +25,7 @@ class Member < ApplicationRecord
     super && (self.is_active == true)
   end
   
+  # バリデーション
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
   

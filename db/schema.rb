@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_09_02_122255) do
+ActiveRecord::Schema.define(version: 2024_09_03_070450) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,10 +53,12 @@ ActiveRecord::Schema.define(version: 2024_09_02_122255) do
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "member_id"
-    t.integer "post_id"
+    t.integer "member_id", null: false
+    t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_favorites_on_member_id"
+    t.index ["post_id"], name: "index_favorites_on_post_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -75,22 +77,26 @@ ActiveRecord::Schema.define(version: 2024_09_02_122255) do
   end
 
   create_table "post_comments", force: :cascade do |t|
-    t.integer "member_id"
-    t.integer "post_id"
+    t.integer "member_id", null: false
+    t.integer "post_id", null: false
     t.text "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_post_comments_on_member_id"
+    t.index ["post_id"], name: "index_post_comments_on_post_id"
   end
 
   create_table "post_tags", force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "tag_id"
+    t.integer "post_id", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_post_tags_on_post_id"
+    t.index ["tag_id"], name: "index_post_tags_on_tag_id"
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "member_id"
+    t.integer "member_id", null: false
     t.string "title"
     t.date "start_on"
     t.date "end_on"
@@ -99,13 +105,16 @@ ActiveRecord::Schema.define(version: 2024_09_02_122255) do
     t.integer "post_status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_posts_on_member_id"
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.integer "follower_id"
-    t.integer "followed_id"
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -116,4 +125,13 @@ ActiveRecord::Schema.define(version: 2024_09_02_122255) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "favorites", "members"
+  add_foreign_key "favorites", "posts"
+  add_foreign_key "post_comments", "members"
+  add_foreign_key "post_comments", "posts"
+  add_foreign_key "post_tags", "posts"
+  add_foreign_key "post_tags", "tags"
+  add_foreign_key "posts", "members"
+  add_foreign_key "relationships", "followeds"
+  add_foreign_key "relationships", "followers"
 end
