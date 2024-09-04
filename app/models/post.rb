@@ -13,6 +13,10 @@ class Post < ApplicationRecord
   validates :situation_status, presence: true
   validates :post_status, presence: true
   
+  # enum設定
+  enum situation_status: { from_now: 0, accomplished: 1 }
+  enum post_status: { unpublished: 0, published: 1 }
+  
   # 投稿画像設定
   has_one_attached :image
   

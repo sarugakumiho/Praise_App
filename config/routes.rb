@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
+  
   devise_for :members,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
+  
   
   devise_for :admin, skip: [:registrations, :passwords] , controllers: {
     sessions: "admin/sessions"
@@ -29,27 +31,27 @@ Rails.application.routes.draw do
         get 'out'
       end
     end
-    get '/members/information/edit' => 'members#edit'
-    patch '/members/information' => 'members#update'
+    get '/members/information/edit', to: 'members#edit', as: 'edit_member_information'
+    patch '/members/information', to: 'members#update', as: 'update_member_information'
     # relationshipsルーティング
-    post '/members/:member_id/relationships' => 'relationships#create'
-    delete '/members/:member_id/relationships' => 'relationships#destroy'
-    get '/members/:member_id/followers' => 'relationships#followers'
-    get '/members/:member_id/followeds' => 'relationships#followeds'
+    post '/members/:member_id/relationships', to: 'relationships#create', as: 'relationships_create'
+    delete '/members/:member_id/relationships', to: 'relationships#destroy', as: 'relationships_destroy'
+    get '/members/:member_id/followers', to: 'relationships#followers', as: 'relationships_followers'
+    get '/members/:member_id/followeds', to: 'relationships#followeds', as: 'relationships_followeds'
     # postsルーティング
     resources :posts, only: [:create, :new, :show, :index, :edit, :update, :destroy] do
       collection do 
         get 'tags'
       end
     end
-    get '/posts/tags/search' => 'posts#search'
+    get '/posts/tags/search', to: 'posts#search'
     # post_commentsルーティング
-    post '/posts/:post_id/post_comments' => 'post_comments#create'
-    delete '/posts/:post_id/post_comments/:id' => 'post_comments#destroy'
+    post '/posts/:post_id/post_comments', to: 'post_comments#create'
+    delete '/posts/:post_id/post_comments/:id', to: 'post_comments#destroy'
     # favoritesルーティング
-    get '/posts/:post_id/favorites/index' => 'favorites#index'
-    post '/posts/:post_id/favorites' => 'favorites#create'
-    delete '/posts/:post_id/favorites/:id' => 'favorites#destroy'
+    get '/posts/:post_id/favorites/index', to: 'favorites#index', as: 'favorites_index'
+    post '/posts/:post_id/favorites', to: 'favorites#create', as: 'favorites_create'
+    delete '/posts/:post_id/favorites/:id', to: 'favorites#destroy', as: 'favorites_destroy'
     # searchesルーティング
     get 'search', to: 'searches#search'
   end
@@ -66,9 +68,9 @@ Rails.application.routes.draw do
         get 'tags'
       end
     end
-    get '/posts/tags/search' => 'posts#search'
+    get '/posts/tags/search', to: 'posts#search'
     # post_commentsルーティング
-    delete '/posts/:post_id/post_comments/:id' => 'post_comments#destroy'
+    delete '/posts/:post_id/post_comments/:id', to: 'post_comments#destroy'
     # searchesルーティング
     get 'search', to: 'searches#search'
   end
