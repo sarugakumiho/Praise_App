@@ -1,2 +1,43 @@
-<h1>Public::Members#edit</h1>
-<p>Find me in app/views/public/members/edit.html.erb</p>
+<div class="container d-flex justify-content-center my-5">
+  <div class="row d-flex flex-column align-items-center" style="width: 50%;">
+    
+    <h3><i class="fa-solid fa-user-pen"></i>&nbsp;<strong>プロフィール編集</strong></h3>
+
+    <% if @member.errors.any? %>
+      <div class="d-flex align-items-center mt-4 ">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span style="font-size: 1.25rem; margin-left: 10px;"><%= @member.errors.count %>件のエラーにより保存できませんでした</span>
+      </div>
+      <p style="font-size: 1.25rem;">内容を確認し、入力して下さい&nbsp;<i class="fa-solid fa-person-praying"></i></p>
+      <ul style="font-size: 1.25rem;">
+        <% @member.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    
+    <%= form_with url: update_member_information_path, model: @member, method: :patch, class: "w-100" do |f| %>
+      <div class="form-group">
+        <%= f.label :名前 %>
+        <%= f.text_field :name, class: "form-control name" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :プロフィール写真 %>&nbsp;<i class="fa-regular fa-image"></i>
+        <%= f.file_field :profile_image, class: "form-control-file member_image", accept: 'image/*' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :自己紹介 %>
+        <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 150px;"  %>
+      </div>
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div class="form-group my-5">
+          <%= f.submit "編集完了", class: "btn btn-sm btn-success", style: "width: 200px; height: 40px;" %>
+        </div>
+        <div class="form-group">
+          <%= link_to "退会", check_member_path(@member), class: "btn btn-danger", style: "width: 200px; height: 40px;" %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>
