@@ -6,7 +6,7 @@ class Public::SessionsController < Devise::SessionsController
   before_action :reject_member, only: [:create]  
 
   def after_sign_in_path_for(resource)
-    root_path
+    my_page_members_path
   end
 
   def after_sign_out_path_for(resource)
@@ -17,7 +17,7 @@ class Public::SessionsController < Devise::SessionsController
   def guest_sign_in
     member = Member.guest
     sign_in member
-    redirect_to member_path(member), notice: "ゲストとしてログインしました！"
+    redirect_to my_page_members_path(member), notice: "ゲストとしてログインしました！"
   end
 
   protected

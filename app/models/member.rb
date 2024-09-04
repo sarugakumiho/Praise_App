@@ -27,7 +27,7 @@ class Member < ApplicationRecord
   
   # バリデーション
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
-  validates :introduction, length: { maximum: 50 }
+  validates :introduction, length: { maximum: 150 }
   
   # アイコン画像設定
   has_one_attached :profile_image
