@@ -7,11 +7,106 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/8644edc9d3.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
+    
+    <header class="mx-auto text-center text-white d-flex align-items-center" style="height: 70px; background-color: lightskyblue;">
+      <% if member_signed_in? %>
+        <div class="d-flex justify-content-between align-items-center px-5">
+          <h3 class="logo wf-mplus1p"><%= link_to "Praise! App", my_page_members_path %></h3>
+          <div class="header-bottom">
+            <ul class="nav nav-pills justify-content-end">
+              <li class = “wf-mplus1p”>
+                <%= link_to new_post_path, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-pen-to-square"></i> リスト登録
+                <% end %>
+              </li>
+              <li class = “wf-mplus1p”>
+                <%= link_to post_path(current_member.id), class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-regular fa-rectangle-list"></i> 公開リスト（他ユーザー）
+                <% end %>
+              </li>
+              <li class = “wf-mplus1p”>
+                <%= link_to post_path(current_member.id), class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-regular fa-rectangle-list"></i> 公開リスト
+                <% end %>
+              </li>
+              <li class = “wf-mplus1p”>
+                <%= link_to post_path(current_member.id), class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-rectangle-list"></i> 非公開リスト
+                <% end %>
+              </li>
+              <li class = “wf-mplus1p”>
+                <%= link_to favorites_index_path(current_member.id), class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-heart"></i> いいね一覧
+                <% end %>
+             </li>
+              <li class = “wf-mplus1p”>
+                <%= link_to destroy_member_session_path, method: :delete, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-person-through-window"></i> ログアウト
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <% elsif admin_signed_in? %>
+        <div class="d-flex justify-content-between align-items-center px-5">
+          <h3 class="logo wf-mplus1p"><%= link_to "Praise! App", admin_path %></h3>
+          <ul class="nav nav-pills justify-content-end">
+            <li class = “wf-mplus1p”>
+              <%= link_to admin_posts_path, class: "nav-link", style: "color: midnightblue" do %>
+                <i class="fa-regular fa-rectangle-list"></i> 公開リスト
+              <% end %>
+            </li>
+            <li class = “wf-mplus1p”>
+              <%= link_to admin_members_path, class: "nav-link", style: "color: midnightblue" do %>
+                <i class="fa-solid fa-users"></i> ユーザー一覧
+              <% end %>
+            </li>
+            <li class = “wf-mplus1p”>
+              <%= link_to tags_admin_posts_path, class: "nav-link", style: "color: midnightblue" do %>
+                <i class="fa-solid fa-tags"></i> タグ一覧
+              <% end %>
+            </li>
+            <li class = “wf-mplus1p”>
+              <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link", style: "color: midnightblue" do %>
+                <i class="fa-solid fa-person-through-window"></i> ログアウト
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      <% else %>
+        <div class="d-flex justify-content-between align-items-center px-5">
+          <h3 class="logo wf-mplus1p"><%= link_to "Praise! App", root_path %></h3>
+          <ul class="nav nav-pills justify-content-end">
+            <li class = “wf-mplus1p”>
+              <%= link_to new_member_session_path, class: "nav-link", style: "color: midnightblue" do %>
+                <i class="fa-solid fa-right-to-bracket"></i> ログイン
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+    </header>
+    
+    <main class="mt-5">
+      <% flash.each do |message_type, message| %>
+        <div class="flash-message <%= message_type %>"><%= message %></div>
+      <% end %>
+    </main>
+    
     <%= yield %>
+    
+    <footer>
+      <div class=contaner, style="background-color: lightskyblue;">
+        <div class="d-flex justify-content-center align-items-center text-muted mx-auto" style="height: 70px;">
+          © 2024 webcamp S.M
+        </div>
+      </div>
+    </footer>
+    
   </body>
 </html>
