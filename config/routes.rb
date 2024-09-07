@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         get 'check'
         get 'out'
       end
+      resources :posts, only: [:index, :show]
     end
     get '/members/information/edit', to: 'members#edit', as: 'edit_member_information'
     patch '/members/information', to: 'members#update', as: 'update_member_information'
