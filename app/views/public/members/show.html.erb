@@ -1,2 +1,60 @@
-<h1>Public::Members#show</h1>
-<p>Find me in app/views/public/members/show.html.erb</p>
+<div class="container">
+  
+  <h4 class="text-center py-2 mb-4" style="font-weight: 600; font-size: 1.5rem; background-color: #c6e2ff; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
+    ユーザー詳細
+  </h4>
+  
+  <div class="row my-4">
+    <table class="table table-bordered text-center" style="border-color: black; border: 1px solid black; width: 100%;">
+      <thead>
+        <tr style="background-color: #c6e2ff;">
+          <th class="col-1" style="border: 1px solid black;">名前</th>
+          <th class="col-5" style="border: 1px solid black;">自己紹介</th>
+          <th class="col-1" style="border: 1px solid black;">投稿数</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr>
+          <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;">
+            <%= link_to member_path(@member) do %>
+              <%= @member.name %><br>
+              <%= image_tag @member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 100px; height: 100px; border: 3px solid #000;" %>
+            <% end %>
+          </td>
+          <td class="col-5" style="border: 1px solid black; vertical-align: middle;"><%= @member.introduction %></td>
+          <td class="col-1" style="border: 1px solid black; vertical-align: middle;">
+            <%= link_to member_path(@member) do %>
+              <%= @member.posts.count %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="row my-4">
+    <div class="col-md-8 offset-md-2">
+      <% if @published_posts.present? %>
+        <% @published_posts.each do |post| %>
+          <div class="card mb-3 shadow-sm" style="border: 1px solid #ddd; border-radius: 10px;">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text"><%= truncate(post.memo, length: 100) %></p>
+              <% if post.image.attached? %>
+                <%= image_tag post.image, class: "img-fluid" %>
+              <% end %>
+              <p class="card-text mt-3">
+                <small class="text-muted">状況: <%= post.situation_status == 'from_now' ? 'これから！' : '達成済み！' %></small>
+              </p>
+              <%= link_to '詳細を見る', post_path(post), class: "btn btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p>公開された投稿はありません。</p>
+      <% end %>
+    </div>
+  </div>
+  
+</div>
