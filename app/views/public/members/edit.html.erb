@@ -16,25 +16,31 @@
       </ul>
     <% end %>
     
-    <%= form_with url: update_member_information_path, model: @member, method: :patch, class: "w-100" do |f| %>
-      <div class="form-group">
-        <%= f.label :名前 %>
+    <%= form_with url: update_member_information_path, model: @member, method: :patch, class: "w-100 mt-3" do |f| %>
+      <div class="form-group mb-4">
+        <strong><%= f.label :名前 %></strong>
         <%= f.text_field :name, class: "form-control name" %>
       </div>
-      <div class="form-group">
-        <%= f.label :プロフィール写真 %>&nbsp;<i class="fa-regular fa-image"></i>
+      <div class="form-group mb-4">
+        <strong><%= f.label :プロフィール写真 %>&nbsp;<i class="fa-regular fa-image"></i></strong>
         <%= f.file_field :profile_image, class: "form-control-file member_image", accept: 'image/*' %>
       </div>
       <div class="form-group">
-        <%= f.label :自己紹介 %>
+        <strong><%= f.label :自己紹介 %></strong>
         <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 150px;"  %>
       </div>
-      <div class="d-flex flex-column align-items-center mt-4">
-        <div class="form-group my-5">
-          <%= f.submit "編集完了", class: "btn btn-sm btn-success", style: "width: 200px; height: 40px;" %>
+      <div class="d-flex flex-column align-items-center">
+        <div class="row">
+          <div class="form-group mt-3 mb-5 mr-5">
+            <%= link_to "戻る", my_page_members_path, class: "btn btn-outline-secondary", style: "width: 200px; height: 40px; line-height: 30px; font-weight: bold;" %>
+          </div>
+          <div class="form-group mt-3 mb-5">
+            <%= f.submit "編集完了", class: "btn btn-outline-primary", style: "width: 200px; height: 40px; font-weight: bold;" %>
+          </div>
         </div>
+
         <div class="form-group">
-          <%= link_to "退会", check_member_path(@member), class: "btn btn-danger", style: "width: 200px; height: 40px;" %>
+          <%= link_to "退会", check_member_path(@member), class: "btn btn-outline-danger", style: "width: 200px; height: 40px; font-weight: bold;" %>
         </div>
       </div>
     <% end %>

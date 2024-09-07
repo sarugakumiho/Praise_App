@@ -1,0 +1,41 @@
+<div class="card mb-3">
+  <div class="card-body">
+    
+    <div class="d-flex align-items-center mb-3">
+      <% if post.member.profile_image.attached? %>
+        <%= link_to member_path(post.member) do %>
+          <%= image_tag post.member.profile_image, class: "rounded-circle", style: "width: 50px; height: 50px;" %>
+        <% end %>
+      <% else %>
+        <%= link_to member_path(post.member) do %>
+          <%= image_tag 'default_profile_image.png', class: "rounded-circle", style: "width: 50px; height: 50px;" %>
+        <% end %>
+      <% end %>
+      <h5 class="ml-3">
+        <%= link_to post.member.name, member_path(post.member), class: "text-decoration-none" %>
+      </h5>
+    </div>
+      
+    <h5 class="card-title"><%= post.title %></h5>
+    
+    <p class="card-text"><%= truncate(post.memo, length: 100) %></p>
+
+    <% if post.image.attached? %>
+      <%= image_tag post.image, class: "img-fluid" %>
+    <% end %>
+    
+    <p class="card-text mt-3">
+      <small class="text-muted">
+        状況: 
+        <% if post.situation_status == "from_now" %>
+          <span style="color: #1e90ff">これから！</span>
+        <% else %>
+          <span style="color: #dc143c">達成済み！</span>
+        <% end %>
+      </small>
+    </p>
+    
+    <%= link_to '詳細を見る', post_path(post), class: "btn btn-primary" %>
+
+  </div>
+</div>

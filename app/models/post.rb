@@ -8,8 +8,8 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   
   # バリデーション
-  validates :title, presence: true
-  validates :memo, length: { maximum: 200 }
+  validates :title, presence: true, length: { maximum: 30 }
+  validates :memo, length: { maximum: 100 }
   validates :situation_status, presence: true
   validates :post_status, presence: true
   

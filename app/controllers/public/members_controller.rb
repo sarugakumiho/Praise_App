@@ -1,5 +1,4 @@
 class Public::MembersController < ApplicationController
-  before_action :authenticate_member!, only: [:edit, :update]
   
   def my_page
     @member = current_member
@@ -17,11 +16,14 @@ class Public::MembersController < ApplicationController
 
   def update
     @member = current_member
+    
+    # プロフィール編集処理
     if @member.update(member_params)
-      redirect_to my_page_members_path
+      redirect_to my_page_members_path(@member)
     else
       render :edit
     end
+    
   end
 
   def check
