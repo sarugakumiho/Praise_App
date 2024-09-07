@@ -5,9 +5,12 @@ class Public::MembersController < ApplicationController
   end
 
   def show
+    @member = Member.find(params[:id])
+    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc)
   end
 
   def index
+    @members = Member.all
   end
 
   def edit
