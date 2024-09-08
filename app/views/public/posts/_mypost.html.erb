@@ -16,9 +16,9 @@
       </h5>
     </div>
       
-    <h5 class="card-title"><%= post.title %></h5>
+    <h5 class="card-title"><strong><%= post.title %></strong></h5>
     
-    <p class="card-text"><%= truncate(post.memo, length: 100) %></p>
+    <p class="card-text"><%= post.memo %></p>
 
     <% if post.image.attached? %>
       <%= image_tag post.image, class: "img-fluid" %>
@@ -34,6 +34,9 @@
         <% end %>
       </small>
     </p>
+    
+    <!--コメント数表示-->
+    <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
     
     <%= link_to '詳細を見る', post_path(post), class: "btn btn-primary" %>
 
