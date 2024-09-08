@@ -47,8 +47,8 @@ Rails.application.routes.draw do
     end
     get '/posts/tags/search', to: 'posts#search'
     # post_commentsルーティング
-    post '/posts/:post_id/post_comments', to: 'post_comments#create'
-    delete '/posts/:post_id/post_comments/:id', to: 'post_comments#destroy'
+    post '/posts/:post_id/post_comments', to: 'post_comments#create', as: 'post_comments'
+    delete '/post_comments/:id', to: 'post_comments#destroy', as: 'post_comment'
     # favoritesルーティング
     get '/posts/:post_id/favorites/index', to: 'favorites#index', as: 'favorites_index'
     post '/posts/:post_id/favorites', to: 'favorites#create', as: 'favorites_create'

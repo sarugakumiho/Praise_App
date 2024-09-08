@@ -42,6 +42,7 @@ class Public::PostsController < ApplicationController
    @post = Post.find(params[:id])
    @member = current_member
    @member = @post.member
+   @post_comment = PostComment.new
   end
 
   def index

@@ -38,15 +38,24 @@
       <% if @published_posts.present? %>
         <% @published_posts.each do |post| %>
           <div class="card mb-3 shadow-sm" style="border: 1px solid #ddd; border-radius: 10px;">
-            <div class="card-body">
-              <h5 class="card-title"><%= post.title %></h5>
-              <p class="card-text"><%= truncate(post.memo, length: 100) %></p>
+            <div class="card-body my-3 mx-4">
+              <h4 class="card-title mb-3"><strong><%= post.title %></strong></h4>
+              <p class="card-text mb-4"><%= post.memo %></p>
               <% if post.image.attached? %>
                 <%= image_tag post.image, class: "img-fluid" %>
               <% end %>
               <p class="card-text mt-3">
-                <small class="text-muted">状況: <%= post.situation_status == 'from_now' ? 'これから！' : '達成済み！' %></small>
+                <small class="text-muted">
+                  状況: 
+                  <% if post.situation_status == "from_now" %>
+                    <span style="color: #1e90ff">これから！</span>
+                  <% else %>
+                    <span style="color: #dc143c">達成済み！</span>
+                  <% end %>
+                </small>
               </p>
+              <!--コメント数表示-->
+              <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
               <%= link_to '詳細を見る', post_path(post), class: "btn btn-primary" %>
             </div>
           </div>
