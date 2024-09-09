@@ -37,8 +37,8 @@ Rails.application.routes.draw do
     # relationshipsルーティング
     post '/members/:member_id/relationships', to: 'relationships#create', as: 'relationships_create'
     delete '/members/:member_id/relationships', to: 'relationships#destroy', as: 'relationships_destroy'
-    get '/members/:member_id/followers', to: 'relationships#followers', as: 'relationships_followers'
-    get '/members/:member_id/followeds', to: 'relationships#followeds', as: 'relationships_followeds'
+    get '/members/:member_id/followings', to: 'relationships#followings', as: 'followings'
+    get '/members/:member_id/followers', to: 'relationships#followers', as: 'followers'
     # postsルーティング
     resources :posts, only: [:create, :new, :show, :index, :edit, :update, :destroy] do
       collection do 
