@@ -13,6 +13,11 @@ class Post < ApplicationRecord
   validates :situation_status, presence: true
   validates :post_status, presence: true
   
+  # いいねボタン設定
+  def favorited_by?(member)
+    favorites.exists?(member_id: member.id)
+  end
+  
   # enum設定
   enum situation_status: { from_now: 0, accomplished: 1 }
   enum post_status: { unpublished: 0, published: 1 }
