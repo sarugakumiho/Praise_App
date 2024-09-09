@@ -70,6 +70,21 @@
           
         </div>
       </div>
+      
+      <!-- いいねボタン表示 -->
+      <% if @post.favorited_by?(current_member) %>
+        <p>
+          <%= link_to favorites_destroy_path(@post, current_member.favorites.find_by(post_id: @post.id)), method: :delete do %>
+            ♥<%= @post.favorites.count %> いいね
+          <% end %>
+        </p>
+      <% else %>
+        <p>
+          <%= link_to favorites_create_path(@post), method: :post do %>
+            ♡<%= @post.favorites.count %> いいね
+          <% end %>
+        </p>
+      <% end %>
 
       <!-- コメント表示 -->
       <div>
