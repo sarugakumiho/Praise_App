@@ -1,2 +1,20 @@
-<h1>Public::Members#check</h1>
-<p>Find me in app/views/public/members/check.html.erb</p>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="text-center pt-5">
+    
+    <div class="my-4">
+      <h3><strong>本当に退会しますか？</strong></h3>
+    </div>
+    <div class="my-5" style="line-height: 1.8;">
+      <h5>
+        退会すると、会員登録情報やこれまでの投稿履歴が閲覧できなくなります。<br>
+        また、再度ご利用をいただく場合には、新規登録のお手続きが必要になります。<br>
+        退会する場合は、「退会する」をクリックしてください。
+      </h5>
+    </div>
+    <div style="margin-bottom: 140px;">
+      <%= link_to "退会する", out_member_path(current_member), method: :patch, class: "btn btn-danger mr-5", data: {confirm: "本当に退会しますか？"} %>
+      <%= link_to "退会しない", my_page_members_path, class:"btn btn-primary" %>
+    </div>
+    
+  </div>
+</div>

@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       end
       member do
         get 'check'
-        get 'out'
+        patch 'out'
       end
       resources :posts, only: [:index, :show]
     end

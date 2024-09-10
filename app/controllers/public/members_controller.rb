@@ -37,6 +37,11 @@ class Public::MembersController < ApplicationController
   end
 
   def out
+    @member = Member.find(params[:id])
+    @member.update(is_active: false)
+    reset_session
+    flash[:notice] = "退会しました！"
+    redirect_to root_path
   end
 
   private
