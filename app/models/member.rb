@@ -46,6 +46,19 @@ class Member < ApplicationRecord
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 150 }
   
+  # 検索機能（分岐）設定
+  def self.search_for(content, method)
+    if method == "perfect"
+      Member.where(name: content)
+    elsif method == "forward"
+      Member.where("name LIKE ?", content + "%")
+    elsif method == "backward"
+      Member.where("name LIKE ?", "%" + content)
+    else
+      Member.where("name LIKE ?", "%" + content + "%")
+    end
+  end
+  
   # アイコン画像設定
   has_one_attached :profile_image
   
