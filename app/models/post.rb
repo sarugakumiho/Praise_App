@@ -22,6 +22,19 @@ class Post < ApplicationRecord
   enum situation_status: { from_now: 0, accomplished: 1 }
   enum post_status: { unpublished: 0, published: 1 }
   
+  # 検索機能（分岐）設定
+  def self.search_for(content, method)
+    if method == "perfect"
+      Post.where(title: content)
+    elsif method == "forward"
+      Post.where("title LIKE ?", content + "%")
+    elsif method == "backward"
+      Post.where("title LIKE ?", "%" + content)
+    else
+      Post.where("title LIKE ?", "%" + content + "%")
+    end
+  end
+  
   # 投稿画像設定
   has_one_attached :image
   

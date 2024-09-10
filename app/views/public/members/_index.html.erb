@@ -1,37 +1,41 @@
-<div class="row my-4">
-  <table class="table table-bordered text-center" style="border-color: black; border: 1px solid black; width: 100%;">
-    <thead>
-      <tr style="background-color: #c6e2ff;">
-        <th class="col-1" style="border: 1px solid black;">名前</th>
-        <th class="col-5" style="border: 1px solid black;">自己紹介</th>
-        <th class="col-1" style="border: 1px solid black;">投稿数</th>
-        <th class="col-1" style="border: 1px solid black;">フォロー数</th>
-        <th class="col-1" style="border: 1px solid black;">フォロワー数</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-      <% @members.each do |member| %>
-        <tr>
-          <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;">
-            <%= link_to member_path(member) do %>
-              <%= member.name %><br>
-              <%= image_tag member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 100px; height: 100px; border: 3px solid #000;" %><br>
-            <% end %>
-            <div class="my-3">
-              <%= render "public/relationships/btn", member: member, options: { class: "follow-link" } %>
-            </div>
-          </td>
-          <td class="col-5" style="border: 1px solid black; vertical-align: middle;"><%= member.introduction %></td>
-          <td class="col-1" style="border: 1px solid black; vertical-align: middle;">
-            <%= link_to member_path(member) do %>
-              <%= member.posts.count %>
-            <% end %>
-          </td>
-          <td class="col-1" style="border: 1px solid black; vertical-align: middle;"><%= member.followings.count %></td>
-          <td class="col-1" style="border: 1px solid black; vertical-align: middle;"><%= member.followers.count %></td>
+<% if @members.present? %>
+  <div class="row my-4">
+    <table class="table table-bordered text-center" style="border-color: black; border: 1px solid black; width: 100%;">
+      <thead>
+        <tr style="background-color: #c6e2ff;">
+          <th class="col-1" style="border: 1px solid black;">名前</th>
+          <th class="col-5" style="border: 1px solid black;">自己紹介</th>
+          <th class="col-1" style="border: 1px solid black;">投稿数</th>
+          <th class="col-1" style="border: 1px solid black;">フォロー数</th>
+          <th class="col-1" style="border: 1px solid black;">フォロワー数</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      
+      <tbody>
+        <% if @members.present? %> 
+          <% @members.each do |member| %>
+            <tr>
+              <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;">
+                <%= link_to member_path(member) do %>
+                  <%= member.name %><br>
+                  <%= image_tag member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 100px; height: 100px; border: 3px solid #000;" %><br>
+                <% end %>
+                <div class="my-3">
+                  <%= render "public/relationships/btn", member: member, options: { class: "follow-link" } %>
+                </div>
+              </td>
+              <td class="col-5" style="border: 1px solid black; vertical-align: middle;"><%= member.introduction %></td>
+              <td class="col-1" style="border: 1px solid black; vertical-align: middle;">
+                <%= link_to member_path(member) do %>
+                  <%= member.posts.count %>
+                <% end %>
+              </td>
+              <td class="col-1" style="border: 1px solid black; vertical-align: middle;"><%= member.followings.count %></td>
+              <td class="col-1" style="border: 1px solid black; vertical-align: middle;"><%= member.followers.count %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
