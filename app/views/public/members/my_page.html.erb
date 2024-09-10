@@ -2,6 +2,7 @@
   <div class="card" style="width: 60rem; border: 2px solid darkslategray;">
     <div class="d-flex my-4 mx-4">
       
+    <!--プロフィール欄表示-->
     <div class="d-flex flex-column">
       <%= link_to member_path(@member), class: "text-decoration-none w-100" do %>
         <h3 class="card-name d-flex justify-content-center" style="color: black;"><strong><%= @member.name %></strong></h3>
@@ -29,24 +30,39 @@
 
 <div class="container my-4 d-flex justify-content-center">
   <div class="row">
+    
+    <!--タイムライン表示列-->
     <div class="col-md-6 d-flex justify-content-center">
       <div class="container" style="width: 60rem;">
         <h5 style="width: 100%; height: 50px; background-color: lightskyblue; color: midnightblue; display: flex; justify-content: center; align-items: center;">
-          <i class="fa-solid fa-bars-staggered"></i>
+          <i class="fa-solid fa-rectangle-list"></i>
           &#12288;<strong>タイムライン(フォロー中)</strong>
         </h5>
-        <%#= render 'posts/list', post: @post %>
+        <%# if @unpublished_posts.present? %>
+          <%# @unpublished_posts.each do |post| %>
+            <%#= render 'public/posts/mypost', post: post %>
+          <%# end %>
+        <%# else %>
+          <!--<p class="text-center">非公開の投稿はありません。</p>-->
+        <%# end %>
       </div>
     </div>
-
+    <!--やることリスト（非公開）表示列-->
     <div class="col-md-6 d-flex justify-content-center">
       <div class="container" style="width: 60rem;">
         <h5 style="width: 100%; height: 50px; background-color: lightskyblue; color: midnightblue; display: flex; justify-content: center; align-items: center;">
           <i class="fa-solid fa-rectangle-list"></i>
           &#12288;<strong>やることリスト（非公開）</strong>
         </h5>
-        <%#= render 'posts/list', post: @post %>
+        <% if @unpublished_posts.present? %>
+          <% @unpublished_posts.each do |post| %>
+            <%= render 'public/posts/mypost', post: post %>
+          <% end %>
+        <% else %>
+          <p class="text-center">非公開の投稿はありません。</p>
+        <% end %>
       </div>
     </div>
+    
   </div>
 </div>
