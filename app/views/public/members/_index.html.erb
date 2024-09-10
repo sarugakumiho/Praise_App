@@ -27,7 +27,8 @@
               <td class="col-5" style="border: 1px solid black; vertical-align: middle;"><%= member.introduction %></td>
               <td class="col-1" style="border: 1px solid black; vertical-align: middle;">
                 <%= link_to member_path(member) do %>
-                  <%= member.posts.count %>
+                  <!--公開投稿数のみ-->
+                  <%= member.posts.where(post_status: 'published').count %>
                 <% end %>
               </td>
               <td class="col-1" style="border: 1px solid black; vertical-align: middle;"><%= member.followings.count %></td>

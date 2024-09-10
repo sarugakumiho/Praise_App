@@ -4,13 +4,13 @@ class Public::MembersController < ApplicationController
   def my_page
     @member = current_member
     # やることリスト（非公開）
-    @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc)
+    @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
   end
 
   def show
     @member = Member.find(params[:id])
     # 特定のメンバーの投稿
-    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc)
+    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:unpublished_page])
   end
 
   def index
@@ -26,7 +26,8 @@ class Public::MembersController < ApplicationController
     
     # プロフィール編集処理
     if @member.update(member_params)
-      redirect_to my_page_members_path(@member), notice: "プロフィールが更新されました。"
+      flash[:notice] = "プロフィールが更新されました！"
+      redirect_to my_page_members_path(@member)
     else
       render :edit
     end
