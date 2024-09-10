@@ -22,16 +22,16 @@ class Post < ApplicationRecord
   enum situation_status: { from_now: 0, accomplished: 1 }
   enum post_status: { unpublished: 0, published: 1 }
   
-  # 検索機能（分岐）設定
+  # 検索機能（分岐）設定(公開されている投稿のみ検索対象)
   def self.search_for(content, method)
     if method == "perfect"
-      Post.where(title: content)
+      Post.where(post_status: 'published').where(title: content)
     elsif method == "forward"
-      Post.where("title LIKE ?", content + "%")
+      Post.where(post_status: 'published').where("title LIKE ?", content + "%")
     elsif method == "backward"
-      Post.where("title LIKE ?", "%" + content)
+      Post.where(post_status: 'published').where("title LIKE ?", "%" + content)
     else
-      Post.where("title LIKE ?", "%" + content + "%")
+      Post.where(post_status: 'published').where("title LIKE ?", "%" + content + "%")
     end
   end
   
