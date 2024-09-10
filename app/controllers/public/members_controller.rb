@@ -3,10 +3,13 @@ class Public::MembersController < ApplicationController
   
   def my_page
     @member = current_member
+    # やることリスト（非公開）
+    @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc)
   end
 
   def show
     @member = Member.find(params[:id])
+    # 特定のメンバーの投稿
     @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc)
   end
 

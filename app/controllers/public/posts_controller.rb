@@ -47,7 +47,7 @@ class Public::PostsController < ApplicationController
 
   def index
     if params[:member_id].present?
-      # 特定のメンバーの投稿一覧
+      # 特定のメンバーの投稿
       @member = Member.find(params[:member_id])
       @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
       @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
