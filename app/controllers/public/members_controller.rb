@@ -5,6 +5,14 @@ class Public::MembersController < ApplicationController
     @member = current_member
     # やることリスト（非公開）
     @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
+    
+    # タイムライン設定
+    # フォローしているユーザーのIDを取得
+    @follow_members = current_member.followings.pluck(:id)
+    @all_published_posts = Post.where(member_id: @follow_members, post_status: 'published')
+                               .from_last_week
+                               .order(created_at: :desc)
+                               .page(params[:all_published_page])
   end
 
   def show
@@ -31,9 +39,6 @@ class Public::MembersController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def check
   end
 
   def out

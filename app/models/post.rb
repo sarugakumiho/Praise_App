@@ -35,6 +35,9 @@ class Post < ApplicationRecord
     end
   end
   
+  # 1週間以内の投稿を取得するスコープ
+  scope :from_last_week, -> { where("created_at >= ?", 1.week.ago) }
+  
   # 投稿画像設定
   has_one_attached :image
   
