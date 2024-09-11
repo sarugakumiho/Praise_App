@@ -37,14 +37,14 @@ class Public::PostsController < ApplicationController
       render :new
     end
   end
-
+  
   def show
    @post = Post.find(params[:id])
    @member = current_member
    @member = @post.member
    @post_comment = PostComment.new
   end
-
+  
   def index
     if params[:member_id].present?
       # 特定のメンバーの投稿
