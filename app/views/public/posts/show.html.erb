@@ -72,50 +72,50 @@
       </div>
       
       <!-- いいねボタン表示 -->
-      <% if @post.favorited_by?(current_member) %>
-        <p>
-          <%= link_to favorites_destroy_path(@post, current_member.favorites.find_by(post_id: @post.id)), method: :delete do %>
-            ♥<%= @post.favorites.count %> いいね
-          <% end %>
-        </p>
-      <% else %>
-        <p>
-          <%= link_to favorites_create_path(@post), method: :post do %>
-            ♡<%= @post.favorites.count %> いいね
-          <% end %>
-        </p>
-      <% end %>
-
-      <!-- コメント表示 -->
-      <div>
-        <p class="my-4"><strong>コメント件数：<%= @post.post_comments.count %></strong></p>
-        <% @post.post_comments.each do |post_comment| %>
-          <div class="d-flex align-items-center mb-2">
-            <p class="mb-0">
-              <%= image_tag post_comment.member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 50px; height: 50px; border: 3px solid #000;" %>
-            </p>
-            <div class="ml-3">
-              <strong><%= post_comment.member.name %></strong>
-              <br>
-              <small class="text-muted"><%= post_comment.created_at.strftime('%Y/%m/%d') %></small>
-            </div>
-          </div>
-          <div class="d-flex align-items-center mb-2">
-            <p><%= post_comment.comment %></p>
-            <% if post_comment.member == current_member %>
-              <%= link_to "削除", post_comment_path(post_comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger ml-2" %>
+      <% if @post.post_status == "published" %>
+        <% if @post.favorited_by?(current_member) %>
+          <p>
+            <%= link_to favorites_destroy_path(@post, current_member.favorites.find_by(post_id: @post.id)), method: :delete do %>
+              ♥<%= @post.favorites.count %> いいね
             <% end %>
-          </div>
+          </p>
+        <% else %>
+          <p>
+            <%= link_to favorites_create_path(@post), method: :post do %>
+              ♡<%= @post.favorites.count %> いいね
+            <% end %>
+          </p>
         <% end %>
-      </div>
-      
-      <!-- コメント投稿フォーム -->
-      <div class="mt-4">
-        <%= form_with model: [@post, PostComment.new], url: post_comments_path(@post), local: true do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", style: "width: 500px;" %>
-          <%= f.submit "送信する", class: "btn btn-primary ml-2" %>
-        <% end %>
-      </div>
+        <!-- コメント表示 -->
+        <div>
+          <p class="my-4"><strong>コメント件数：<%= @post.post_comments.count %></strong></p>
+          <% @post.post_comments.each do |post_comment| %>
+            <div class="d-flex align-items-center mb-2">
+              <p class="mb-0">
+                <%= image_tag post_comment.member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 50px; height: 50px; border: 3px solid #000;" %>
+              </p>
+              <div class="ml-3">
+                <strong><%= post_comment.member.name %></strong>
+                <br>
+                <small class="text-muted"><%= post_comment.created_at.strftime('%Y/%m/%d') %></small>
+              </div>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+              <p><%= post_comment.comment %></p>
+              <% if post_comment.member == current_member %>
+                <%= link_to "削除", post_comment_path(post_comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger ml-2" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <!-- コメント投稿フォーム -->
+        <div class="mt-4">
+          <%= form_with model: [@post, PostComment.new], url: post_comments_path(@post), local: true do |f| %>
+            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", style: "width: 500px;" %>
+            <%= f.submit "送信する", class: "btn btn-primary ml-2" %>
+          <% end %>
+        </div>
+      <% end %>
       
     </div>
   </div>

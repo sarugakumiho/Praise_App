@@ -49,11 +49,11 @@ class Public::PostsController < ApplicationController
     if params[:member_id].present?
       # 特定のメンバーの投稿
       @member = Member.find(params[:member_id])
-      @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
+      @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page])
       @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
     else
       # 自分のリスト（公開中）とやることリスト（非公開）
-      @published_posts = current_member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
+      @published_posts = current_member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page])
       @unpublished_posts = current_member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
       
       # 全体の公開投稿
