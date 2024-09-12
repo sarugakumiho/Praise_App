@@ -45,7 +45,7 @@ Rails.application.routes.draw do
         get 'tags'
       end
     end
-    get '/posts/tags/search', to: 'posts#search'
+    get '/posts/tags/search', to: 'posts#search', as: 'search_posts'
     # post_commentsルーティング
     post '/posts/:post_id/post_comments', to: 'post_comments#create', as: 'post_comments'
     delete '/post_comments/:id', to: 'post_comments#destroy', as: 'post_comment'
@@ -67,6 +67,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:show, :index] do
       collection do 
         get 'tags'
+        delete 'posts/tags/:id', to: 'posts#destroy_tag', as: 'destroy_tag'
       end
     end
     get '/posts/tags/search', to: 'posts#search'

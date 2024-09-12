@@ -45,13 +45,15 @@
         <%= f.text_area :memo, class: "form-control", rows: "10", placeholder: "メモ・コメント" %>
       </div>
       <div class="form-group">
-        <p><strong>タグ</strong></p>
-        
+        <span><strong>タグ</strong></span><br>
+        <span style="font-size: 12px;">※半角スペースを入力することで複数のタグを付けることができます。</span>
+        <%= f.text_field :tag_name, placeholder: "タグ名　タグ名　タグ名", style: "width: 210px;"%>
+        <%= f.submit %>
       </div>
       <div class="form-group" style="margin-top: 30px;">
-        <p><strong>状況</strong></p>
+        <span><strong>状況</strong></span>
         <div style="display: flex; align-items: center;">
-          <div style="margin-right: 20px;">
+          <div style="margin-right: 25px;">
             <%= f.radio_button :situation_status, '0', id: 'situation_status_from_now', checked: true %>
             <label for="situation_status_from_now">これから!</label>
           </div>
@@ -62,15 +64,23 @@
         </div>
       </div>
       <div class="form-group" style="margin-top: 10px; margin-bottom: 10px;">
-        <p><strong>公開設定</strong></p>
+        <span><strong>公開設定</strong></span>
         <div style="display: flex; align-items: center;">
-          <div style="margin-right: 20px;">
-            <%= f.radio_button :post_status, '0', id: 'post_status_unpublished', checked: true %>
-            <label for="status_unpublished">（非公開）<br>やることリストへ登録</label>
+          <div>
+            <div style="display: inline-block;">
+              <%= f.radio_button :post_status, '0', id: 'post_status_unpublished', checked: true %> 非公開
+            </div>
+            <div style="display: inline-block;">
+              <label for="status_unpublished" style="font-size: 15px;">やることリストへ登録</label>
+            </div>
           </div>
           <div>
-            <%= f.radio_button :post_status, '1', id: 'post_status_published' %>
-            <label for="post_status_published">（公開）<br>やること・達成したことを共有</label>
+            <div style="display: inline-block;">
+              <%= f.radio_button :post_status, '1', id: 'post_status_published' %> 公開
+            </div>
+            <div style="display: inline-block;">
+              <label for="post_status_published" style="font-size: 15px;">やること・達成したことを共有</label>
+            </div>
           </div>
         </div>
       </div>

@@ -5,13 +5,15 @@ class Public::PostsController < ApplicationController
   def new
     @member = current_member
     @post = Post.new
+    @post = @member.posts.new
   end
 
   def create
     @member = current_member
-    @post = Post.new(post_params)
-    @post.member_id = @member.id
-    
+    @post = @member.posts.new(post_params)
+    # タグ取得
+    tag_list = params[:post][:tag_name].split(nil)  #送信されてきた値を「スペース」で区切って配列化
+
     # 投稿フォーム（日付・期間）の設定処理
     if @post.start_on.present?
       sabun = (@post.start_on - Date.today).to_i
@@ -31,6 +33,7 @@ class Public::PostsController < ApplicationController
   
     # 投稿保存処理
     if @post.save
+      @post.save_tag(tag_list)  #タグも保存
       flash[:notice] = "投稿が保存されました！"
       redirect_to post_path(@post) and return
     else
@@ -40,8 +43,8 @@ class Public::PostsController < ApplicationController
   
   def show
    @post = Post.find(params[:id])
-   @member = current_member
    @member = @post.member
+   @post_tags = @post.tags
    @post_comment = PostComment.new
   end
   
@@ -64,14 +67,23 @@ class Public::PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
     @member = current_member
+    # タグの編集
+    @tag_list = @post.tags.pluck(:tag_name).join(nil)
   end
 
   def update
     @member = current_member
     @post = Post.find(params[:id])
+    # tagの編集と削除
+    tag_list = params[:post][:tag_name].split(nil)
     
     # 投稿編集処理
     if @post.update(post_params)
+      old_relations = PostTag.where(post_id: @post.id)
+      old_relations.each do |relation|
+        relation.delete
+      end
+      @post.save_tag(tag_list)
       flash[:notice] = "編集しました！"
       redirect_to post_path(@post.id) and return
     else
@@ -105,11 +117,50 @@ class Public::PostsController < ApplicationController
     redirect_to posts_path
   end
 
+ # タグ機能ここから------------------
   def tags
+    # 公開中の投稿に関連付けられたタグのみ取得
+    @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
+    @tag = Tag.find_by(id: params[:tag_id])
+    
+    if @tag.present?
+      @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
+    else
+      flash[:alert] = "指定されたタグが見つかりません。"
+      redirect_to posts_path
+    end
   end
-
+  
+  # 管理者へ
+  # def destroy_tag
+  #   @tag = Tag.find(params[:id])
+  #   if @tag.posts.empty?
+  #     @tag.destroy
+  #     flash[:notice] = "タグが削除されました。"
+  #   else
+  #     flash[:alert] = "関連する投稿があるため、タグを削除できません。"
+  #   end
+  #   redirect_to tags_posts_path
+  # end
+  
   def search
+    # 検索キーワードが渡されているか確認
+    if params[:search].present?
+      # タグ名に検索キーワードが含まれるタグを取得
+      @tag_list = Tag.where('tag_name LIKE ?', "%#{params[:search]}%").distinct
+      
+      if @tag_list.any?
+        @tag = @tag_list.first
+        @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
+      else
+        @posts = Post.none # 検索結果がない場合は空のリスト
+      end
+    else
+      @tag_list = Tag.all
+      @posts = Post.none
+    end
   end
+  # ここまで-------------------------
 
   private
   
