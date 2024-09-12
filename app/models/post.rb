@@ -13,14 +13,30 @@ class Post < ApplicationRecord
   validates :situation_status, presence: true
   validates :post_status, presence: true
   
+  # enum設定
+  enum situation_status: { from_now: 0, accomplished: 1 }
+  enum post_status: { unpublished: 0, published: 1 }
+  
+  # タグ設定
+  def save_tag(sent_tags)
+    current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?  # 現在存在するタグの取得
+    old_tags = current_tags - sent_tags  # 古いタグの取得
+    new_tags = sent_tags - current_tags  # 新しいタグの取得
+    
+    old_tags.each do |old|  # 新しいタグの保存(古いタグ削除)
+      self.tags.delete Tag.find_by(tag_name: old)
+    end
+    
+    new_tags.each do |new|  # 新しいタグの保存(新しいタグをデータベースに保存)
+      new_post_tag = Tag.find_or_create_by(tag_name: new)
+      self.tags << new_post_tag
+    end
+  end
+  
   # いいねボタン設定
   def favorited_by?(member)
     favorites.exists?(member_id: member.id)
   end
-  
-  # enum設定
-  enum situation_status: { from_now: 0, accomplished: 1 }
-  enum post_status: { unpublished: 0, published: 1 }
   
   # 検索機能（分岐）設定(公開されている投稿のみ検索対象)
   def self.search_for(content, method)
