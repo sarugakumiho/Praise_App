@@ -45,11 +45,11 @@
     </p>
     
     <div class="d-flex justify-content-start align-items-center mb-3">
-      <!-- いいねボタン表示 -->
       <% if post.post_status == "published" %>
-        <p class="mb-0">いいね件数： <%= post.favorites.count %></p>
+        <!-- いいねボタン表示 -->
+        <p><%= link_to "いいね件数： #{post.favorites.count}", admin_post_path(post), class: "text-decoration-none" %></p>
         <!-- コメント数表示 -->
-        <p class="mb-0 ml-4">コメント件数：<%= post.post_comments.count %></p>
+        <p class="ml-4"><%= link_to "コメント件数： #{post.post_comments.count}", admin_post_path(post), class: "text-decoration-none" %></p>
       <% end %>
     </div>
     
