@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       end
       member do
         get 'check'
-        patch 'out'
+        delete 'destroy', to: 'members#destroy', as: 'destroy'
       end
       resources :posts, only: [:index, :show]
     end
@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   namespace :admin do
     # membersルーティング
     resources :members, only: [:index, :show, :edit, :update]
+    delete 'members/:id', to: 'members#destroy', as: 'member_destroy'
     # postsルーティング
     resources :posts, only: [:show, :index, :destroy] do
       collection do 

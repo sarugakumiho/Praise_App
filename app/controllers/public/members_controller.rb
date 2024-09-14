@@ -1,5 +1,5 @@
 class Public::MembersController < ApplicationController
-  before_action :authenticate_member!, only: [:edit, :update]
+  before_action :authenticate_member!, only: [:edit, :update, :destroy]
   before_action :ensure_guest_member, only: [:edit, :update] # ゲストログイン制限設定
   
   def my_page
@@ -41,13 +41,12 @@ class Public::MembersController < ApplicationController
       render :edit
     end
   end
-
-  def out
-    @member = Member.find(params[:id])
-    @member.update(is_active: false)
-    reset_session
-    flash[:notice] = "退会しました！"
-    redirect_to root_path
+  
+  def destroy
+    @member = Member.find(current_member.id)
+    @member.destroy
+    flash[:notice] = "退会しました。"
+    redirect_to new_member_registration_path
   end
 
   private
