@@ -19,19 +19,20 @@ class Public::SessionsController < Devise::SessionsController
     sign_in member
     redirect_to my_page_members_path(member), notice: "ゲストとしてログインしました！"
   end
-
-  protected
-  # 会員の論理削除のための記述
-  # 退会後は、同じアカウントでの利用は不可
+  
+    protected
+  # 会員のログインを制限するための記述
   def reject_member
     @member = Member.find_by(email: params[:member][:email])
     if @member
-      if @member.valid_password?(params[:member][:password]) && (@member.is_active == false)
-        flash[:notice] = "退会済みです。再度ご登録をしてご利用ください。"
-        redirect_to new_member_registration_path and return
+      if @member.valid_password?(params[:member][:password])
       else
-        flash[:notice] = "項目を入力してください"
+        flash[:notice] = "パスワードが正しくありません。"
+        redirect_to new_member_session_path and return
       end
+    else
+      flash[:notice] = "該当するアカウントが存在しません。"
+      redirect_to new_member_session_path and return
     end
   end
 
