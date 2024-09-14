@@ -38,7 +38,7 @@
     <header class="mx-auto text-center text-white d-flex align-items-center mb-2" style="height: 70px; background-color: lightskyblue;">
       <% if member_signed_in? %>
         <div class="d-flex justify-content-between align-items-center w-100 px-5">
-          <h3 class="logo wf-mplus1p" style="flex-shrink: 0;"><%= link_to "Praise! App", my_page_members_path %></h3>
+          <h3 class="logo wf-mplus1p" style="flex-shrink: 0;"><%= link_to "Praise! App" ,my_page_members_path %></h3>
           <div class="header-bottom">
             <ul class="nav nav-pills justify-content-end">
               <li class="wf-mplus1p">
@@ -75,18 +75,23 @@
           <h3 class="logo wf-mplus1p" style="flex-shrink: 0;"><%= link_to "Praise! App", admin_path %></h3>
           <ul class="nav nav-pills justify-content-end">
             <li class="wf-mplus1p">
-              <%= link_to admin_posts_path, class: "nav-link", style: "color: midnightblue" do %>
-                <i class="fa-regular fa-rectangle-list"></i> 公開リスト
+              <%= link_to admin_members_path, class: "nav-link", style: "color: midnightblue" do %>
+                <i class="fa-solid fa-users"></i> 全ユーザー一覧
               <% end %>
             </li>
             <li class="wf-mplus1p">
-              <%= link_to admin_members_path, class: "nav-link", style: "color: midnightblue" do %>
-                <i class="fa-solid fa-users"></i> ユーザー一覧
+              <%= link_to admin_posts_path, class: "nav-link", style: "color: midnightblue" do %>
+                <i class="fa-regular fa-rectangle-list"></i> 全公開中リスト
+              <% end %>
+            </li>
+            <li class="wf-mplus1p">
+              <%= link_to admin_post_comments_path, class: "nav-link", style: "color: midnightblue" do %>
+                <i class="fa-regular fa-comment"></i> 全コメント一覧
               <% end %>
             </li>
             <li class="wf-mplus1p">
               <%= link_to tags_admin_posts_path, class: "nav-link", style: "color: midnightblue" do %>
-                <i class="fa-solid fa-tags"></i> タグ一覧
+                <i class="fa-solid fa-tags"></i> 全タグ一覧
               <% end %>
             </li>
             <li class="wf-mplus1p">
@@ -112,10 +117,36 @@
     </header>
      
     <main>
-      <!--検索窓-->
-      <div class="d-flex justify-content-end" style="margin-right: 4rem;">
-        <%= render 'public/searches/search' %>
+      <div class="d-flex justify-content-end align-items-center" style="width: 100%; padding-right: 4rem;">
+        <!-- タグ検索窓 -->
+        <% if member_signed_in? || admin_signed_in? %>
+          <%= form_with url: member_signed_in? ? search_posts_path : admin_posts_tags_search_path, method: :get, local: true do |f| %>
+            <div class="form-group mb-0 mr-3">
+              <div class="d-flex align-items-center">
+                <%= f.text_field :search, class: "form-control", placeholder: "タグを入力", style: "width: 200px;" %>
+                <%= f.submit "検索", class: "btn-sm btn-primary ml-2" %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+                    
+        <!-- ユーザー・投稿検索窓 -->
+        <% if member_signed_in? || admin_signed_in? %>
+          <div class="d-flex justify-content-end">
+            <div class="search_form">
+              <%= form_with url: member_signed_in? ? search_path : admin_search_path, method: :get, local: true do |f| %>
+                <div class="d-flex align-items-center">
+                  <%= f.text_field :content, placeholder: "検索ワードを入力", style: "width: 70%;", class: "form-control mr-2" %>
+                  <%= f.select :model, options_for_select({"ユーザー" => "Member", "投稿" => "Post"}), class: "form-control" %>
+                  <%= f.select :method, options_for_select({"完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}), class: "form-control" %>
+                  <%= f.submit "検索", class: "btn-sm btn-primary ml-2" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       </div>
+
       <!--フラッシュメッセージ-->
       <% flash.each do |message_type, message| %>
         <div class="flash-message <%= message_type %>"><%= message %></div>

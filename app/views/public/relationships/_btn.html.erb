@@ -1,4 +1,4 @@
-<% if current_member != member %>
+<% if current_member.present? && current_member != member %>
   <% if current_member.following?(member) %>
     <%= link_to "フォローを外す", relationships_destroy_path(member.id), method: :delete, class: options[:class].presence || "btn btn-info" %>
   <% else %>

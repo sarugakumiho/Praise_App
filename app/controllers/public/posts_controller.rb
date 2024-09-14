@@ -131,18 +131,6 @@ class Public::PostsController < ApplicationController
     end
   end
   
-  # 管理者へ
-  # def destroy_tag
-  #   @tag = Tag.find(params[:id])
-  #   if @tag.posts.empty?
-  #     @tag.destroy
-  #     flash[:notice] = "タグが削除されました。"
-  #   else
-  #     flash[:alert] = "関連する投稿があるため、タグを削除できません。"
-  #   end
-  #   redirect_to tags_posts_path
-  # end
-  
   def search
     # 検索キーワードが渡されているか確認
     if params[:search].present?

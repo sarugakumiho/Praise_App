@@ -1,0 +1,64 @@
+<div class="card mb-2 shadow-sm border-2" style="border-radius: 12px; overflow: hidden; max-width: 700px; margin: auto;">
+  <div class="col-md-12 py-4" style="padding-left: 20px; padding-right: 20px;">
+    
+    <div class="d-flex align-items-center mb-3">
+      <% if post.member.profile_image.attached? %>
+        <%= link_to member_path(post.member) do %>
+          <%= image_tag post.member.profile_image, class: "rounded-circle", style: "width: 50px; height: 50px;" %>
+        <% end %>
+      <% else %>
+        <%= link_to member_path(post.member) do %>
+          <%= image_tag 'default_profile_image.png', class: "rounded-circle", style: "width: 50px; height: 50px;" %>
+        <% end %>
+      <% end %>
+      <h5 class="ml-3 mb-0">
+        <%= link_to post.member.name, member_path(post.member), class: "text-decoration-none text-dark font-weight-bold" %>
+      </h5>
+    </div>
+      
+    <h5 class="card-title font-weight-bold"><%= post.title %></h5>
+    
+    <p class="card-text"><%= post.memo %></p>
+
+    <% if post.image.attached? %>
+      <div class="mb-3" style="overflow: hidden;">
+        <%= image_tag post.image, class: "img-fluid rounded", style: "max-width: 100%;" %>
+      </div>
+    <% end %>
+    
+    <!-- タグ表示部分 -->
+    <div class="mt-3">
+      <% post.tags.each do |tag| %>
+        <%= link_to "##{tag.tag_name}", tags_admin_posts_path(tag_id: tag.id), class: "badge badge-secondary mx-1" %>
+      <% end %>
+    </div>
+    
+    <p class="card-text mt-3">
+      <small class="text-muted">
+        状況: 
+        <% if post.situation_status == "from_now" %>
+          <span style="color: #1e90ff">これから！</span>
+        <% else %>
+          <span style="color: #dc143c">達成済み！</span>
+        <% end %>
+      </small>
+    </p>
+    
+    <div class="d-flex justify-content-start align-items-center mb-3">
+      <!-- いいねボタン表示 -->
+      <% if post.post_status == "published" %>
+        <p class="mb-0">いいね件数： <%= post.favorites.count %></p>
+        <!-- コメント数表示 -->
+        <p class="mb-0 ml-4">コメント件数：<%= post.post_comments.count %></p>
+      <% end %>
+    </div>
+    
+    <div class="d-flex justify-content-between align-items-center">
+      <%= link_to '詳細を見る', admin_post_path(post), class: "btn btn-primary" %>
+      <div class="text-muted">
+        <%= post.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
+      </div>
+    </div>
+   
+  </div>
+</div>

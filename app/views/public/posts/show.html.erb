@@ -10,7 +10,7 @@
               <%= image_tag @member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 100px; height: 100px;" %>
             </div>
             <h3 class="card-name" style="color: black;"><strong><%= @member.name %></strong></h3>
-            <p class="text-muted" style="font-size: 0.9rem;">投稿者プロフィール</p>
+            <p class="text-muted" style="font-size: 0.9rem;">投稿者</p>
           <% end %>
         </div>
           
@@ -96,7 +96,7 @@
         <% end %>
         <!-- コメント表示 -->
         <div>
-          <p class="my-4"><strong>コメント件数：<%= @post.post_comments.count %></strong></p>
+          <p class="my-4">コメント件数：<%= @post.post_comments.count %></p>
           <% @post.post_comments.each do |post_comment| %>
             <div class="d-flex align-items-center mb-2">
               <p class="mb-0">

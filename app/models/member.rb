@@ -5,12 +5,17 @@ class Member < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   # ゲストログイン（アカウント自動生成）
-  GUEST_USER_EMAIL = "guest@example.com"
+  GUEST_MEMBER_EMAIL = "guest@example.com"
+  
   def self.guest
-    find_or_create_by!(email: GUEST_USER_EMAIL) do |member|
+    find_or_create_by!(email: GUEST_MEMBER_EMAIL) do |member|
       member.password = SecureRandom.urlsafe_base64
       member.name = "ゲスト"
     end
+  end
+  
+  def guest_member?
+    email == GUEST_MEMBER_EMAIL
   end
   
   # アソシエーション
