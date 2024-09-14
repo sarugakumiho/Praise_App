@@ -1,5 +1,5 @@
 class Admin::MembersController < ApplicationController
-  before_action :authenticate_admin!, only: [:edit, :update]
+  before_action :authenticate_admin!, only: [:edit, :update, :destroy]
   
   def index
     @members = Member.all
@@ -24,10 +24,17 @@ class Admin::MembersController < ApplicationController
     end
   end
   
+  def destroy
+    @member = Member.find(params[:id])
+    @member.destroy
+    flash[:notice] = "ユーザーを削除しました。"
+    redirect_to admin_members_path
+  end
+  
   private
   
   def member_params
-    params.require(:member).permit(:name, :introduction, :is_active)
+    params.require(:member).permit(:name, :introduction)
   end
   
 end

@@ -23,16 +23,14 @@
                         <%= member.name %><br>
                         <%= image_tag member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 100px; height: 100px; border: 3px solid #000;" %>
                       <% end %>
-                      <% if member.is_active == true %>
-                        <p class="text-success font-weight-bold mt-3">有効</p>
-                      <% else %>
-                        <p class="text-danger font-weight-bold mt-3">退会</p>
-                      <% end %>
-                      <div class="mt-3">
-                        <%= link_to "会員編集", edit_admin_member_path(member), class: "btn btn-outline-secondary", style: "width: 150px;" %>
+                      <div class="my-2">
+                        <%= link_to "アカウント編集", edit_admin_member_path(member), class: "btn btn-outline-secondary", style: "width: 150px; height: 35px; font-size: 15px; font-weight: bold;" %>
+                      </div>
+                      <div class="my-2">
+                        <%= link_to "アカウント削除", admin_member_destroy_path(member), class: "btn btn-outline-danger", method: :delete, data: { confirm: "本当に退会しますか？" }, style: "width: 150px; height: 35px; font-size: 15px; font-weight: bold; border-color: #ff1a1a;" %>
                       </div>
                     </td>
-                    <td class="d-flex flex-column justify-content-between mr-2">
+                    <td class="d-flex flex-column justify-content-between mx-3">
                       <div class="py-5">
                         <%= member.introduction %>
                       </div>

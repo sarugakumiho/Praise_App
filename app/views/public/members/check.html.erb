@@ -12,9 +12,10 @@
       </h5>
     </div>
     <div style="margin-bottom: 140px;">
-      <%= link_to "退会する", out_member_path(current_member), method: :patch, class: "btn btn-danger mr-5", data: {confirm: "本当に退会しますか？"} %>
-      <%= link_to "退会しない", my_page_members_path, class:"btn btn-primary" %>
+      <%= link_to "退会する", destroy_member_path(current_member), class: "btn btn-danger mr-5", method: :delete, data: { confirm: "本当に退会しますか？" }, style:"width: 200px;" %>
+      <%= link_to "退会しない", my_page_members_path, class:"btn btn-primary", style:"width: 200px;"%>
     </div>
+
     
   </div>
 </div>

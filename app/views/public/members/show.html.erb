@@ -27,7 +27,7 @@
               <%= render "public/relationships/btn", member: @member, options: { class: "follow-link" } %>
             </div>
           </td>
-          <td class="col-5" style="border: 1px solid black; vertical-align: middle;"><%= @member.introduction %></td>
+          <td class="col-5 px-5" style="border: 1px solid black; vertical-align: middle;"><%= @member.introduction %></td>
           <td class="col-1" style="border: 1px solid black; vertical-align: middle;">
             <%= link_to member_path(@member) do %>
               <%= @member.posts.where(post_status: 'published').count %>
@@ -35,7 +35,6 @@
           </td>
           <td class="col-1" style="border: 1px solid black; vertical-align: middle;"><%= @member.followings.count %></td>
           <td class="col-1" style="border: 1px solid black; vertical-align: middle;"><%= @member.followers.count %></td>
-
         </tr>
       </tbody>
     </table>

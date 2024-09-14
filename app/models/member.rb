@@ -42,11 +42,6 @@ class Member < ApplicationRecord
     followings.include?(member)
   end
   
-  # 会員ステータスを確認・制御
-  def active_for_authentication?
-    super && (self.is_active == true)
-  end
-  
   # バリデーション
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 150 }

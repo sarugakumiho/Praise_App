@@ -30,34 +30,29 @@
       </div>
       <div class="form-group">
         <strong><%= f.label :自己紹介 %></strong>
-        <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 150px;"  %>
-      </div>
-      <div class="form-group">
-        <strong><%= f.label :会員ステータス %></strong>
-        <div class="row">
-          <div class="ml-3 mr-4">
-             <%= f.radio_button :is_active, true, checked: @member.is_active == true %>
-            <%= f.label :is_active, '有効' %>
-          </div>
-           <div>
-                     <%= f.radio_button :is_active, false, checked: @member.is_active == false %>
-          <%= f.label :is_active, '退会' %>
-           </div>
-  
-        </div>
-
+        <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 210px;"  %>
       </div>
       
       <div class="d-flex flex-column align-items-center">
-        <div class="row">
-          <div class="form-group mt-3 mb-5 mr-5">
-            <%= link_to "戻る", admin_member_path, class: "btn btn-outline-secondary", style: "width: 200px; height: 40px; line-height: 30px; font-weight: bold;" %>
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <div class="form-group mt-3 mb-5">
+              <%= link_to "戻る", admin_member_path, class: "btn btn-outline-secondary", style: "width: 200px; height: 40px; line-height: 30px; font-weight: bold;" %>
+            </div>
           </div>
-          <div class="form-group mt-3 mb-5">
-            <%= f.submit "編集完了", class: "btn btn-outline-primary", style: "width: 200px; height: 40px; font-weight: bold;" %>
+          <div class="col-auto">
+            <div class="form-group mt-3 mb-5">
+              <%= f.submit "編集完了", class: "btn btn-outline-primary", style: "width: 200px; height: 40px; font-weight: bold;" %>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="form-group mt-3 mb-5">
+              <%= link_to "アカウント削除", admin_member_destroy_path(@member), class: "btn btn-outline-danger", method: :delete, data: { confirm: "本当に退会しますか？" }, style: "width: 400px; height: 40px; line-height: 30px; font-weight: bold; " %>
+            </div>
           </div>
         </div>
       </div>
+
     <% end %>
 
   </div>

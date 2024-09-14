@@ -27,7 +27,7 @@
       </div>
       <div class="form-group">
         <strong><%= f.label :自己紹介 %></strong>
-        <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 150px;"  %>
+        <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 210px;"  %>
       </div>
       <div class="d-flex flex-column align-items-center">
         <div class="row">
@@ -40,7 +40,8 @@
         </div>
 
         <div class="form-group">
-          <%= link_to "退会", check_member_path(@member), class: "btn btn-outline-danger", style: "width: 200px; height: 40px; font-weight: bold;" %>
+
+          <%= link_to "退会", check_member_path(@member), class: "btn btn-outline-danger", style: "width: 400px; height: 40px; font-weight: bold; " %>
         </div>
       </div>
     <% end %>
