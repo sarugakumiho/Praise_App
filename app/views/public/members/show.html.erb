@@ -73,7 +73,7 @@
               
               <div class="d-flex justify-content-start align-items-center">
                 <!-- いいねボタン表示 -->
-                <% if post.favorited_by?(current_member) %>
+                <% if current_member.present? && @post.present? && @post.favorited_by?(current_member) %>
                   <p>
                     <%= link_to favorites_destroy_path(post, current_member.favorites.find_by(post_id: post.id)), method: :delete do %>
                       ♥<%= post.favorites.count %> いいね

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   
   # ゲストログイン
   devise_scope :member do
-    post 'members/guest_sign_in', to: 'public/sessions#guest_sign_in'
+    post 'members/guest_sign_in', to: 'public/sessions#guest_sign_in', as: 'guest_sign_in_member'
   end
   
   # [Public側]
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     # membersルーティング
     resources :members, only: [:show, :index] do
       collection do
-        get 'my_page'
+        get '/my_page', to: 'members#my_page', as: 'my_page'
       end
       member do
         get 'check'
@@ -64,15 +64,17 @@ Rails.application.routes.draw do
     # membersルーティング
     resources :members, only: [:index, :show, :edit, :update]
     # postsルーティング
-    resources :posts, only: [:show, :index] do
+    resources :posts, only: [:show, :index, :destroy] do
       collection do 
         get 'tags'
         delete 'posts/tags/:id', to: 'posts#destroy_tag', as: 'destroy_tag'
       end
     end
-    get '/posts/tags/search', to: 'posts#search'
+    delete '/posts/:id', to: 'posts#destroy', as: 'posts_destroy'
+    get 'posts/tags/search', to: 'posts#search'
     # post_commentsルーティング
-    delete '/posts/:post_id/post_comments/:id', to: 'post_comments#destroy'
+    resources :post_comments, only: [:index]
+    delete '/posts/:post_id/post_comments/:id', to: 'post_comments#destroy', as: 'destroy_post_comment'
     # searchesルーティング
     get 'search', to: 'searches#search'
   end

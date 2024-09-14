@@ -1,2 +1,64 @@
-<h1>Admin::Members#edit</h1>
-<p>Find me in app/views/admin/members/edit.html.erb</p>
+<div class="container d-flex justify-content-center my-5">
+  <div class="row d-flex flex-column align-items-center" style="width: 50%;">
+    
+    <h3><i class="fa-solid fa-user-pen"></i>&nbsp;<strong><%= @member.name %>さんの会員詳細</strong></h3>
+    
+    <%= form_with model: @member, url: admin_member_path(@member), method: :patch, class: "w-100 mt-3" do |f| %>
+    
+      <div class="d-flex flex-column align-items-center mt-4 text-center">
+        <% if @member.errors.any? %>
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span style="font-size: 1.25rem; margin-left: 10px;"><%= @member.errors.count %>件のエラーにより保存できませんでした</span>
+          </div>
+          <p style="font-size: 1.25rem;">内容を確認し、入力して下さい&nbsp;<i class="fa-solid fa-person-praying"></i></p>
+          <ul style="font-size: 1.25rem; list-style-type: none; padding-left: 0;">
+            <% @member.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
+      <div class="form-group mb-4">
+        <strong><%= f.label :会員ID %></strong>：
+        <%= @member.id %>
+      </div>
+      <div class="form-group mb-4">
+        <strong><%= f.label :名前 %></strong>
+        <%= f.text_field :name, class: "form-control name", autofocus: true %>
+      </div>
+      <div class="form-group">
+        <strong><%= f.label :自己紹介 %></strong>
+        <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 150px;"  %>
+      </div>
+      <div class="form-group">
+        <strong><%= f.label :会員ステータス %></strong>
+        <div class="row">
+          <div class="ml-3 mr-4">
+             <%= f.radio_button :is_active, true, checked: @member.is_active == true %>
+            <%= f.label :is_active, '有効' %>
+          </div>
+           <div>
+                     <%= f.radio_button :is_active, false, checked: @member.is_active == false %>
+          <%= f.label :is_active, '退会' %>
+           </div>
+  
+        </div>
+
+      </div>
+      
+      <div class="d-flex flex-column align-items-center">
+        <div class="row">
+          <div class="form-group mt-3 mb-5 mr-5">
+            <%= link_to "戻る", admin_member_path, class: "btn btn-outline-secondary", style: "width: 200px; height: 40px; line-height: 30px; font-weight: bold;" %>
+          </div>
+          <div class="form-group mt-3 mb-5">
+            <%= f.submit "編集完了", class: "btn btn-outline-primary", style: "width: 200px; height: 40px; font-weight: bold;" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>
