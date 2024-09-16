@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-  <div class="card" style="width: 60rem; border: 2px solid darkslategray;">
+  <div class="card" style="width: 68rem; border: 2px solid darkslategray;">
     <div class="d-flex my-4 mx-4">
       
       <!-- プロフィール欄表示 -->
@@ -7,13 +7,13 @@
         <%= link_to member_path(@member), class: "text-decoration-none w-100" do %>
           <h3 class="card-name d-flex justify-content-center" style="color: black;"><strong><%= @member.name %></strong></h3>
           <div class="d-flex justify-content-center align-items-center">
-            <%= image_tag @member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 180px; height: 180px; border: 3px solid #000;" %>
+          　<%= image_tag @member.get_profile_image(400, 600), class: "rounded-circle border border-primary shadow", style: "width: 180px; height: 180px; border: 3px solid #000; object-fit: cover;" %>
           </div>
         <% end %>
       </div>
 
-      <div class="d-flex flex-column justify-content-center" style="width: 350px; margin-left: auto; padding-right: 5px;">
-        <p class="card-text"><%= @member.introduction %></p>
+      <div class="d-flex flex-column justify-content-center" style="width: 450px; margin-left: auto; padding-right: 5px;">
+        <p class="card-text"><%= simple_format(@member.introduction) %></p>
       </div>
 
       <div class="d-flex flex-column justify-content-center" style="width: 300px; margin-left: auto; padding-right: 20px;">
@@ -29,6 +29,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="container my-4 d-flex justify-content-center">
   <div class="row">

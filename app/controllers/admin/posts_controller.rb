@@ -1,4 +1,5 @@
 class Admin::PostsController < ApplicationController
+  before_action :authenticate_admin!
   
   def show
    @post = Post.find(params[:id])
@@ -27,7 +28,7 @@ class Admin::PostsController < ApplicationController
       @tag = Tag.find_by(id: params[:tag_id])
     
       if @tag.present?
-        @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
+        @posts = @tag.posts.order(created_at: :desc).page(params[:page])
       else
         flash[:alert] = "指定されたタグが見つかりません。"
         @posts = Post.none
@@ -59,7 +60,7 @@ class Admin::PostsController < ApplicationController
       
       if @tag_list.any?
         @tag = @tag_list.first
-        @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
+        @posts = @tag.posts.order(created_at: :desc).page(params[:page])
       else
         @posts = Post.none # 検索結果がない場合は空のリスト
       end

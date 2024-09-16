@@ -10,12 +10,13 @@
             <a class="nav-link <%= 'active' if params[:tab] == 'published' %>" data-toggle="tab" href="#published"><strong>自分のリスト（公開中）</strong></a>
           </li>
           <li class="nav-item" style="flex: 1; text-align: center;">
-            <a class="nav-link <%= 'active' if params[:tab] == 'unpublished' %>" data-toggle="tab" href="#unpublished"><strong>やることリスト(非公開)</strong></a>
+            <!-- 非公開タブの条件：params[:tab] がない場合だけ初期表示 -->
+            <a class="nav-link <%= 'active' if params[:tab] == 'unpublished' || params[:tab].blank? %>" data-toggle="tab" href="#unpublished"><strong>やることリスト(非公開)</strong></a>
           </li>
         </ul>
-        <a href="<%= new_post_path %>" class="new-post-btn , btn btn-success ml-3" style="width: 90px; height: 35px; font-weight: bold; font-size: 13px;">新規投稿</a>
+        <a href="<%= new_post_path %>" class="new-post-btn btn btn-success ml-3" style="width: 90px; height: 35px; font-weight: bold; font-size: 13px;">新規投稿</a>
       </div>
-      
+
       <div class="tab-content">
         <!-- みんなのリスト（公開中）を表示 -->
         <div id="all_published" class="tab-pane fade <%= 'show active' if params[:tab] == 'all_published' %>">
@@ -32,15 +33,14 @@
           <% end %>
           <%= paginate @published_posts, param_name: 'published_page', params: { tab: 'published' } %>
         </div>
-        
+
         <!-- やることリスト(非公開)を表示 -->
-        <div id="unpublished" class="tab-pane fade <%= 'show active' if params[:tab] == 'unpublished' %>">
+        <div id="unpublished" class="tab-pane fade <%= 'show active' if params[:tab] == 'unpublished' || params[:tab].blank? %>">
           <% @unpublished_posts.each do |post| %>
             <%= render "mypost", post: post %>
           <% end %>
           <%= paginate @unpublished_posts, param_name: 'unpublished_page', params: { tab: 'unpublished' } %>
         </div>
-
       </div>
     </div>
   </div>
