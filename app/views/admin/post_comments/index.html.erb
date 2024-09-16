@@ -1,0 +1,34 @@
+<div class="container" style="min-height: calc(100vh - 100px); padding-bottom: 70px; box-sizing: border-box;">
+  <h4 class="text-center py-2 mb-4" style="font-weight: 600; font-size: 1.5rem; background-color: #c6e2ff; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
+    全コメント一覧
+  </h4>
+  
+  <div class="row my-4">
+    <table class="table table-bordered text-center" style="border-color: black; border: 1px solid black; width: 100%; table-layout: fixed;">
+      <thead>
+        <tr style="background-color: #c6e2ff;">
+          <th class="col-2" style="border: 1px solid black;">タスク名</th>
+          <th class="col-2" style="border: 1px solid black;">ユーザー名</th>
+          <th class="col-6" style="border: 1px solid black;">コメント内容</th>
+          <th class="col-2" style="border: 1px solid black;">コメント日時</th>
+          <th class="col-1" style="border: 1px solid black;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @post_comments.each do |comment| %>
+          <tr>
+            <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle; word-wrap: break-word;">
+              <%= link_to comment.post.title, admin_post_path(comment.post), class: "text-decoration-none" %>
+            </td>
+            <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle; word-wrap: break-word;"><%= comment.member.name %></td>
+            <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle; word-wrap: break-word;"><%= simple_format(comment.comment) %></td>
+            <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;"><%= comment.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+            <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;">
+              <%= link_to '削除', admin_destroy_post_comment_path(comment.post, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

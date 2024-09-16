@@ -1,0 +1,17 @@
+<div class="container">
+
+  <h4 class="text-center py-2 mb-4" style="font-weight: 600; font-size: 1.5rem; background-color: #c6e2ff; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
+    全公開中リスト 一覧
+  </h4>
+    
+  <div class="col-md-8 offset-md-2">
+    <div class="tab-content">
+      <!-- みんなのリスト（公開中）を表示 -->
+      <% @all_published_posts.each do |post| %>
+        <%= render "all_published_post", post: post %>
+      <% end %>
+      <%= paginate @all_published_posts %>
+    </div>
+  </div>
+
+</div>

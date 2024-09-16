@@ -6,11 +6,198 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/8644edc9d3.js" crossorigin="anonymous"></script>
+    
+    <style>
+      /*全体の設定*/
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      /*メイン部分の設定*/
+      main {
+        flex-grow: 1;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+      /*フッター部分の設定*/
+      footer {
+        height: 70px;
+        background-color: lightskyblue;
+        position: relative;
+        width: 100%;
+        bottom: 0;
+      }
+    </style>
   </head>
 
   <body>
+    
+    <header class="mx-auto text-center text-white d-flex align-items-center" style="height: 150px; background-color: lightskyblue;">
+      <% if member_signed_in? %>
+        <div class="d-flex justify-content-between align-items-center w-100 px-5 mt-4">
+          <h1 class="logo wf-mplus1p mb-4"><strong><%= link_to "Praise! App" ,my_page_members_path %></strong></h1>
+          <div class="header-bottom">
+            <ul class="nav nav-pills justify-content-end">
+              <li class="wf-mplus1p">
+                <%= link_to new_post_path, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-pen-to-square"></i> リスト登録
+                <% end %>
+              </li>
+              <li class="wf-mplus1p">
+                <%= link_to posts_path, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-regular fa-rectangle-list"></i> リスト一覧
+                <% end %>
+              </li>
+              <li class="wf-mplus1p">
+                <%= link_to members_path, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-users"></i> ユーザー一覧
+                <% end %>
+              </li>
+              <li class="wf-mplus1p">
+                <%= link_to favorites_index_path(current_member.id), class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-heart"></i> いいね一覧
+                <% end %>
+              </li>
+              <li class="wf-mplus1p">
+                <%= link_to destroy_member_session_path, method: :delete, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-person-through-window"></i> ログアウト
+                <% end %>
+              </li>
+            </ul>
+            
+            <div class="d-flex justify-content-end align-items-center mt-2" style="width: 100%; padding-right: 1rem;">
+              <!-- タグ検索窓 -->
+              <% if member_signed_in? || admin_signed_in? %>
+                <%= form_with url: member_signed_in? ? search_posts_path : admin_posts_tags_search_path, method: :get, local: true do |f| %>
+                  <div class="form-group mb-5 mr-3">
+                    <div class="d-flex align-items-center">
+                      <%= f.text_field :search, class: "form-control", placeholder: "タグを入力", style: "width: 180px; height: 30px;" %>
+                      <%= f.submit "検索", class: "btn-sm btn-primary" %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+                          <!-- ユーザー・投稿検索窓 -->
+              <% if member_signed_in? || admin_signed_in? %>
+                <div class="d-flex justify-content-end">
+                  <div class="search_form">
+                    <%= form_with url: member_signed_in? ? search_path : admin_search_path, method: :get, local: true do |f| %>
+                      <!-- 検索ワード入力とボタンを横並びに -->
+                      <div class="form-group">
+                        <div class="d-flex align-items-center">
+                          <%= f.text_field :content, class: "form-control", placeholder: "検索ワードを入力", style: "width: 180px; height: 30px;" %>
+                          <%= f.submit "検索", class: "btn-sm btn-primary" %>
+                        </div>
+                        <!-- モデルと検索方法のセレクトボックスをピッタリ下に配置 -->
+                        <div class="d-flex justify-content-start mt-1" style="gap: 5px;">
+                          <%= f.select :model, options_for_select({"投稿" => "Post", "ユーザー" => "Member"}), class: "form-control" %>
+                          <%= f.select :method, options_for_select({"部分一致" => "partial", "完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward"}), class: "form-control" %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    
+      <% elsif admin_signed_in? %>
+        <div class="d-flex justify-content-between align-items-center w-100 px-5 mt-4">
+          <h1 class="logo wf-mplus1p mb-4"><strong><%= link_to "Praise! App", admin_path %></strong></h1>
+          <div class="header-bottom">
+            <ul class="nav nav-pills justify-content-end">
+              <li class="wf-mplus1p">
+                <%= link_to admin_members_path, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-users"></i> 全ユーザー一覧
+                <% end %>
+              </li>
+              <li class="wf-mplus1p">
+                <%= link_to admin_posts_path, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-regular fa-rectangle-list"></i> 全公開中リスト
+                <% end %>
+              </li>
+              <li class="wf-mplus1p">
+                <%= link_to admin_post_comments_path, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-regular fa-comment"></i> 全コメント一覧
+                <% end %>
+              </li>
+              <li class="wf-mplus1p">
+                <%= link_to admin_posts_tags_search_path, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-tags"></i> 全タグ一覧
+                <% end %>
+              </li>
+              <li class="wf-mplus1p">
+                <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link", style: "color: midnightblue" do %>
+                  <i class="fa-solid fa-person-through-window"></i> ログアウト
+                <% end %>
+              </li>
+            </ul>
+            
+            <div class="d-flex justify-content-end align-items-center mt-2" style="width: 100%; padding-right: 1rem;">
+              <!-- タグ検索窓 -->
+              <% if member_signed_in? || admin_signed_in? %>
+                <%= form_with url: admin_posts_tags_search_path, method: :get, local: true do |f| %>
+                  <div class="form-group mb-5 mr-3">
+                    <div class="d-flex align-items-center">
+                      <%= f.text_field :search, class: "form-control", placeholder: "タグを入力", style: "width: 180px; height: 30px;" %>
+                      <%= f.submit "検索", class: "btn-sm btn-primary" %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+      
+              <!-- ユーザー・投稿検索窓 -->
+              <% if member_signed_in? || admin_signed_in? %>
+                <div class="d-flex justify-content-end">
+                  <div class="search_form">
+                    <%= form_with url: admin_search_path, method: :get, local: true do |f| %>
+                      <!-- 検索ワード入力とボタンを横並びに -->
+                      <div class="form-group">
+                        <div class="d-flex align-items-center">
+                          <%= f.text_field :content, class: "form-control", placeholder: "検索ワードを入力", style: "width: 180px; height: 30px;" %>
+                          <%= f.submit "検索", class: "btn-sm btn-primary ml-2" %>
+                        </div>
+                        <!-- モデルと検索方法のセレクトボックスをピッタリ下に配置 -->
+                        <div class="d-flex justify-content-start mt-1" style="gap: 5px;">
+                          <%= f.select :model, options_for_select({"投稿" => "Post", "ユーザー" => "Member"}), class: "form-control" %>
+                          <%= f.select :method, options_for_select({"部分一致" => "partial", "完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward"}), class: "form-control" %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    
+      <% else %>
+        <div class="d-flex justify-content-between align-items-center w-100 px-5">
+          <h1 class="logo wf-mplus1p mb-4"><strong><%= link_to "Praise! App", root_path %></strong></h1>
+        </div>
+      <% end %>
+    </header>
+     
+    <main>
+      <!--フラッシュメッセージ-->
+      <% flash.each do |message_type, message| %>
+        <div class="flash-message <%= message_type %>"><%= message %></div>
+      <% end %>
+    </main>
+    
     <%= yield %>
+    
+    <footer>
+      <div class="contaner mt-5", style="background-color: lightskyblue;">
+        <div class="d-flex justify-content-center align-items-center text-muted mx-auto" style="height: 150px;">
+          © 2024 webcamp S.M
+        </div>
+      </div>
+    </footer>
+    
   </body>
 </html>
