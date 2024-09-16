@@ -21,7 +21,7 @@
               <%= link_to comment.post.title, admin_post_path(comment.post), class: "text-decoration-none" %>
             </td>
             <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle; word-wrap: break-word;"><%= comment.member.name %></td>
-            <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle; word-wrap: break-word;"><%= comment.comment %></td>
+            <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle; word-wrap: break-word;"><%= simple_format(comment.comment) %></td>
             <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;"><%= comment.created_at.strftime("%Y/%m/%d %H:%M") %></td>
             <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;">
               <%= link_to '削除', admin_destroy_post_comment_path(comment.post, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>

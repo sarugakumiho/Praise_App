@@ -7,7 +7,7 @@
           <div class="d-flex flex-column align-items-center text-center" style="width: 100%;">
             <%= link_to member_path(@member), class: "text-decoration-none w-100" do %>
               <div class="d-flex justify-content-center align-items-center mb-2">
-                <%= image_tag @member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 100px; height: 100px;" %>
+                <%= image_tag @member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 100px; height: 100px; object-fit: cover;" %>
               </div>
               <h3 class="card-name" style="color: black;"><strong><%= @member.name %></strong></h3>
               <p class="text-muted" style="font-size: 0.9rem;">投稿者</p>
@@ -73,7 +73,7 @@
               <%= link_to '編集する', edit_post_path(@post), class: "btn btn-outline-primary mx-2", style: "font-weight: bold;" %>
               <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-outline-danger mx-2", style: "font-weight: bold;" %>
             <% end %>
-            <%= link_to '戻る', posts_path, class: "btn btn-outline-secondary mx-2" %>
+            <%= link_to '戻る', posts_path(tab: params[:tab]), class: "btn btn-outline-secondary mx-2" %>
           </div>
           
         </div>
@@ -101,20 +101,21 @@
           
         <% @post.post_comments.each do |post_comment| %>
           <div class="d-flex align-items-center mb-2">
-            <p class="mb-0">
-              <%= image_tag post_comment.member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 50px; height: 50px; border: 3px solid #000;" %>
-            </p>
-            <div class="ml-3">
-              <strong><%= post_comment.member.name %></strong>
-              <br>
-              <small class="text-muted"><%= post_comment.created_at.strftime('%Y/%m/%d') %></small>
+            <!-- 名前とプロフィール画像を表示 -->
+            <div class="d-flex flex-column align-items-start">
+              <strong style="width: 100px; height: 30px;"><%= post_comment.member.name %></strong>
+              <%= image_tag post_comment.member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 60px; height: 60px; border: 3px solid #000; object-fit: cover; margin-top: 0;" %>
             </div>
-          </div>
-          <div class="d-flex align-items-center mb-2">
-            <p><%= post_comment.comment %></p>
-            <% if post_comment.member == current_member %>
-              <%= link_to "削除", post_comment_path(post_comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger ml-2", style: "width: 50px; height: 20px; font-size: 13px; line-height: 10px; margin-top: -10px;" %>
-            <% end %>
+            <!-- コメントと削除リンクを横に表示 -->
+            <div class="d-flex align-items-center">
+              <div class="d-flex flex-column">
+                <small class="text-muted"><%= post_comment.created_at.strftime('%Y/%m/%d') %></small>
+                <p><%= post_comment.comment %></p>
+              </div>
+              <% if post_comment.member == current_member %>
+                <%= link_to "削除", post_comment_path(post_comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger ml-2", style: "width: 50px; height: 20px; font-size: 13px; line-height: 10px;" %>
+              <% end %>
+            </div>
           </div>
         <% end %>
       

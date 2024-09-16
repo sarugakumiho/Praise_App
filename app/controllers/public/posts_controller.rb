@@ -1,5 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_member!
+  # カレントメンバーのみ操作可能
   before_action :ensure_correct_member, only: [:edit, :update, :destroy]
   
   def new
@@ -12,8 +13,8 @@ class Public::PostsController < ApplicationController
     @member = current_member
     @post = @member.posts.new(post_params)
     # タグ取得
-    tag_list = params[:post][:tag_name].split(nil)  #送信されてきた値を「スペース」で区切って配列化
-
+    tag_list = params[:post][:tag_name].split(nil)  # 送信されてきた値を「スペース」で区切って配列化
+    
     # 投稿フォーム（日付・期間）の設定処理
     if @post.start_on.present?
       sabun = (@post.start_on - Date.today).to_i
@@ -49,26 +50,18 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    if params[:member_id].present?
-      # 特定のメンバーの投稿
-      @member = Member.find(params[:member_id])
-      @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page])
-      @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
-    else
-      # 自分のリスト（公開中）とやることリスト（非公開）
-      @published_posts = current_member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page])
-      @unpublished_posts = current_member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
-      
-      # 全体の公開投稿
-      @all_published_posts = Post.where(post_status: 'published').order(created_at: :desc).page(params[:all_published_page])
-    end
+    # 自分のリスト（公開中）とやることリスト（非公開）
+    @published_posts = current_member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page])
+    @unpublished_posts = current_member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
+    # 全体の公開投稿
+    @all_published_posts = Post.where(post_status: 'published').order(created_at: :desc).page(params[:all_published_page])
   end
 
   def edit
     @post = Post.find(params[:id])
     @member = current_member
     # タグの編集
-    @tag_list = @post.tags.pluck(:tag_name).join(nil)
+    @tag_list = @post.tags.pluck(:tag_name).join(' ')  # タグをスペースで結合して表示
   end
 
   def update
@@ -119,8 +112,8 @@ class Public::PostsController < ApplicationController
 
  # タグ機能ここから------------------
   def tags
-    # 公開中の投稿に関連付けられたタグのみ取得
-    @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
+    # 公開中の投稿に関連するタグのみ取得
+    @tag_list = Tag.joins(:posts).where('tag_name LIKE ?', "%#{params[:search]}%").where(posts: { post_status: 'published' }).distinct
     @tag = Tag.find_by(id: params[:tag_id])
     
     if @tag.present?
@@ -130,23 +123,17 @@ class Public::PostsController < ApplicationController
       redirect_to posts_path
     end
   end
-  
+
   def search
-    # 検索キーワードが渡されているか確認
+    # 検索キーワードがある場合の処理
     if params[:search].present?
-      # タグ名に検索キーワードが含まれるタグを取得
-      @tag_list = Tag.where('tag_name LIKE ?', "%#{params[:search]}%").distinct
-      
-      if @tag_list.any?
-        @tag = @tag_list.first
-        @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
-      else
-        @posts = Post.none # 検索結果がない場合は空のリスト
-      end
+      @tag_list = Tag.joins(:posts).where('tag_name LIKE ?', "%#{params[:search]}%").where(posts: { post_status: 'published' }).distinct
     else
-      @tag_list = Tag.all
-      @posts = Post.none
+      # 未入力時も公開中の投稿に関連するタグのみ表示
+      @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
     end
+  
+    @posts = @tag_list.any? ? @tag_list.first.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]) : Post.none
   end
   # ここまで-------------------------
 
@@ -159,6 +146,7 @@ class Public::PostsController < ApplicationController
     )
   end
   
+  # カレントメンバーのみ操作可能
   def ensure_correct_member
     @post = Post.find(params[:id])
     unless @post.member == current_member

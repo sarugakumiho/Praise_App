@@ -19,9 +19,13 @@
     <div class="d-flex flex-wrap">
       <% @tag_list.each do |list| %>
         <%= link_to "##{list.tag_name}", tags_posts_path(tag_id: list.id), class: "badge badge-secondary mx-3 my-1 p-2", style: "font-size: 1.1rem;" %>
-        <span style="font-size: 1.4rem; margin-left: -1rem;"><%= "(#{list.posts.count})" %></span>
+        <span style="font-size: 1.4rem; margin-left: -1rem;">
+          <!-- 公開中の投稿のみをカウント -->
+          <%= "(#{list.posts.where(post_status: 'published').count})" %>
+        </span>
       <% end %>
     </div>
+    
   </div>
 
   <% if @tag.present? %>
