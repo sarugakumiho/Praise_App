@@ -20,7 +20,7 @@
   <% end %>
   
   <%= form_with url: post_path, model: @post, method: :patch do |f| %>
-    <div class="card" style="width: 30rem; height: 56rem; border: 2px solid darkslategray; padding: 20px;">
+    <div class="card" style="width: 30rem; height: 53rem; border: 2px solid darkslategray; padding: 20px;">
       <div class="form-group">
         <p><strong>タスク名</strong></p>
         <%= f.text_field :title, class: "form-control title", placeholder: "入力してください", style: "width: 100%; box-sizing: border-box;" %>
@@ -29,15 +29,16 @@
         <div style="display: flex; justify-content: flex-start; align-items: center;">
           <div style="margin-right: 70px;">
             <p><strong>期限（開始日）</strong></p>
-            <%= f.date_field :start_on, class: "form-control", style: "width: 100%" %>
+            <%= f.date_field :start_on %>
           </div>
           <div>
             <p><strong>期限（終了日）</strong></p>
-            <%= f.date_field :end_on, class: "form-control", style: "width: 100%" %>
+            <%= f.date_field :end_on %>
           </div>
         </div>
       </div>
-      <div class="form-group" style="margin-top: 30px;  margin-bottom: 30px;">
+      <div class="form-group" style="margin-bottom: 30px;">
+        <p><strong>関連写真</strong></p>
         <%= f.file_field :image, accept: "image/*", class: "w-100" %>
       </div>
       <div class="form-group">
@@ -47,11 +48,10 @@
         <div style="margin-right: 0px;">
           <span><strong>タグ</strong></span><br>
           <span style="font-size: 12px;">※半角スペースを入力することで複数のタグを付けることができます。</span>
-          <%= f.text_field :tag_name, value: @tag_list, class:"form-control", style: "width: 210px; display: inline-block;" %>
-         <%= f.submit style: "display: inline-block;" %>
+          <%= f.text_field :tag_name, value: @tag_list, class:"form-control", style: "width: 210px;" %>
         </div>
       </div>
-      <div class="form-group" style="margin-top: 30px;">
+      <div class="form-group">
         <span><strong>状況</strong></span>
         <div style="display: flex; align-items: center;">
           <div style="margin-right: 25px;">
@@ -64,7 +64,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group" style="margin-top: 10px; margin-bottom: 10px;">
+      <div class="form-group" style="margin-bottom: 10px;">
         <span><strong>公開設定</strong></span>
         <div style="display: flex; align-items: center;">
           <div>

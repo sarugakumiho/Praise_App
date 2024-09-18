@@ -1,0 +1,3 @@
+<!--非同期化-->
+$("#comments").html("<%= j(render partial: 'public/posts/comments', locals: { post: @post }) %>");
+$("#new_post_comment").trigger("reset");

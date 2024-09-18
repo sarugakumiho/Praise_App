@@ -34,7 +34,7 @@
           <%= paginate @published_posts, param_name: 'published_page', params: { tab: 'published' } %>
         </div>
 
-        <!-- やることリスト(非公開)を表示 -->
+        <!-- 自分のやることリスト(非公開)を表示 -->
         <div id="unpublished" class="tab-pane fade <%= 'show active' if params[:tab] == 'unpublished' || params[:tab].blank? %>">
           <% @unpublished_posts.each do |post| %>
             <%= render "mypost", post: post %>

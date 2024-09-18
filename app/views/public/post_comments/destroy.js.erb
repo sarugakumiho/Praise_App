@@ -1,0 +1,3 @@
+<!--非同期化-->
+$("#comment-<%= @post_comment.id %>").remove();
+$("#comment-count-<%= @post.id %>").html("<strong><%= j(link_to "#{@post.post_comments.count} コメント", post_path(@post.id), class: 'text-decoration-none') %></strong>");

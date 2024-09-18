@@ -1,0 +1,22 @@
+<!-- コメント内容表示 -->
+<div id="comments">
+  <% @post.post_comments.each do |post_comment| %>
+    <div class="d-flex align-items-center mb-" id="comment-<%= post_comment.id %>">
+      <!-- 名前とプロフィール画像を表示 -->
+      <div class="d-flex flex-column align-items-start">
+        <strong style="width: 100px; height: 30px;"><%= post_comment.member.name %></strong>
+        <%= image_tag post_comment.member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 60px; height: 60px; border: 3px solid #000; object-fit: cover; margin-top: 0;" %>
+      </div>
+      <!-- コメントと削除ボタン表示 -->
+      <div class="d-flex align-items-center">
+        <div class="d-flex flex-column">
+          <small class="text-muted"><%= post_comment.created_at.strftime('%Y/%m/%d') %></small>
+          <p><%= post_comment.comment %></p>
+        </div>
+        <% if post_comment.member == current_member %>
+          <%= link_to "削除", post_comment_path(post_comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger ml-2", style: "width: 50px; height: 20px; font-size: 13px; line-height: 10px;" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

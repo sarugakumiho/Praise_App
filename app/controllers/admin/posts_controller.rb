@@ -30,7 +30,6 @@ class Admin::PostsController < ApplicationController
       if @tag.present?
         @posts = @tag.posts.order(created_at: :desc).page(params[:page])
       else
-        flash[:alert] = "指定されたタグが見つかりません。"
         @posts = Post.none
       end
     else
@@ -49,7 +48,7 @@ class Admin::PostsController < ApplicationController
     else
       flash[:alert] = "関連する投稿があるため、タグを削除できません。"
     end
-    redirect_to tags_admin_posts_path
+    redirect_to admin_posts_tags_search_path
   end
   
   def search
