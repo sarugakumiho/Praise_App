@@ -50,10 +50,11 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    # 自分のリスト（公開中）とやることリスト（非公開）
+    # 自分のリスト（公開中）
     @published_posts = current_member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page])
+    # 自分やることリスト(非公開)
     @unpublished_posts = current_member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
-    # 全体の公開投稿
+    # みんなのリスト（公開中）
     @all_published_posts = Post.where(post_status: 'published').order(created_at: :desc).page(params[:all_published_page])
   end
 
@@ -107,33 +108,47 @@ class Public::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to posts_path
+    redirect_to my_page_members_path
   end
 
  # タグ機能ここから------------------
   def tags
     # 公開中の投稿に関連するタグのみ取得
-    @tag_list = Tag.joins(:posts).where('tag_name LIKE ?', "%#{params[:search]}%").where(posts: { post_status: 'published' }).distinct
-    @tag = Tag.find_by(id: params[:tag_id])
-    
-    if @tag.present?
-      @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
+    if params[:tag_id].present?
+      @tag = Tag.find_by(id: params[:tag_id])
+      
+      if @tag.present?
+        @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
+      else
+        @posts = Post.none
+        flash[:alert] = "該当するタグが見つかりません。"
+      end
     else
-      flash[:alert] = "指定されたタグが見つかりません。"
-      redirect_to posts_path
+      @posts = Post.none
+      flash[:alert] = "該当するタグが見つかりません。"
     end
+    # タグリストは常に表示
+    @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
   end
 
   def search
-    # 検索キーワードがある場合の処理
+    # 検索キーワードがあるか確認
     if params[:search].present?
       @tag_list = Tag.joins(:posts).where('tag_name LIKE ?', "%#{params[:search]}%").where(posts: { post_status: 'published' }).distinct
+
+      if @tag_list.any?
+        @tag = @tag_list.first
+        @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page])
+      else
+        @posts = Post.none
+        flash.now[:alert] = "該当するタグが見つかりません。"
+      end
     else
-      # 未入力時も公開中の投稿に関連するタグのみ表示
+      # 未入力の場合の処理
+      @posts = Post.none
       @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
+      flash.now[:alert] = "検索ワードを入力してください。"
     end
-  
-    @posts = @tag_list.any? ? @tag_list.first.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]) : Post.none
   end
   # ここまで-------------------------
 

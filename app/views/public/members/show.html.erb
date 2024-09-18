@@ -72,20 +72,10 @@
               
               <div class="d-flex justify-content-start align-items-center">
                 <!-- いいねボタン表示 -->
-                <% if current_member.present? && @post.present? && @post.favorited_by?(current_member) %>
-                  <p>
-                    <%= link_to favorites_destroy_path(post, current_member.favorites.find_by(post_id: post.id)), method: :delete do %>
-                      ♥<%= post.favorites.count %> いいね
-                    <% end %>
-                  </p>
-                <% else %>
-                  <p>
-                    <%= link_to favorites_create_path(post), method: :post do %>
-                      ♡<%= post.favorites.count %> いいね
-                    <% end %>
-                  </p>
-                <% end %>
-                <!--コメント数表示-->
+                <div id="like-button-<%= post.id %>" class="mb-3">
+                  <%= render 'public/favorites/button', post: post %>
+                </div>
+                <!-- コメント数表示 -->
                 <p class="ml-4">
                   <%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
                 </p>

@@ -6,20 +6,26 @@ class Public::PostCommentsController < ApplicationController
     @post_comment = current_member.post_comments.new(post_comment_params)
     @post_comment.post = @post
     if @post_comment.save
-      redirect_to post_path(@post)
+      respond_to do |format|
+        format.html { redirect_to post_path(@post) }
+        format.js   # Ajaxリクエストの場合
+      end
     else
       render 'public/posts/show'
     end
   end
   
   def destroy
-    post_comment = PostComment.find(params[:id])
-    post = post_comment.post
-    if post_comment.member == current_member
-      post_comment.destroy
-      redirect_to post_path(post), notice: 'コメントを削除しました。'
+    @post = PostComment.find(params[:id]).post
+    @post_comment = PostComment.find(params[:id])
+    if @post_comment.member == current_member
+      @post_comment.destroy
+      respond_to do |format|
+        format.html { redirect_to post_path(@post), notice: 'コメントを削除しました。' }
+        format.js   # Ajaxリクエストの場合
+      end
     else
-      redirect_to post_path(post), alert: 'コメントの削除に失敗しました。'
+      redirect_to post_path(@post), alert: 'コメントの削除に失敗しました。'
     end
   end
 

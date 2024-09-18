@@ -4,7 +4,9 @@ class Public::MembersController < ApplicationController
   
   def my_page
     @member = current_member
-    # やることリスト（非公開）
+    # 自分のリスト（公開中）
+    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page])
+    # 自分のやることリスト（非公開）
     @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
     
     # タイムライン設定

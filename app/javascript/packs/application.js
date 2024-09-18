@@ -16,3 +16,7 @@ import "jquery";
 import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"; 
+
+// jQuery （非同期化用）
+//= require jquery
+//= require rails-ujs

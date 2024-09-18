@@ -1,0 +1,16 @@
+<!--いいねボタン表示-->
+<div class="like-button-<%= post.id %>">
+  <% if current_member.present? %>
+    <% if post.favorited_by?(current_member) %>
+      <%= link_to favorites_destroy_path(post, current_member.favorites.find_by(post_id: post.id)), method: :delete, remote: true do %>
+        ♥<%= post.favorites.count %> いいね
+      <% end %>
+    <% else %>
+      <%= link_to favorites_create_path(post), method: :post, remote: true do %>
+        ♡<%= post.favorites.count %> いいね
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>いいねするにはログインが必要です。</p>
+  <% end %>
+</div>

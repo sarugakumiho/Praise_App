@@ -1,5 +1,4 @@
 <div class="container my-4">
-  
   <div class="tags-section mb-5">
     <h3 class="mb-4" style="font-weight: bold; color: #343a40; border-bottom: 3px solid #6c757d; display: inline-block; padding-bottom: 10px;">
       タグリスト
@@ -25,14 +24,14 @@
         </span>
       <% end %>
     </div>
-    
   </div>
 
+  <!-- 検索結果に紐づく投稿一覧を表示 -->
   <% if @tag.present? %>
     <h3 class="mb-4" style="font-weight: bold; color: #343a40; border-bottom: 3px solid #6c757d; display: inline-block; padding-bottom: 10px;">
       タグ: <%= @tag.tag_name %> の投稿一覧
     </h3>
-    
+
     <% if @posts.any? %>
       <% @posts.each do |post| %>
         <%= render 'public/posts/mypost', post: post %>
@@ -44,6 +43,8 @@
       <p class="text-center text-muted">該当する投稿がありません。</p>
     <% end %>
   <% else %>
-    <p class="text-center text-danger">指定されたタグが見つかりません。</p>
+    <% if flash[:alert].present? %>
+      <p class="text-center text-danger"><%= flash[:alert] %></p>
+    <% end %>
   <% end %>
 </div>
