@@ -12,18 +12,15 @@ class Admin::SearchesController < ApplicationController
     end
 
     if @model == "Member"
-      @members = Member.search_for(@content, @method)
+      @members = Member.search_for(@content, @method).page(params[:page]).per(20)
       if @members.empty?
         flash.now[:alert] = "検索結果がありません"
       end
     else
-      @records = Post.search_for(@content, @method)
+      @records = Post.search_for(@content, @method).page(params[:page]).per(10)
       if @records.empty?
         flash.now[:alert] = "検索結果がありません"
       end
     end
-    # @recordsがnilの場合、空の配列として扱う
-    @records ||= []
   end
-
 end

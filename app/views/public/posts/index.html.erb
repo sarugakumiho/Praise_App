@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 offset-md-3">
+      
       <div class="tabs d-flex justify-content-between align-items-center">
         <ul class="nav nav-tabs" style="width: 100%; display: flex; justify-content: space-between;">
           <li class="nav-item" style="flex: 1; text-align: center;">
@@ -23,7 +24,10 @@
           <% @all_published_posts.each do |post| %>
             <%= render "mypost", post: post %>
           <% end %>
-          <%= paginate @all_published_posts, param_name: 'all_published_page', params: { tab: 'all_published' } %>
+          <!--ページネーション-->
+          <div class="d-flex justify-content-center mt-4">
+            <%= paginate @all_published_posts, param_name: 'all_published_page', params: { tab: 'all_published' } %>
+          </div>
         </div>
 
         <!-- 自分のリスト（公開中）を表示 -->
@@ -31,7 +35,10 @@
           <% @published_posts.each do |post| %>
             <%= render "mypost", post: post %>
           <% end %>
-          <%= paginate @published_posts, param_name: 'published_page', params: { tab: 'published' } %>
+          <!--ページネーション-->
+          <div class="d-flex justify-content-center mt-4">
+            <%= paginate @published_posts, param_name: 'published_page', params: { tab: 'published' } %>
+          </div>
         </div>
 
         <!-- 自分のやることリスト(非公開)を表示 -->
@@ -39,9 +46,13 @@
           <% @unpublished_posts.each do |post| %>
             <%= render "mypost", post: post %>
           <% end %>
-          <%= paginate @unpublished_posts, param_name: 'unpublished_page', params: { tab: 'unpublished' } %>
+          <!--ページネーション-->
+          <div class="d-flex justify-content-center mt-4">
+            <%= paginate @unpublished_posts, param_name: 'unpublished_page', params: { tab: 'unpublished' } %>
+          </div>
         </div>
       </div>
+      
     </div>
   </div>
 </div>

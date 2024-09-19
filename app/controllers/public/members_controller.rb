@@ -4,28 +4,30 @@ class Public::MembersController < ApplicationController
   
   def my_page
     @member = current_member
-    # 自分のリスト（公開中）
-    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page])
-    # 自分のやることリスト（非公開）
-    @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
-    
-    # タイムライン設定
-    # フォローしているユーザーのIDを取得
-    @follow_members = current_member.followings.pluck(:id)                      
+
+    # 自分のリスト（公開中） - `params[:published_page]` を使用
+    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page]).per(10)
+
+    # 自分のやることリスト（非公開） - `params[:unpublished_page]` を使用
+    @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page]).per(10)
+
+    # タイムライン - `params[:all_published_page]` を使用
+    @follow_members = current_member.followings.pluck(:id)
     @all_published_posts = Post.where(member_id: @follow_members, post_status: 'published')
-                           .from_last_week
-                           .order(created_at: :desc)
-                           .page(params[:all_published_page])
+                               .from_last_week
+                               .order(created_at: :desc)
+                               .page(params[:all_published_page])
+                               .per(10)
   end
 
   def show
     @member = Member.find(params[:id])
     # 特定のメンバーの投稿
-    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:unpublished_page])
+    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def index
-    @members = Member.all
+    @members = Member.all.page(params[:page]).per(20)
   end
 
   def edit
@@ -63,4 +65,5 @@ class Public::MembersController < ApplicationController
       redirect_to member_path(current_member), notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
     end
   end
+  
 end

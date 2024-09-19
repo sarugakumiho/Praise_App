@@ -10,7 +10,7 @@ class Admin::PostsController < ApplicationController
 
   def index
     # 全体の公開投稿
-    @all_published_posts = Post.where(post_status: 'published').order(created_at: :desc).page(params[:all_published_page])
+    @all_published_posts = Post.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
   end
   
   def destroy
@@ -28,7 +28,7 @@ class Admin::PostsController < ApplicationController
       @tag = Tag.find_by(id: params[:tag_id])
     
       if @tag.present?
-        @posts = @tag.posts.order(created_at: :desc).page(params[:page])
+        @posts = @tag.posts.order(created_at: :desc).page(params[:page]).per(10)
       else
         @posts = Post.none
       end
@@ -56,16 +56,13 @@ class Admin::PostsController < ApplicationController
     if params[:search].present?
       # タグ名に検索キーワードが含まれるタグを取得
       @tag_list = Tag.where('tag_name LIKE ?', "%#{params[:search]}%").distinct
-      
-      if @tag_list.any?
-        @tag = @tag_list.first
-        @posts = @tag.posts.order(created_at: :desc).page(params[:page])
-      else
-        @posts = Post.none # 検索結果がない場合は空のリスト
-      end
+      @tag = @tag_list.first if @tag_list.any? # タグがあれば最初のタグを取得
+      @posts = @tag.present? ? @tag.posts.order(created_at: :desc) : Post.none
     else
-      @tag_list = Tag.all
-      @posts = Post.none
+      # 検索ワードが空の場合、エラーメッセージを設定
+      flash.now[:alert] = "タグ名を入力してください"
+      @tag_list = Tag.all # 全てのタグを表示
+      @posts = Post.none # 空の投稿リストを設定
     end
   end
   # ここまで-------------------------

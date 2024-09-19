@@ -39,6 +39,7 @@
                 <% end %>
               </tbody>
             </table>
+            <!--ページネーション-->
             <%= paginate @members %>
           <% else %>
             <p class="text-center">ユーザーが見つかりません。</p>
@@ -51,13 +52,14 @@
     <div class="col-md-6">
       <div class="card" style="width: 100%;">
         <h5 class="card-header text-center" style="background-color: lightskyblue; color: midnightblue;">
-          <i class="fa-solid fa-rectangle-list"></i> 公開中リスト
+          <i class="fa-solid fa-rectangle-list"></i> 公開中リスト一覧
         </h5>
         <div class="card-body">
           <% if @all_published_posts.present? %>
             <% @all_published_posts.each do |post| %>
               <%= render "admin/posts/all_published_post", post: post %>
             <% end %>
+            <!--ページネーション-->
             <%= paginate @all_published_posts %>
           <% else %>
             <p class="text-center">公開中の投稿がありません。</p>

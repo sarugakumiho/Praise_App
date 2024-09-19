@@ -8,6 +8,10 @@
         <% if @model == 'Member' %>
           <h3 class="text-center" style="margin-bottom: 30px;">"<%= @content %>"の検索結果はこちら</h3>
           <%= render 'public/members/index', members: @records %>
+          <!--ページネーション-->
+          <div class="d-flex justify-content-center mt-4">
+            <%= paginate @members %>
+          </div>
 
         <!-- Post検索した際の表示 -->
         <% elsif @model == 'Post' %>
@@ -20,6 +24,10 @@
                 </div>
               </div>
             <% end %>
+              <!--ページネーション-->
+              <div class="d-flex justify-content-center mt-4">
+                <%= paginate @records %>
+              </div>
           <% end %>
         <% end %>
       <% end %>

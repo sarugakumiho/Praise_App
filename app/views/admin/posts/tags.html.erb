@@ -37,7 +37,8 @@
       <% @posts.each do |post| %>
         <%= render 'admin/posts/all_published_post', post: post %>
       <% end %>
-      <div class="pagination-section">
+      <!--ページネーション-->
+      <div class="d-flex justify-content-center mt-4">
         <%= paginate @posts %>
       </div>
     <% else %>
