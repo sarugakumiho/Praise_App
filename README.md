@@ -3,7 +3,7 @@
 ## サイト概要
 
 ### サイトテーマ
-やることリストの管理と達成リストの共有を通じて、ユーザー同士が頑張りを見える化できるSNSアプリ
+やることリストの管理と達成リストの共有を通じて、ユーザー同士の頑張りを見える化するSNSアプリ
 ​
 ### テーマを選んだ理由
 私は、タスクが発生した時にメモ帳にやることをまとめ、達成したものから消していく習慣があります。
@@ -36,4 +36,6 @@
 ## 使用素材
 - 後ほど追加予定
 - フリーイラスト素材として以下を使用
-  * Adobe Stock（https://stock.adobe.com/jp/photos?isa0=1&state=%7B%22ac%22%3A%22stock.adobe.com%22%7D）
+  * Pixabay (https://pixabay.com/ja/)
+  * PAKUTASO (https://www.pakutaso.com/)
+  * Adobe Stock（https://stock.adobe.com/jp/）

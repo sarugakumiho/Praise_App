@@ -92,7 +92,15 @@
       <% else %>
         <p>公開された投稿はありません。</p>
       <% end %>
+      
+      <!--ページネーション-->
+      <div class="d-flex justify-content-center">
+        <%= paginate @published_posts %>
+      </div>
+      
     </div>
+    
+
   </div>
 
 </div>

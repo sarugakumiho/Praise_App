@@ -7,7 +7,11 @@
         <!-- Member検索した際の表示 -->
         <% if @model == 'Member' %>
           <h3 class="text-center">"<%= @content %>"の検索結果はこちら</h3>
-          <%= render 'admin/members/index', members: @records %>
+          <%= render 'admin/members/index', members: @members %>
+          <!--ページネーション-->
+          <div class="d-flex justify-content-center mt-4">
+            <%= paginate @members %>
+          </div>
         
         <!-- Post検索した際の表示 -->
         <% elsif @model == 'Post' %>
@@ -16,6 +20,12 @@
             <% @records.each do |post| %>
               <%= render 'admin/posts/all_published_post', post: post %>
             <% end %>
+            <!--ページネーション-->
+            <div class="d-flex justify-content-center mt-4">
+              <%= paginate @records %>
+            </div>
+          <% else %>
+            <p class="text-center">検索結果がありません。</p>
           <% end %>
         <% end %>
       <% end %>

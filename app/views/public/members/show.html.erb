@@ -33,8 +33,16 @@
               <%= @member.posts.where(post_status: 'published').count %>
             <% end %>
           </td>
-          <td class="col-1" style="border: 1px solid black; vertical-align: middle;"><%= @member.followings.count %></td>
-          <td class="col-1" style="border: 1px solid black; vertical-align: middle;"><%= @member.followers.count %></td>
+          <td class="col-1" style="border: 1px solid black; vertical-align: middle;">
+            <%= link_to followings_path(@member) do %>
+              <%= @member.followings.count %>
+            <% end %>
+          </td>
+          <td class="col-1" style="border: 1px solid black; vertical-align: middle;">
+            <%= link_to followers_path(@member) do %>
+              <%= @member.followers.count %>
+            <% end %>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -93,6 +101,12 @@
       <% else %>
         <p>公開された投稿はありません。</p>
       <% end %>
+      
+      <!--ページネーション-->
+      <div class="d-flex justify-content-center mt-4">
+        <%= paginate @published_posts %>
+      </div>
+      
     </div>
   </div>
   

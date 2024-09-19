@@ -2,8 +2,7 @@ class Public::FavoritesController < ApplicationController
   before_action :authenticate_member!
   
   def index
-    # ログインユーザーがいいねした投稿を取得
-    @favorited_posts = current_member.favorites.includes(:post).map(&:post)
+    @favorited_posts = Post.joins(:favorites).where(favorites: { member_id: current_member.id }).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def create

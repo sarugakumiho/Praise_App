@@ -1,4 +1,5 @@
 <div class="container my-4">
+  
   <div class="tags-section mb-5">
     <h3 class="mb-4" style="font-weight: bold; color: #343a40; border-bottom: 3px solid #6c757d; display: inline-block; padding-bottom: 10px;">
       タグリスト
@@ -36,7 +37,8 @@
       <% @posts.each do |post| %>
         <%= render 'public/posts/mypost', post: post %>
       <% end %>
-      <div class="pagination-section">
+      <!--ページネーション-->
+      <div class="d-flex justify-content-center mt-4">
         <%= paginate @posts %>
       </div>
     <% else %>
@@ -47,4 +49,5 @@
       <p class="text-center text-danger"><%= flash[:alert] %></p>
     <% end %>
   <% end %>
+  
 </div>
