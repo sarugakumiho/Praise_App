@@ -60,7 +60,6 @@ class Admin::PostsController < ApplicationController
       # 該当するタグに関連する投稿を取得し、投稿がない場合は空のリストを返す
       @posts = @tag.present? ? @tag.posts.order(created_at: :desc) : Post.none
     else
-      flash.now[:alert] = "タグ名を入力してください"
       @tag_list = Tag.all
       @posts = Post.none
     end

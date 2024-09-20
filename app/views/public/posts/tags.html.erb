@@ -4,28 +4,28 @@
     <h3 class="mb-4" style="font-weight: bold; color: #343a40; border-bottom: 3px solid #6c757d; display: inline-block; padding-bottom: 10px;">
       タグリスト
     </h3>
-    
+
     <!-- 検索フォーム -->
     <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
       <div class="form-group">
         <%= f.label :search, "タグを検索" %>
         <div class="d-flex align-items-center">
-          <%= f.text_field :search, class: "form-control", placeholder: "タグを入力", style: "width: 20%;" %>
+          <%= f.text_field :search, required: true, class: "form-control", placeholder: "タグを入力", style: "width: 20%;" %>
           <%= f.submit "検索", class: "btn-sm btn-primary ml-2" %>
         </div>
       </div>
     <% end %>
-    
+
     <div class="d-flex flex-wrap">
       <% @tag_list.each do |list| %>
         <%= link_to "##{list.tag_name}", tags_posts_path(tag_id: list.id), class: "badge badge-secondary mx-3 my-1 p-2", style: "font-size: 1.1rem;" %>
         <span style="font-size: 1.4rem; margin-left: -1rem;">
-          <!-- 公開中の投稿のみをカウント -->
           <%= "(#{list.posts.where(post_status: 'published').count})" %>
         </span>
       <% end %>
     </div>
   </div>
+
 
   <!-- 検索結果に紐づく投稿一覧を表示 -->
   <% if @tag.present? %>
@@ -37,16 +37,11 @@
       <% @posts.each do |post| %>
         <%= render 'public/posts/mypost', post: post %>
       <% end %>
-      <!--ページネーション-->
+
+      <!-- ページネーション -->
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @posts %>
       </div>
-    <% else %>
-      <p class="text-center text-muted">該当する投稿がありません。</p>
-    <% end %>
-  <% else %>
-    <% if flash[:alert].present? %>
-      <p class="text-center text-danger"><%= flash[:alert] %></p>
     <% end %>
   <% end %>
   

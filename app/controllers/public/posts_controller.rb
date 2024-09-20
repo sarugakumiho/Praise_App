@@ -97,39 +97,46 @@ class Public::PostsController < ApplicationController
 
 # タグ機能ここから------------------
   def tags
-    # タグが存在しているかの確認
+    # タグの一覧を取得
+    @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
+
     if params[:tag_id].present?
+      # 指定されたタグを取得
       @tag = Tag.find_by(id: params[:tag_id])
-      
+
       if @tag.present?
+        # 該当するタグに紐づく公開中の投稿を取得
         @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
       else
         @posts = Post.none
-        flash[:alert] = "該当するタグが見つかりません。"
+        flash.now[:alert] = "該当するタグが見つかりません。"
       end
     else
       @posts = Post.none
-      flash[:alert] = "該当するタグが見つかりません。"
     end
-    # タグリストは常に表示
-    @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
   end
 
   def search
-    # 検索ワードが存在しているかの確認
+    # タグ一覧は常に取得
+    @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
+  
     if params[:search].present?
-      # タグを検索して該当するものがあるか確認
-      @tag_list = Tag.joins(:posts).where('tag_name LIKE ?', "%#{params[:search]}%").where(posts: { post_status: 'published' }).distinct # .distinct ＝ 重複するタグがある場合、一意なタグのみを取得
-      # 該当するタグがあるか確認し、最初のタグを取得
-      @tag = @tag_list.first if @tag_list.any?
-      # 該当するタグに関連する投稿を取得し、投稿がない場合は空のリストを返す
-      @posts = @tag.present? ? @tag.posts.where(post_status: 'published').order(created_at: :desc) : Post.none
+      # 検索されたタグを取得
+      @tag_list = @tag_list.where('tag_name LIKE ?', "%#{params[:search]}%")
+      @tag = @tag_list.first
+  
+      if @tag.present?
+        # 該当するタグの投稿を取得
+        @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc)
+      else
+        @posts = Post.none
+        flash.now[:alert] = "該当するタグが見つかりません。"
+      end
     else
-      flash.now[:alert] = "タグ名を入力してください"
-      @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
       @posts = Post.none
     end
   end
+
 # ここまで-------------------------
 
   private
