@@ -11,8 +11,10 @@ class Public::FavoritesController < ApplicationController
     favorite.save
 
     respond_to do |format|
-      format.html { redirect_to post_path(@post) } # 通常のリクエスト
-      format.js   # Ajaxリクエストの場合
+      # 通常のHTMLリクエストの場合
+      format.html { redirect_to post_path(@post) }
+      # JavaScriptリクエスト（非同期処理/Ajax）の場合
+      format.js
     end
   end
 
@@ -22,8 +24,10 @@ class Public::FavoritesController < ApplicationController
     favorite.destroy
 
     respond_to do |format|
-      format.html { redirect_to post_path(@post) } # 通常のリクエスト
-      format.js   # Ajaxリクエストの場合
+      # 通常のHTMLリクエストの場合
+      format.html { redirect_to post_path(@post) }
+      # JavaScriptリクエスト（非同期処理/Ajax）の場合
+      format.js
     end
   end
 end

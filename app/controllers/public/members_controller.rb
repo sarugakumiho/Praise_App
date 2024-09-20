@@ -1,17 +1,15 @@
 class Public::MembersController < ApplicationController
   before_action :authenticate_member!
-  before_action :ensure_guest_member, only: [:edit, :update] # ゲストログイン制限設定
+  # ゲストログイン制限設定
+  before_action :ensure_guest_member, only: [:edit, :update]
   
   def my_page
     @member = current_member
-
-    # 自分のリスト（公開中） - `params[:published_page]` を使用
+    # ログインユーザーの（公開中）リスト
     @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page]).per(10)
-
-    # 自分のやることリスト（非公開） - `params[:unpublished_page]` を使用
+    # ログインユーザーの（非公開）やることリスト
     @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page]).per(10)
-
-    # タイムライン - `params[:all_published_page]` を使用
+    # タイムライン表示（フォローしているユーザーの（公開中）リスト）
     @follow_members = current_member.followings.pluck(:id)
     @all_published_posts = Post.where(member_id: @follow_members, post_status: 'published')
                                .from_last_week
@@ -22,7 +20,7 @@ class Public::MembersController < ApplicationController
 
   def show
     @member = Member.find(params[:id])
-    # 特定のメンバーの投稿
+    # 特定のユーザーの（公開中）リスト
     @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
   end
 
@@ -36,8 +34,6 @@ class Public::MembersController < ApplicationController
 
   def update
     @member = current_member
-    
-    # プロフィール編集処理
     if @member.update(member_params)
       flash[:notice] = "プロフィールが更新されました！"
       redirect_to my_page_members_path

@@ -7,7 +7,7 @@ class Admin::PostCommentsController < ApplicationController
   
   def destroy
     post_comment = PostComment.find_by(id: params[:id])
-    
+    # コメントの存在を確認
     if post_comment.nil?
       flash[:alert] = "コメントが見つかりません。"
       redirect_to admin_post_path
