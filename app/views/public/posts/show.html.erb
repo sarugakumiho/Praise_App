@@ -102,7 +102,7 @@
         <!-- コメント投稿フォーム -->
         <div class="mt-4">
           <%= form_with model: [@post, PostComment.new], url: post_comments_path(@post), remote: true do |f| %>
-            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", style: "width: 500px;" %>
+            <%= f.text_area :comment, required: true, rows: '5', placeholder: "コメントをここに", style: "width: 500px;" %>
             <%= f.submit "送信する", class: "btn btn-primary ml-2" %>
           <% end %>
         </div>
