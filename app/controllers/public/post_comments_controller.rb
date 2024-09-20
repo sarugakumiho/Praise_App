@@ -7,8 +7,10 @@ class Public::PostCommentsController < ApplicationController
     @post_comment.post = @post
     if @post_comment.save
       respond_to do |format|
+        # 通常のHTMLリクエストの場合
         format.html { redirect_to post_path(@post) }
-        format.js   # Ajaxリクエストの場合
+        # JavaScriptリクエスト（非同期処理/Ajax）の場合
+        format.js
       end
     else
       render 'public/posts/show'
@@ -21,8 +23,10 @@ class Public::PostCommentsController < ApplicationController
     if @post_comment.member == current_member
       @post_comment.destroy
       respond_to do |format|
+        # 通常のHTMLリクエストの場合
         format.html { redirect_to post_path(@post), notice: 'コメントを削除しました。' }
-        format.js   # Ajaxリクエストの場合
+        # JavaScriptリクエスト（非同期処理/Ajax）の場合
+        format.js
       end
     else
       redirect_to post_path(@post), alert: 'コメントの削除に失敗しました。'
@@ -34,4 +38,5 @@ class Public::PostCommentsController < ApplicationController
   def post_comment_params
     params.require(:post_comment).permit(:comment)
   end
+  
 end

@@ -3,12 +3,13 @@
 class Public::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create] 
   
+  # ログイン時の遷移先
   def after_sign_up_path_for(resource)
     my_page_members_path
   end
   
   protected
-
+  # 登録時にパラメータを受け取るための設定
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end

@@ -2,14 +2,13 @@ class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!
   
   def show
-   @post = Post.find(params[:id])
-   @member = @post.member
-   @post_tags = @post.tags
-    
+    @post = Post.find(params[:id])
+    @post_tags = @post.tags
+    @member = @post.member
   end
 
   def index
-    # 全体の公開投稿
+    # 全ユーザーの（公開中）リスト
     @all_published_posts = Post.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
   end
   
@@ -21,27 +20,27 @@ class Admin::PostsController < ApplicationController
 
 # タグ機能ここから------------------
   def tags
-    # 公開中の投稿に関連付けられたタグのみ取得
+    # 公開中リストに関連付けられたタグ
     @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
     
+    # タグが存在しているかの確認
     if params[:tag_id].present?
       @tag = Tag.find_by(id: params[:tag_id])
-    
       if @tag.present?
         @posts = @tag.posts.order(created_at: :desc).page(params[:page]).per(10)
       else
         @posts = Post.none
       end
     else
-      # タグが指定されていない場合は全タグを表示
       @tag = nil
       @posts = Post.none
     end
   end
   
-  # タグ削除（管理者のみ）
   def destroy_tag
     @tag = Tag.find(params[:id])
+    
+    # タグに関連するリストがないことを確認
     if @tag.posts.empty?
       @tag.destroy
       flash[:notice] = "タグが削除されました。"
@@ -52,19 +51,19 @@ class Admin::PostsController < ApplicationController
   end
   
   def search
-    # 検索キーワードが渡されているか確認
+    # 検索ワードが存在しているかの確認
     if params[:search].present?
-      # タグ名に検索キーワードが含まれるタグを取得
-      @tag_list = Tag.where('tag_name LIKE ?', "%#{params[:search]}%").distinct
-      @tag = @tag_list.first if @tag_list.any? # タグがあれば最初のタグを取得
+      # タグを検索して該当するものがあるか確認
+      @tag_list = Tag.where('tag_name LIKE ?', "%#{params[:search]}%").distinct # .distinct ＝ 重複するタグがある場合、一意なタグのみを取得
+      # 該当するタグがあるか確認し、最初のタグを取得
+      @tag = @tag_list.first if @tag_list.any?
+      # 該当するタグに関連する投稿を取得し、投稿がない場合は空のリストを返す
       @posts = @tag.present? ? @tag.posts.order(created_at: :desc) : Post.none
     else
-      # 検索ワードが空の場合、エラーメッセージを設定
       flash.now[:alert] = "タグ名を入力してください"
-      @tag_list = Tag.all # 全てのタグを表示
-      @posts = Post.none # 空の投稿リストを設定
+      @tag_list = Tag.all
+      @posts = Post.none
     end
   end
   # ここまで-------------------------
-  
 end

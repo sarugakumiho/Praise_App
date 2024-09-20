@@ -7,6 +7,7 @@ class Admin::MembersController < ApplicationController
 
   def show
     @member = Member.find(params[:id])
+    # ログインユーザーの（公開中）リスト
     @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
   end
 

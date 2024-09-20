@@ -10,7 +10,8 @@ class Public::SearchesController < ApplicationController
       flash.now[:alert] = "検索ワードを入力してください"
       render 'public/searches/search' and return
     end
-
+    
+    # 検索モデルが「Member」の時とそうでない場合の時「Post」の処理
     if @model == "Member"
       @members = Member.search_for(@content, @method).page(params[:page]).per(20)
       if @members.empty?
