@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-center">
   <div class="card" style="width: 68rem; border: 2px solid darkslategray;">
+    
+    <!-- ログインユーザーのプロフィールを表示 -->
     <div class="d-flex my-4 mx-4">
-      
-      <!-- プロフィール欄表示 -->
       <div class="d-flex flex-column ml-4">
         <%= link_to member_path(@member), class: "text-decoration-none w-100" do %>
           <h3 class="card-name d-flex justify-content-center" style="color: black;"><strong><%= @member.name %></strong></h3>
@@ -25,17 +25,18 @@
           <% end %>
         <% end %>
       </div>
-      
     </div>
+    
   </div>
 </div>
 
 <div class="container my-4">
   <div class="row">
     
-    <!-- フォローメンバーのタイムライン -->
+    <!-- フォローしているユーザーの１週間以内のリスト一覧表示列（タイムライン） -->
     <div class="col-md-6">
       <div class="card" style="width: 100%;">
+        
         <h5 class="card-header text-center" style="background-color: lightskyblue; color: black;">
           <i class="fa-solid fa-rectangle-list"></i>
           &#12288;<strong>フォローメンバーのタイムライン</strong>
@@ -52,27 +53,32 @@
             <p class="text-center">フォローメンバーの公開投稿はありません。</p>
           <% end %>
         </div>
+        
       </div>
     </div>
 
-    <!-- 自分のやることリスト -->
+    <!-- ログインユーザーの公開中・非公開リスト表示列 -->
     <div class="col-md-6">
       <div class="card" style="width: 100%;">
+        
         <h5 class="card-header text-center" style="background-color: lightskyblue; color: black;">
           <i class="fa-solid fa-rectangle-list"></i>
           &#12288;<strong>自分のリスト</strong>
         </h5>
         
         <div class="card-body">
+          <!--選択タブ-->
           <ul class="nav nav-tabs" style="margin-bottom: 0;">
             <li class="nav-item">
               <a class="nav-link <%= 'active' if params[:tab] == 'published' %>" data-toggle="tab" href="#published"><strong>投稿リスト（公開中）</strong></a>
             </li>
+            <!--選択タブがない場合は、このタブを表示（初期表示）-->
             <li class="nav-item">
               <a class="nav-link <%= 'active' if params[:tab] == 'unpublished' || params[:tab].blank? %>" data-toggle="tab" href="#unpublished"><strong>やることリスト(非公開)</strong></a>
             </li>
           </ul>
           
+          <!--各リストの一覧を表示-->
           <div class="tab-content mt-0">
             <!-- 非公開リスト -->
             <div id="unpublished" class="tab-pane fade <%= 'show active' if params[:tab] == 'unpublished' || params[:tab].blank? %>">
@@ -83,11 +89,11 @@
                 <!-- ページネーション -->
                 <%= paginate @unpublished_posts, param_name: 'unpublished_page', params: { tab: 'unpublished' } %>
               <% else %>
-                <p class="text-center mt-2">非公開の投稿はありません。</p>
+                <p class="text-center mt-2">非公開のリストはありません。</p>
               <% end %>
             </div>
           
-            <!-- 公開リスト -->
+            <!--公開中リストを表示-->
             <div id="published" class="tab-pane fade <%= 'show active' if params[:tab] == 'published' %>">
               <% if @published_posts.present? %>
                 <% @published_posts.each do |post| %>
@@ -96,12 +102,12 @@
                 <!-- ページネーション -->
                 <%= paginate @published_posts, param_name: 'published_page', params: { tab: 'published' } %>
               <% else %>
-                <p class="text-center mt-2">公開中の投稿はありません。</p>
+                <p class="text-center mt-2">公開中のリストはありません。</p>
               <% end %>
             </div>
           </div>
-
         </div>
+        
       </div>
     </div>
 
