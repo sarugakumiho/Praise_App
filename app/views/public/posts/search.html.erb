@@ -5,7 +5,7 @@
       タグリスト
     </h3>
 
-    <!-- 検索フォーム -->
+    <!-- タグ検索フォーム -->
     <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
       <div class="form-group">
         <%= f.label :search, "タグを検索" %>
@@ -15,7 +15,8 @@
         </div>
       </div>
     <% end %>
-
+    
+    <!-- タグを表示 -->
     <div class="d-flex flex-wrap">
       <% @tag_list.each do |list| %>
         <%= link_to "##{list.tag_name}", tags_posts_path(tag_id: list.id), class: "badge badge-secondary mx-3 my-1 p-2", style: "font-size: 1.1rem;" %>
@@ -26,10 +27,10 @@
     </div>
   </div>
 
-  <!-- 検索結果に紐づく投稿一覧を表示 -->
+  <!-- 検索結果に紐づくリスト一覧を表示 -->
   <% if @tag.present? %>
     <h3 class="mb-4" style="font-weight: bold; color: #343a40; border-bottom: 3px solid #6c757d; display: inline-block; padding-bottom: 10px;">
-      タグ: <%= @tag.tag_name %> の投稿一覧
+      タグ: <%= @tag.tag_name %> のリスト一覧
     </h3>
 
     <% if @posts.any? %>

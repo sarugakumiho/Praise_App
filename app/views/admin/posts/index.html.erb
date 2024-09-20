@@ -6,17 +6,14 @@
     
   <div class="col-md-8 offset-md-2">
     <div class="tab-content">
-      
       <!-- 全公開中リストを表示 -->
       <% @all_published_posts.each do |post| %>
         <%= render "all_published_post", post: post %>
       <% end %>
-      
       <!--ページネーション-->
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @all_published_posts %>
       </div>
-      
     </div>
   </div>
 

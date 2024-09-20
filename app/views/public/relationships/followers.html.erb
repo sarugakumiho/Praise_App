@@ -4,12 +4,12 @@
     現在フォローしてくれているメンバー：<%= @total_followers_count %>人
   </h4>
   
+  <!--フォローしてくれているユーザーを表示-->
   <% if @members.exists? %>
     <%= render "public/members/index", members: @members %>
   <% else %>
     <p>ユーザーはいません</p>
   <% end %>
-  
   <!--ページネーション-->
   <div class="d-flex justify-content-center mt-4">
     <%= paginate @members %>

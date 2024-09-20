@@ -3,8 +3,8 @@
     
     <h3><i class="fa-solid fa-user-pen"></i>&nbsp;<strong><%= @member.name %>さんの会員詳細</strong></h3>
     
+    <!--ログインユーザープロフィール編集フォーム-->
     <%= form_with model: @member, url: admin_member_path(@member), method: :patch, class: "w-100 mt-3" do |f| %>
-    
       <div class="form-group mb-4">
         <strong><%= f.label :会員ID %></strong>：
         <%= @member.id %>
@@ -38,7 +38,6 @@
           </div>
         </div>
       </div>
-
     <% end %>
 
   </div>

@@ -1,7 +1,9 @@
 <div class="container mt-5">
+  
   <h2 class="text-center mb-4" style="font-weight: bold; color: #343a40;">新規登録</h2>
+  
+  <!--新規登録入力フォーム-->
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-horizontal mx-auto", style: "max-width: 400px;" }) do |f| %>
-
     <div class="form-group">
       <span style="color: red;">*</span>
       <strong><%= f.label :名前, class: "form-label" %></strong>
@@ -32,4 +34,5 @@
   <% end %>
 
   <%= render "public/shared/links" %>
+  
 </div>

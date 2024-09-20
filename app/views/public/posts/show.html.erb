@@ -1,10 +1,11 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col-md-8 offset-md-2">
+      
+      <!--リスト詳細を表示-->
       <div class="card mb-3 shadow-sm" style="border: 1px solid #ddd; border-radius: 10px;">
         <div class="card-body">
         
-          <!--投稿者名と写真表示-->
           <div class="d-flex flex-column align-items-center text-center" style="width: 100%;">
             <%= link_to member_path(@member), class: "text-decoration-none w-100" do %>
               <h3 class="card-name" style="color: black;"><strong><%= @member.name %></strong></h3>
@@ -14,10 +15,8 @@
             <% end %>
           </div>
           
-          <!--タスク名表示-->
           <h2 class="card-title text-center mb-3" style="font-weight: bold; color: #343a40;"><%= @post.title %></h2>
           
-          <!--メモ・コメント表示-->
           <% if @post.memo.present? %>
             <div class="d-flex justify-content-center">
               <p class="card-text" style="font-size: 1.1rem; line-height: 1.6; text-align: left;">
@@ -28,14 +27,12 @@
             <div class="mb-2"></div>
           <% end %>
           
-          <!--写真表示-->
           <% if @post.image.attached? %>
             <div class="text-center mb-4">
               <%= image_tag @post.image, class: "img-fluid rounded shadow-lg", style: "max-height: 400px; object-fit: cover;" %>
             </div>
           <% end %>
           
-          <!--状況表示-->
           <div class="d-flex justify-content-center mb-4">
             <p class="card-text mb-0" style="font-size: 20px;">
               <small class="text-muted">
@@ -49,7 +46,6 @@
             </p>
           </div>
           
-          <!--取り組み期間表示-->
           <% if @post.start_on.present? || @post.end_on.present? %>
             <div class="d-flex justify-content-center align-items-center my-3">
               <div class="card-text mb-0 d-flex align-items-center">
@@ -65,7 +61,6 @@
             </div>
           <% end %>
          
-          <!-- タグ表示 -->
           <div class="text-center mb-5">
             <% @post_tags.each do |tag| %>
               <% if tag.posts.count > 0 %>
