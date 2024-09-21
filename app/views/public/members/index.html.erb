@@ -4,6 +4,11 @@
     ユーザー 一覧
   </h4>
   
+  <!--一覧部分テンプレート-->
   <%= render "public/members/index", members: @members %>
+  <!--ページネーション-->
+  <div class="d-flex justify-content-center">
+    <%= paginate @members %>
+  </div>
   
 </div>

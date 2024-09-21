@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
 
-  # 会員新規登録・ログイン
+  # 会員新規登録・ログイン設定
   devise_for :members,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
   
-  # 管理者ログイン
+  # 管理者ログイン設定
   devise_for :admin, skip: [:registrations, :passwords] , controllers: {
     sessions: "admin/sessions"
   }
   
-  # ゲストログイン
+  # ゲストログイン設定
   devise_scope :member do
     post 'members/guest_sign_in', to: 'public/sessions#guest_sign_in', as: 'guest_sign_in_member'
   end
@@ -41,11 +41,12 @@ Rails.application.routes.draw do
     get '/members/:member_id/followers', to: 'relationships#followers', as: 'followers'
     # postsルーティング
     resources :posts, only: [:create, :new, :show, :index, :edit, :update, :destroy] do
+    # tag関係（一覧・検索）ルーティング
       collection do 
         get 'tags'
       end
     end
-    get '/posts/tags/search', to: 'posts#search', as: 'search_posts'
+    get '/posts/tags/search', to: 'posts#tags_search', as: 'posts_tags_search'
     # post_commentsルーティング
     post '/posts/:post_id/post_comments', to: 'post_comments#create', as: 'post_comments'
     delete '/post_comments/:id', to: 'post_comments#destroy', as: 'post_comment'
@@ -66,13 +67,15 @@ Rails.application.routes.draw do
     delete 'members/:id', to: 'members#destroy', as: 'member_destroy'
     # postsルーティング
     resources :posts, only: [:show, :index, :destroy] do
+      # tag関係（一覧）ルーティング
       collection do 
         get 'tags'
         delete 'posts/tags/:id', to: 'posts#destroy_tag', as: 'destroy_tag'
       end
     end
     delete '/posts/:id', to: 'posts#destroy', as: 'posts_destroy'
-    get 'posts/tags/search', to: 'posts#search'
+    # tag関係（検索）ルーティング
+    get 'posts/tags/search', to: 'posts#tags_search', as: 'posts_tags_search'
     # post_commentsルーティング
     resources :post_comments, only: [:index]
     delete '/posts/:post_id/post_comments/:id', to: 'post_comments#destroy', as: 'destroy_post_comment'

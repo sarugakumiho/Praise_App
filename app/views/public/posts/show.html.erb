@@ -1,16 +1,17 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col-md-8 offset-md-2">
+      
+      <!--リスト詳細を表示-->
       <div class="card mb-3 shadow-sm" style="border: 1px solid #ddd; border-radius: 10px;">
         <div class="card-body">
         
           <div class="d-flex flex-column align-items-center text-center" style="width: 100%;">
             <%= link_to member_path(@member), class: "text-decoration-none w-100" do %>
-              <div class="d-flex justify-content-center align-items-center mb-2">
+              <h3 class="card-name" style="color: black;"><strong><%= @member.name %></strong></h3>
+              <div class="d-flex justify-content-center align-items-center mb-4">
                 <%= image_tag @member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 100px; height: 100px; object-fit: cover;" %>
               </div>
-              <h3 class="card-name" style="color: black;"><strong><%= @member.name %></strong></h3>
-              <p class="text-muted" style="font-size: 0.9rem;">投稿者</p>
             <% end %>
           </div>
           
@@ -18,52 +19,52 @@
           
           <% if @post.memo.present? %>
             <div class="d-flex justify-content-center">
-              <p class="card-text mb-4" style="font-size: 1.1rem; line-height: 1.6; text-align: left;">
+              <p class="card-text" style="font-size: 1.1rem; line-height: 1.6; text-align: left;">
                 <%= simple_format(@post.memo) %>
               </p>
             </div>
           <% else %>
             <div class="mb-2"></div>
           <% end %>
-　　　　　
+          
           <% if @post.image.attached? %>
             <div class="text-center mb-4">
               <%= image_tag @post.image, class: "img-fluid rounded shadow-lg", style: "max-height: 400px; object-fit: cover;" %>
             </div>
-            <div class="d-flex justify-content-center mb-4">
-              <p class="card-text mb-0">
-                <small class="text-muted">
-                  状況: 
-                  <% if @post.situation_status == "from_now" %>
-                    <span style="color: #1e90ff; font-weight: bold;">これから！</span>
-                  <% else %>
-                    <span style="color: #dc143c; font-weight: bold;">達成済み！</span>
-                  <% end %>
-                </small>
-              </p>
-            </div>
           <% end %>
+          
+          <div class="d-flex justify-content-center mb-4">
+            <p class="card-text mb-0" style="font-size: 20px;">
+              <small class="text-muted">
+                状況: 
+                <% if @post.situation_status == "from_now" %>
+                  <span style="color: #1e90ff; font-weight: bold; font-size: 20px;">これから！</span>
+                <% else %>
+                  <span style="color: #dc143c; font-weight: bold; font-size: 20px;">達成済み！</span>
+                <% end %>
+              </small>
+            </p>
+          </div>
           
           <% if @post.start_on.present? || @post.end_on.present? %>
-            <div class="d-flex justify-content-center my-3">
-              <p class="card-text mb-0">
-                <small class="text-muted pr-3">取り組み期限:</small>
+            <div class="d-flex justify-content-center align-items-center my-3">
+              <div class="card-text mb-0 d-flex align-items-center">
+                <h5 class="text-muted pr-3" style="font-size: 20px;">取り組み期限:</h5>
                 <% if @post.start_on.present? %>
-                  <small class="text-muted pr-3"><%= @post.start_on.strftime('%Y年%m月%d日') %></small>
+                  <h5 class="text-muted pr-3" style="font-size: 20px;"><%= @post.start_on.strftime('%Y年%m月%d日') %></h5>
                 <% end %>
                 <% if @post.end_on.present? %>
-                  <small class="text-muted pr-3">〜</small>
-                  <small class="text-muted"><%= @post.end_on.strftime('%Y年%m月%d日') %></small>
+                  <h5 class="text-muted pr-3" style="font-size: 20px;">〜</h5>
+                  <h5 class="text-muted" style="font-size: 20px;"><%= @post.end_on.strftime('%Y年%m月%d日') %></h5>
                 <% end %>
-              </p>
+              </div>
             </div>
           <% end %>
-          
-          <!--タグの表示-->
-          <div class="text-center my-5">
+         
+          <div class="text-center mb-5">
             <% @post_tags.each do |tag| %>
               <% if tag.posts.count > 0 %>
-                <%= link_to "##{tag.tag_name}", tags_posts_path(tag_id: tag.id), class: "badge badge-secondary" %>
+                <%= link_to "##{tag.tag_name}", tags_posts_path(tag_id: tag.id), class: "badge badge-secondary", style: "font-size: 15px;" %>
               <% end %>
             <% end %>
           </div>
@@ -79,50 +80,24 @@
         </div>
       </div>
       
+      <!-- いいねボタン・コメント表示 -->
       <% if @post.post_status == "published" %>
-        <div class="row">
+        <div class="row d-flex align-items-center mb-3">
           <!-- いいねボタン表示 -->
-          <% if @post.favorited_by?(current_member) %>
-            <p class="mx-3 mt-2 mb-4"><strong>
-              <%= link_to favorites_destroy_path(@post, current_member.favorites.find_by(post_id: @post.id)), method: :delete do %>
-                ♥<%= @post.favorites.count %> いいね
-              <% end %>
-            </strong></p>
-          <% else %>
-            <p class="mx-3 mt-2 mb-4"><strong>
-              <%= link_to favorites_create_path(@post), method: :post do %>
-                ♡<%= @post.favorites.count %> いいね
-              <% end %>
-            </strong></p>
-          <% end %>
-          <!-- コメント表示 -->
-          <p class="mt-2 mb-4"><strong><%= link_to "#{@post.post_comments.count} コメント", post_path(@post.id), class: "text-decoration-none ml-4" %></strong></p>
+          <p class="mx-2 mb-0"><strong><%= render 'public/favorites/button', post: @post %></strong></p>
+          <!-- コメント件数表示 -->
+          <p id="comment-count-<%= @post.id %>" class="ml-4 mb-0">
+            <strong><%= link_to "#{@post.post_comments.count} コメント", post_path(@post.id), class: "text-decoration-none" %></strong>
+          </p>
         </div>
-          
-        <% @post.post_comments.each do |post_comment| %>
-          <div class="d-flex align-items-center mb-2">
-            <!-- 名前とプロフィール画像を表示 -->
-            <div class="d-flex flex-column align-items-start">
-              <strong style="width: 100px; height: 30px;"><%= post_comment.member.name %></strong>
-              <%= image_tag post_comment.member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 60px; height: 60px; border: 3px solid #000; object-fit: cover; margin-top: 0;" %>
-            </div>
-            <!-- コメントと削除リンクを横に表示 -->
-            <div class="d-flex align-items-center">
-              <div class="d-flex flex-column">
-                <small class="text-muted"><%= post_comment.created_at.strftime('%Y/%m/%d') %></small>
-                <p><%= post_comment.comment %></p>
-              </div>
-              <% if post_comment.member == current_member %>
-                <%= link_to "削除", post_comment_path(post_comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger ml-2", style: "width: 50px; height: 20px; font-size: 13px; line-height: 10px;" %>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      
+        
+        <!-- コメント内容表示 -->
+        <div id="comment-<%= @post_comment.id %>"><%= render partial: 'public/post_comments/comments', locals: { post: @post } %></div>
+       
         <!-- コメント投稿フォーム -->
         <div class="mt-4">
-          <%= form_with model: [@post, PostComment.new], url: post_comments_path(@post), local: true do |f| %>
-            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", style: "width: 500px;" %>
+          <%= form_with model: [@post, PostComment.new], url: post_comments_path(@post), remote: true do |f| %>
+            <%= f.text_area :comment, required: true, rows: '5', placeholder: "コメントをここに", style: "width: 500px;" %>
             <%= f.submit "送信する", class: "btn btn-primary ml-2" %>
           <% end %>
         </div>

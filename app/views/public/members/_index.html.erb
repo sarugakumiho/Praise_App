@@ -1,4 +1,6 @@
 <% if @members.present? %>
+  
+  <!--ユーザー情報を表示-->
   <div class="row my-4">
     <table class="table table-bordered text-center" style="border-color: black; border: 1px solid black; width: 100%;">
       <thead>
@@ -27,7 +29,7 @@
               <td class="col-5" style="border: 1px solid black; vertical-align: middle;"><%= simple_format(member.introduction) %></td>
               <td class="col-1" style="border: 1px solid black; vertical-align: middle;">
                 <%= link_to member_path(member) do %>
-                  <!--公開投稿数のみ-->
+                  <!--公開中のリスト数のみ-->
                   <%= member.posts.where(post_status: 'published').count %>
                 <% end %>
               </td>
@@ -48,4 +50,5 @@
       </tbody>
     </table>
   </div>
+  
 <% end %>

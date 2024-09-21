@@ -1,0 +1,2 @@
+<!--非同期化-->
+$(".like-button-<%= @post.id %>").html("<%= j(render 'public/favorites/button', post: @post) %>");

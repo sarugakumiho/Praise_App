@@ -3,30 +3,16 @@
     
     <h3><i class="fa-solid fa-user-pen"></i>&nbsp;<strong><%= @member.name %>さんの会員詳細</strong></h3>
     
+    <!--ログインユーザープロフィール編集フォーム-->
     <%= form_with model: @member, url: admin_member_path(@member), method: :patch, class: "w-100 mt-3" do |f| %>
-    
-      <div class="d-flex flex-column align-items-center mt-4 text-center">
-        <% if @member.errors.any? %>
-          <div class="d-flex align-items-center">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-            <span style="font-size: 1.25rem; margin-left: 10px;"><%= @member.errors.count %>件のエラーにより保存できませんでした</span>
-          </div>
-          <p style="font-size: 1.25rem;">内容を確認し、入力して下さい&nbsp;<i class="fa-solid fa-person-praying"></i></p>
-          <ul style="font-size: 1.25rem; list-style-type: none; padding-left: 0;">
-            <% @member.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        <% end %>
-      </div>
-
       <div class="form-group mb-4">
         <strong><%= f.label :会員ID %></strong>：
         <%= @member.id %>
       </div>
       <div class="form-group mb-4">
+        <span style="color: red;">*</span>
         <strong><%= f.label :名前 %></strong>
-        <%= f.text_field :name, class: "form-control name", autofocus: true %>
+        <%= f.text_field :name, required: true, class: "form-control name", autofocus: true %>
       </div>
       <div class="form-group">
         <strong><%= f.label :自己紹介 %></strong>
@@ -52,7 +38,6 @@
           </div>
         </div>
       </div>
-
     <% end %>
 
   </div>

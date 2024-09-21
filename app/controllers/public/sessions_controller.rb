@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
-  # reject_member:特定の条件に基づいて、リクエストを拒否またはリダイレクトするためのメソッド
-  # 会員ステータスに応じた動きにするため、configure_sign_in_paramsではなくreject_member
+  # ログイン制限
   before_action :reject_member, only: [:create]  
-
+  
+  # ログイン時の遷移先
   def after_sign_in_path_for(resource)
     my_page_members_path
   end
 
+  # ログアウト後の遷移先
   def after_sign_out_path_for(resource)
     about_path
   end
   
-  # ゲストログイン
+  # ゲストログイン設定
   def guest_sign_in
     member = Member.guest
     sign_in member
@@ -21,7 +22,7 @@ class Public::SessionsController < Devise::SessionsController
   end
   
     protected
-  # 会員のログインを制限するための記述
+  # ログイン制限
   def reject_member
     @member = Member.find_by(email: params[:member][:email])
     if @member

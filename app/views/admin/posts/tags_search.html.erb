@@ -1,0 +1,35 @@
+<div class="container my-4">
+  <div class="tags-section mb-5">
+    
+    <h4 class="text-center py-2 mb-4" style="font-weight: 600; font-size: 1.5rem; background-color: #c6e2ff; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
+      全タグ一覧
+    </h4>
+
+    <!-- タグ検索フォーム -->
+    <%= form_with url: admin_posts_tags_search_path, method: :get, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :search, "【タグ】を検索" %>
+        <div class="d-flex align-items-center">
+          <%= f.text_field :search, required: true, class: "form-control", placeholder: "タグを入力", style: "width: 20%;" %>
+          <%= f.submit "検索", class: "btn-sm btn-primary ml-2" %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- タグの表示 -->
+    <div class="d-flex flex-wrap">
+      <% if @tag_list.any? %>
+        <% @tag_list.each do |list| %>
+          <div class="d-flex align-items-center my-1">
+            <%= link_to "##{list.tag_name}", tags_admin_posts_path(tag_id: list.id), class: "badge badge-secondary mx-3", style: "font-size: 1.1rem;" %>
+            <span style="font-size: 1.4rem; margin-left: -1rem;"><%= "(#{list.posts.count})" %></span>
+            <%= link_to '削除', destroy_tag_admin_posts_path(list), method: :delete, data: { confirm: 'このタグを削除してもよろしいですか？' }, class: 'btn btn-danger btn-sm mr-2', style: 'height: 25px; padding: 0 8px; line-height: 1.6;' %>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-center">該当するタグが見つかりません</p>
+      <% end %>
+    </div>
+    
+  </div>
+</div>

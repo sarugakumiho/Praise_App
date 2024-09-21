@@ -3,54 +3,41 @@
   <h3 class="d-flex justify-content-center mb-4">
     <i class="fa-solid fa-user-pen"></i>&nbsp;<strong>リスト登録</strong>
   </h3>
-
-  <% if @post.errors.any? %>
-    <div class="d-flex align-items-center">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      <span style="font-size: 1.25rem; margin-left: 10px;">
-        <%= @post.errors.count %>件のエラーにより保存できませんでした
-      </span>
-    </div>
-    <p style="font-size: 1.25rem;">内容を確認し、入力して下さい&nbsp;<i class="fa-solid fa-person-praying"></i></p>
-    <ul class="mb-4" style="font-size: 1.25rem;">
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
+  
+  <!--リスト登録フォーム-->
   <%= form_with url: posts_path, model: @post, method: :post do |f| %>
-    <div class="card" style="width: 30rem; height: 55rem; border: 2px solid darkslategray; padding: 20px;">
+    <div class="card" style="width: 30rem; height: 51rem; border: 2px solid darkslategray; padding: 20px;">
       <div class="form-group">
-        <p><strong>タスク名</strong></p>
-        <%= f.text_field :title, class: "form-control title", placeholder: "入力してください", style: "width: 100%; box-sizing: border-box;" %>
+        <span style="color: red;">*</span>
+        <strong><%= f.label :タスク名 %></strong>
+        <%= f.text_field :title, class: "form-control title",required: true, placeholder: "入力してください", style: "width: 100%; box-sizing: border-box;" %>
       </div>
       <div class="form-group">
         <div style="display: flex; justify-content: flex-start; align-items: center;">
-          <div style="margin-right: 70px;">
-            <p><strong>期限（開始日）</strong></p>
+          <div style="margin-right: -30px;">
+            <strong><%= f.label :期限（開始日） %></strong>
             <%= date_field_tag 'post[start_on]', nil %>
           </div>
           <div>
-            <p><strong>期限（終了日）</strong></p>
+            <strong><%= f.label :期限（終了日） %></strong>
             <%= date_field_tag 'post[end_on]', nil %>
           </div>
         </div>
       </div>
-      <div class="form-group" style="margin-top: 30px;  margin-bottom: 30px;">
+      <div class="form-group" style="margin-bottom: 30px;">
+        <strong><%= f.label :関連写真 %></strong>
         <%= f.file_field :image, accept: "image/*", class: "w-100" %>
       </div>
       <div class="form-group">
         <%= f.text_area :memo, class: "form-control", rows: "10", placeholder: "メモ・コメント" %>
       </div>
       <div class="form-group">
-        <span><strong>タグ</strong></span><br>
+        <strong class="mr-2"><%= f.label :タグ %></strong>
         <span style="font-size: 12px;">※半角スペースを入力することで複数のタグを付けることができます。</span>
-        <%= f.text_field :tag_name, placeholder: "タグ名　タグ名　タグ名", style: "width: 210px;"%>
-        <%= f.submit %>
+        <%= f.text_field :tag_name, placeholder: "タグ名　タグ名　タグ名", class:"form-control", style: "width: 210px;"%>
       </div>
-      <div class="form-group" style="margin-top: 30px;">
-        <span><strong>状況</strong></span>
+      <div class="form-group">
+        <strong><%= f.label :状況 %></strong>
         <div style="display: flex; align-items: center;">
           <div style="margin-right: 25px;">
             <%= f.radio_button :situation_status, '0', id: 'situation_status_from_now', checked: true %>
@@ -62,8 +49,8 @@
           </div>
         </div>
       </div>
-      <div class="form-group" style="margin-top: 10px; margin-bottom: 10px;">
-        <span><strong>公開設定</strong></span>
+      <div class="form-group" style=" margin-bottom: 10px;">
+        <strong><%= f.label :公開設定 %></strong>
         <div style="display: flex; align-items: center;">
           <div>
             <div style="display: inline-block;">
@@ -85,7 +72,7 @@
       </div>
     </div>
   
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="d-flex align-items-center mt-4">
         <div class="form-group my-3 mr-5">
           <%= link_to "戻る", my_page_members_path, class: "btn btn-outline-secondary", style: "width: 200px; height: 40px; line-height: 30px; font-weight: bold;" %>

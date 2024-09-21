@@ -1,29 +1,31 @@
 class Public::MembersController < ApplicationController
   before_action :authenticate_member!
-  before_action :ensure_guest_member, only: [:edit, :update] # ゲストログイン制限設定
+  # ゲストログイン制限設定
+  before_action :ensure_guest_member, only: [:edit, :update]
   
   def my_page
     @member = current_member
-    # やることリスト（非公開）
-    @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page])
-    
-    # タイムライン設定
-    # フォローしているユーザーのIDを取得
-    @follow_members = current_member.followings.pluck(:id)                      
+    # ログインユーザーの（公開中）リスト
+    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page]).per(10)
+    # ログインユーザーの（非公開）やることリスト
+    @unpublished_posts = @member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page]).per(10)
+    # タイムライン表示（フォローしているユーザーの（公開中）リスト）
+    @follow_members = current_member.followings.pluck(:id)
     @all_published_posts = Post.where(member_id: @follow_members, post_status: 'published')
-                           .from_last_week
-                           .order(created_at: :desc)
-                           .page(params[:all_published_page])
+                               .from_last_week
+                               .order(created_at: :desc)
+                               .page(params[:all_published_page])
+                               .per(10)
   end
 
   def show
     @member = Member.find(params[:id])
-    # 特定のメンバーの投稿
-    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:unpublished_page])
+    # 特定のユーザーの（公開中）リスト
+    @published_posts = @member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def index
-    @members = Member.all
+    @members = Member.all.page(params[:page]).per(20)
   end
 
   def edit
@@ -32,8 +34,6 @@ class Public::MembersController < ApplicationController
 
   def update
     @member = current_member
-    
-    # プロフィール編集処理
     if @member.update(member_params)
       flash[:notice] = "プロフィールが更新されました！"
       redirect_to my_page_members_path
@@ -61,4 +61,5 @@ class Public::MembersController < ApplicationController
       redirect_to member_path(current_member), notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
     end
   end
+  
 end

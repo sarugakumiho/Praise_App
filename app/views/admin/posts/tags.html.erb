@@ -5,17 +5,18 @@
       全タグ一覧
     </h4>
     
-    <!-- 検索フォーム -->
+    <!-- タグ検索フォーム -->
     <%= form_with url: admin_posts_tags_search_path, method: :get, local: true do |f| %>
       <div class="form-group">
         <%= f.label :search, "【タグ】を検索" %>
         <div class="d-flex align-items-center">
-          <%= f.text_field :search, class: "form-control", placeholder: "タグを入力", style: "width: 20%;" %>
+          <%= f.text_field :search, required: true, class: "form-control", placeholder: "タグを入力", style: "width: 20%;" %>
           <%= f.submit "検索", class: "btn-sm btn-primary ml-2" %>
         </div>
       </div>
     <% end %>
     
+    <!-- タグの表示 -->
     <div class="d-flex flex-wrap">
       <% @tag_list.each do |list| %>
         <div class="d-flex align-items-center my-1">
@@ -27,23 +28,25 @@
     </div>
   </div>
 
-  <!-- 検索結果に紐づく投稿一覧を表示 -->
+  <!-- 検索結果に紐づくリスト一覧を表示 -->
   <% if @tag.present? %>
     <h3 class="mb-4" style="font-weight: bold; color: #343a40; border-bottom: 3px solid #6c757d; display: inline-block; padding-bottom: 10px;">
-      タグ: <%= @tag.tag_name %> の投稿一覧
+      タグ: <%= @tag.tag_name %> のリスト一覧
     </h3>
 
     <% if @posts.any? %>
       <% @posts.each do |post| %>
         <%= render 'admin/posts/all_published_post', post: post %>
       <% end %>
-      <div class="pagination-section">
+      <!--ページネーション-->
+      <div class="d-flex justify-content-center mt-4">
         <%= paginate @posts %>
       </div>
     <% else %>
-      <p class="text-center text-muted">該当する投稿がありません。</p>
+      <p class="text-center text-muted">該当するリストがありません。</p>
     <% end %>
   <% else %>
     <p class="text-center text-danger">指定されたタグが見つかりません。</p>
   <% end %>
+  
 </div>

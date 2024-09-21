@@ -45,9 +45,9 @@ class Member < ApplicationRecord
   # バリデーション
   validates :name, length: { minimum: 1, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 150 }
-  # メールの正規表現化
-  validates :email, presence: true, length: { maximum: 300 }, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: "は正しい形式で入力してください。" }
-
+  validates :email, uniqueness: true
+  validates :password, length: { minimum: 6 }
+  
   # 検索機能（分岐）設定
   def self.search_for(content, method)
     if method == "perfect"

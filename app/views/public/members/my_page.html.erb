@@ -1,13 +1,13 @@
 <div class="d-flex justify-content-center">
   <div class="card" style="width: 68rem; border: 2px solid darkslategray;">
+    
+    <!-- ログインユーザーのプロフィールを表示 -->
     <div class="d-flex my-4 mx-4">
-      
-      <!-- プロフィール欄表示 -->
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column ml-4">
         <%= link_to member_path(@member), class: "text-decoration-none w-100" do %>
           <h3 class="card-name d-flex justify-content-center" style="color: black;"><strong><%= @member.name %></strong></h3>
           <div class="d-flex justify-content-center align-items-center">
-          　<%= image_tag @member.get_profile_image(400, 600), class: "rounded-circle border border-primary shadow", style: "width: 180px; height: 180px; border: 3px solid #000; object-fit: cover;" %>
+            <%= image_tag @member.get_profile_image(400, 600), class: "rounded-circle border border-primary shadow", style: "width: 180px; height: 180px; border: 3px solid #000; object-fit: cover;" %>
           </div>
         <% end %>
       </div>
@@ -17,7 +17,7 @@
       </div>
 
       <div class="d-flex flex-column justify-content-center" style="width: 300px; margin-left: auto; padding-right: 20px;">
-        <%= link_to "フォロー中へ", followings_path(@member), class: "btn btn-outline-primary mb-3", style: "font-weight: bold;" %>
+        <%= link_to "フォロー中", followings_path(@member), class: "btn btn-outline-primary mb-3", style: "font-weight: bold;" %>
         <%= link_to "フォロワー", followers_path(@member), class: "btn btn-outline-primary mb-5", style: "font-weight: bold;" %>
         <% unless @member.guest_member? %>
           <% if @member == current_member %>
@@ -25,49 +25,91 @@
           <% end %>
         <% end %>
       </div>
-      
     </div>
+    
   </div>
 </div>
 
-
-<div class="container my-4 d-flex justify-content-center">
+<div class="container my-4">
   <div class="row">
-    <!--タイムライン表示列-->
-    <div class="col-md-6 d-flex justify-content-center">
-      <div class="container" style="width: 60rem;">
-        <h5 style="width: 100%; height: 50px; background-color: lightskyblue; color: midnightblue; display: flex; justify-content: center; align-items: center;">
+    
+    <!-- フォローしているユーザーの１週間以内のリスト一覧表示列（タイムライン） -->
+    <div class="col-md-6">
+      <div class="card" style="width: 100%;">
+        
+        <h5 class="card-header text-center" style="background-color: lightskyblue; color: black;">
           <i class="fa-solid fa-rectangle-list"></i>
           &#12288;<strong>フォローメンバーのタイムライン</strong>
         </h5>
-        <% if @all_published_posts.present? %>
-          <% @all_published_posts.each do |post| %>
-            <%= render 'public/posts/mypost', post: post %>
+        
+        <div class="card-body">
+          <% if @all_published_posts.present? %>
+            <% @all_published_posts.each do |post| %>
+              <%= render 'public/posts/mypost', post: post %>
+            <% end %>
+            <!-- タイムラインのページネーション -->
+            <%= paginate @all_published_posts, param_name: 'all_published_page' %>
+          <% else %>
+            <p class="text-center">フォローメンバーの公開投稿はありません。</p>
           <% end %>
-          <%= paginate @all_published_posts %>
-        <% else %>
-          <p class="text-center">フォローメンバーの公開投稿はありません。</p>
-        <% end %>
+        </div>
+        
       </div>
     </div>
 
-    <!--やることリスト（非公開）表示列-->
-    <div class="col-md-6 d-flex justify-content-center">
-      <div class="container" style="width: 60rem;">
-        <h5 style="width: 100%; height: 50px; background-color: lightskyblue; color: midnightblue; display: flex; justify-content: center; align-items: center;">
+    <!-- ログインユーザーの公開中・非公開リスト表示列 -->
+    <div class="col-md-6">
+      <div class="card" style="width: 100%;">
+        
+        <h5 class="card-header text-center" style="background-color: lightskyblue; color: black;">
           <i class="fa-solid fa-rectangle-list"></i>
-          &#12288;<strong>やることリスト（非公開）</strong>
+          &#12288;<strong>自分のリスト</strong>
         </h5>
-        <% if @unpublished_posts.present? %>
-          <% @unpublished_posts.each do |post| %>
-            <%= render 'public/posts/mypost', post: post %>
-          <% end %>
-          <%= paginate @unpublished_posts, param_name: 'unpublished_page' %>
-        <% else %>
-          <p class="text-center">非公開の投稿はありません。</p>
-        <% end %>
+        
+        <div class="card-body">
+          <!--選択タブ-->
+          <ul class="nav nav-tabs" style="margin-bottom: 0;">
+            <li class="nav-item">
+              <a class="nav-link <%= 'active' if params[:tab] == 'published' %>" data-toggle="tab" href="#published"><strong>投稿リスト（公開中）</strong></a>
+            </li>
+            <!--選択タブがない場合は、このタブを表示（初期表示）-->
+            <li class="nav-item">
+              <a class="nav-link <%= 'active' if params[:tab] == 'unpublished' || params[:tab].blank? %>" data-toggle="tab" href="#unpublished"><strong>やることリスト(非公開)</strong></a>
+            </li>
+          </ul>
+          
+          <!--各リストの一覧を表示-->
+          <div class="tab-content mt-0">
+            <!-- 非公開リスト -->
+            <div id="unpublished" class="tab-pane fade <%= 'show active' if params[:tab] == 'unpublished' || params[:tab].blank? %>">
+              <% if @unpublished_posts.present? %>
+                <% @unpublished_posts.each do |post| %>
+                  <%= render 'public/posts/mypost', post: post %>
+                <% end %>
+                <!-- ページネーション -->
+                <%= paginate @unpublished_posts, param_name: 'unpublished_page', params: { tab: 'unpublished' } %>
+              <% else %>
+                <p class="text-center mt-2">非公開のリストはありません。</p>
+              <% end %>
+            </div>
+          
+            <!--公開中リストを表示-->
+            <div id="published" class="tab-pane fade <%= 'show active' if params[:tab] == 'published' %>">
+              <% if @published_posts.present? %>
+                <% @published_posts.each do |post| %>
+                  <%= render 'public/posts/mypost', post: post %>
+                <% end %>
+                <!-- ページネーション -->
+                <%= paginate @published_posts, param_name: 'published_page', params: { tab: 'published' } %>
+              <% else %>
+                <p class="text-center mt-2">公開中のリストはありません。</p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
-    
+
   </div>
 </div>
