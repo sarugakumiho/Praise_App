@@ -116,7 +116,7 @@ class Public::PostsController < ApplicationController
     end
   end
 
-  def search
+  def tags_search
     # タグ一覧は常に取得
     @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
   

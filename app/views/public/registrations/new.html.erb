@@ -1,5 +1,7 @@
 <div class="container mt-5">
   
+  <%= render "public/shared/error_messages", resource: resource %>
+  
   <h2 class="text-center mb-4" style="font-weight: bold; color: #343a40;">新規登録</h2>
   
   <!--新規登録入力フォーム-->
@@ -19,13 +21,13 @@
     <div class="form-group">
       <span style="color: red;">*</span>
       <strong><%= f.label :パスワード, class: "form-label" %></strong>
-      <%= f.password_field :password, required: true, autocomplete: "new-password", class: "form-control", minlength: 6, title: "パスワードは6文字以上で入力してください" %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control", minlength: 6 %>
     </div>
     
     <div class="form-group">
       <span style="color: red;">*</span>
       <strong><%= f.label :パスワード（確認用）, class: "form-label" %></strong>
-      <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", class: "form-control", minlength: 6, title: "パスワードは6文字以上で入力してください" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", minlength: 6 %>
     </div>
 
     <div class="form-group text-center">

@@ -50,7 +50,7 @@ class Admin::PostsController < ApplicationController
     redirect_to admin_posts_tags_search_path
   end
   
-  def search
+  def tags_search
     # 検索ワードが存在しているかの確認
     if params[:search].present?
       # タグを検索して該当するものがあるか確認

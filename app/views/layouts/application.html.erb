@@ -70,8 +70,8 @@
             </ul>
             <div class="d-flex justify-content-end align-items-center mt-2" style="width: 100%; padding-right: 1rem;">
               <!-- タグ検索窓 -->
-              <% if member_signed_in? || admin_signed_in? %>
-                <%= form_with url: member_signed_in? ? search_posts_path : admin_posts_tags_search_path, method: :get, local: true do |f| %>
+              <% if member_signed_in? %>
+                <%= form_with url: posts_tags_search_path, method: :get, local: true do |f| %>
                   <div class="form-group mb-5 mr-3">
                     <div class="d-flex align-items-center">
                       <%= f.text_field :search, required: true, class: "form-control", placeholder: "タグを入力", style: "width: 180px; height: 30px;" %>
@@ -81,10 +81,10 @@
                 <% end %>
               <% end %>
               <!-- ユーザー及びリスト検索窓 -->
-              <% if member_signed_in? || admin_signed_in? %>
+              <% if member_signed_in? %>
                 <div class="d-flex justify-content-end">
                   <div class="search_form">
-                    <%= form_with url: member_signed_in? ? search_path : admin_search_path, method: :get, local: true do |f| %>
+                    <%= form_with url: search_path, method: :get, local: true do |f| %>
                       <div class="form-group">
                         <div class="d-flex align-items-center">
                           <%= f.text_field :content, required: true, class: "form-control", placeholder: "検索ワードを入力", style: "width: 180px; height: 30px;" %>
@@ -137,7 +137,7 @@
             </ul>
             <div class="d-flex justify-content-end align-items-center mt-2" style="width: 100%; padding-right: 1rem;">
               <!-- タグ検索窓 -->
-              <% if member_signed_in? || admin_signed_in? %>
+              <% if admin_signed_in? %>
                 <%= form_with url: admin_posts_tags_search_path, method: :get, local: true do |f| %>
                   <div class="form-group mb-5 mr-3">
                     <div class="d-flex align-items-center">
@@ -148,7 +148,7 @@
                 <% end %>
               <% end %>
               <!-- ユーザー及びリスト検索窓 -->
-              <% if member_signed_in? || admin_signed_in? %>
+              <% if admin_signed_in? %>
                 <div class="d-flex justify-content-end">
                   <div class="search_form">
                     <%= form_with url: admin_search_path, method: :get, local: true do |f| %>
@@ -179,7 +179,7 @@
     </header>
      
     <main>
-      <!--フラッシュメッセージ-->
+      <!--フラッシュメッセージを表示-->
       <% flash.each do |message_type, message| %>
         <div class="flash-message <%= message_type %>"><%= message %></div>
       <% end %>

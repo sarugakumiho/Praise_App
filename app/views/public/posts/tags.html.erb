@@ -6,7 +6,7 @@
     </h3>
 
     <!-- タグ検索フォーム -->
-    <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
+    <%= form_with url: posts_tags_search_path, method: :get, local: true do |f| %>
       <div class="form-group">
         <%= f.label :search, "タグを検索" %>
         <div class="d-flex align-items-center">
@@ -27,7 +27,6 @@
     </div>
   </div>
 
-
   <!-- 検索結果に紐づくリスト一覧を表示 -->
   <% if @tag.present? %>
     <h3 class="mb-4" style="font-weight: bold; color: #343a40; border-bottom: 3px solid #6c757d; display: inline-block; padding-bottom: 10px;">
@@ -38,7 +37,6 @@
       <% @posts.each do |post| %>
         <%= render 'public/posts/mypost', post: post %>
       <% end %>
-
       <!-- ページネーション -->
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @posts %>

@@ -45,9 +45,8 @@ class Member < ApplicationRecord
   # バリデーション
   validates :name, length: { minimum: 1, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 150 }
-  validates :email, length: { maximum: 300 },
-                  format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: "は正しい形式で入力してください。" }
-  validates :password, length: { minimum: 6, message: "は6文字以上で入力してください" }, if: -> { password.present? }
+  validates :email, uniqueness: true
+  validates :password, length: { minimum: 6 }
   
   # 検索機能（分岐）設定
   def self.search_for(content, method)
