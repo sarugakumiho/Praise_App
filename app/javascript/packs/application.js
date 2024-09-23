@@ -15,4 +15,10 @@ ActiveStorage.start()
 import "jquery";
 import "popper.js";
 import "bootstrap";
+
 import "../stylesheets/application"; 
+import "../stylesheets/shared"
+import "../stylesheets/top"
+import "../stylesheets/about"
+import "../stylesheets/my_page"
+import "../stylesheets/check"

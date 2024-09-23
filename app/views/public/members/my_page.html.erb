@@ -1,19 +1,21 @@
 <div class="d-flex justify-content-center">
-  <div class="card" style="width: 68rem; border: 2px solid darkslategray;">
+  <div class="card" style="width: 68rem; border: 2px solid #583822;">
     
     <!-- ログインユーザーのプロフィールを表示 -->
     <div class="d-flex my-4 mx-4">
-      <div class="d-flex flex-column ml-4">
+      <div class="d-flex flex-column" style="margin-left: 40px;">
         <%= link_to member_path(@member), class: "text-decoration-none w-100" do %>
           <h3 class="card-name d-flex justify-content-center" style="color: black;"><strong><%= @member.name %></strong></h3>
           <div class="d-flex justify-content-center align-items-center">
-            <%= image_tag @member.get_profile_image(400, 600), class: "rounded-circle border border-primary shadow", style: "width: 180px; height: 180px; border: 3px solid #000; object-fit: cover;" %>
+            <%= image_tag @member.get_profile_image(400, 600), class: "rounded-circle border border-primary shadow", style: "width: 180px; height: 180px; border: 3px solid #d2b48c; object-fit: cover;" %>
           </div>
         <% end %>
       </div>
 
       <div class="d-flex flex-column justify-content-center" style="width: 450px; margin-left: auto; padding-right: 5px;">
-        <p class="card-text"><%= simple_format(@member.introduction) %></p>
+        <div class="speech-bubble">
+          <p class="card-text"><%= simple_format(@member.introduction) %></p>
+        </div>
       </div>
 
       <div class="d-flex flex-column justify-content-center" style="width: 300px; margin-left: auto; padding-right: 20px;">
