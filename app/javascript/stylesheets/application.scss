@@ -1,1 +1,211 @@
+// Bootstrapのインポート
 @use '~bootstrap/scss/bootstrap';
+// -----------------------------------------------------------------------------------------------------------------
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+// -----------------------------------------------------------------------------------------------------------------
+header {
+  background-image: url('../images/AdobeStock_501704898.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+  width: 100%;
+  min-height: 150px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+// -----------------------------------------------------------------------------------------------------------------
+// アプリロゴ
+.logo-image {
+  background-image: url('../images/logo71282.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 15px;
+  width: 90px;
+  height: 90px;
+  display: inline-block;
+}
+
+.logo-image:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.logo-text {
+  font-size: 24px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.logo-text:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------
+// リスト登録（ピンク）ボタン
+.pink_btn-image {
+  background-image: url('../images/Sticky-note-frame-2.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 160px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  text-align: center;
+  color: #2d3436;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pink_btn-image:hover {
+  color: #cc0033;
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------
+// リスト一覧（薄ピンク）ボタン・全公開リスト一覧（薄ピンク）ボタン
+.lightpink_btn-image {
+  background-image: url('../images/Sticky-note-frame-1.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 160px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  text-align: center;
+  color: #2d3436;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lightpink_btn-image:hover {
+  color: #ff33cc;
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------
+// ユーザー一覧（青）ボタン
+.blue_btn-image {
+  background-image: url('../images/Sticky-note-frame-4.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 170px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  text-align: center;
+  color: #2d3436;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blue_btn-image:hover {
+  color: #0033cc;
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------
+// いいね一覧（黄色）ボタン・全コメント一覧（黄色）ボタン
+.yellow_btn-image {
+  background-image: url('../images/Sticky-note-frame-6.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 160px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  text-align: center;
+  color: #2d3436;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.yellow_btn-image:hover {
+  color: #cc3300;
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------
+// ログアウト（グレー）ボタン
+.gray_btn-image {
+  background-image: url('../images/Sticky-note-frame-9.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 160px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  text-align: center;
+  color: #2d3436;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gray_btn-image:hover {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------
+// 全タグ一覧（緑）ボタン
+.green_btn-image {
+  background-image: url('../images/Sticky-note-frame-55585.jpg');
+  background-size: cover;
+  background-position: center;
+  width: 160px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  text-align: center;
+  color: #2d3436;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.green_btn-image:hover {
+  color: #006633;
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------
+main {
+  flex-grow: 1;
+  background-color: #fffafa;
+  padding: 20px;
+  font-family: Rubik;
+  margin-top: 150px;
+}
+// -----------------------------------------------------------------------------------------------------------------
+footer {
+  background-image: url('../images/AdobeStock_501704898.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100px;
+  width: 100%;
+  margin-top: auto;
+}
+
+footer .text-muted {
+  color: white !important; 
+}
+// -----------------------------------------------------------------------------------------------------------------

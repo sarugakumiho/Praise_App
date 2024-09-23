@@ -1,22 +1,22 @@
 class Post < ApplicationRecord
-    
+  # ------------------------------------------------------------------------------------------------------------------
   # アソシエーション
   belongs_to :member
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # バリデーション
   validates :title, presence: true, length: { maximum: 30 }
   validates :memo, length: { maximum: 100 }
   validates :situation_status, presence: true
   validates :post_status, presence: true
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # enum設定
   enum situation_status: { from_now: 0, accomplished: 1 }
   enum post_status: { unpublished: 0, published: 1 }
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # タグ設定
   def save_tag(sent_tags)
     current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?  # 現在存在するタグの取得
@@ -32,12 +32,12 @@ class Post < ApplicationRecord
       self.tags << new_post_tag
     end
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # いいねボタン設定
   def favorited_by?(member)
     favorites.exists?(member_id: member.id)
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # 検索機能（分岐）設定(公開されている投稿のみ検索対象)
   def self.search_for(content, method)
     if method == "perfect"
@@ -50,10 +50,10 @@ class Post < ApplicationRecord
       Post.where(post_status: 'published').where("title LIKE ?", "%" + content + "%")
     end
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # 1週間以内の投稿を取得するスコープ
   scope :from_last_week, -> { where("created_at >= ?", 1.week.ago) }
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # 投稿画像設定
   has_one_attached :image
   
@@ -64,5 +64,5 @@ class Post < ApplicationRecord
     end
     image
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
 end

@@ -4,19 +4,19 @@
   
   <!--ログイン入力フォーム-->
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal mx-auto", style: "max-width: 400px;" }) do |f| %>
-    <div class="form-group">
+    <div class="form-group mb-3">
       <span style="color: red;">*</span>
       <strong><%= f.label :メールアドレス, class: "form-label" %></strong>
       <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: "form-control", style: "width: 100%;" %>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
       <span style="color: red;">*</span>
       <strong><%= f.label :パスワード, class: "form-label" %></strong>
       <%= f.password_field :password, required: true, autocomplete: "current-password", class: "form-control" %>
     </div>
 
-    <div class="form-group text-center">
+    <div class="form-group text-center mb-4">
       <%= f.submit "ログイン", class: "btn btn-primary btn-block" %>
     </div>
   <% end %>

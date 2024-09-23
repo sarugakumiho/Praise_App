@@ -2,13 +2,13 @@ class Public::PostsController < ApplicationController
   before_action :authenticate_member!
   # ログインユーザーのみ操作可能
   before_action :ensure_correct_member, only: [:edit, :update, :destroy]
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def new
     @member = current_member
     @post = Post.new
     @post = @member.posts.new
   end
-
+# ------------------------------------------------------------------------------------------------------------------
   def create
     @member = current_member
     @post = @member.posts.new(post_params)
@@ -41,30 +41,33 @@ class Public::PostsController < ApplicationController
       render :new
     end
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def show
-   @post = Post.find(params[:id])
+   @post = Post.find_by(params[:id])
    @member = @post.member
    @post_tags = @post.tags
    @post_comment = PostComment.new
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def index
     # ログインユーザーの（公開中）リスト
-    @published_posts = current_member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page]).per(10)
+    @published_posts = current_member.posts.where(post_status: 'published')
+                                           .order(created_at: :desc).page(params[:published_page]).per(10)
     # ログインユーザーの(非公開)やることリスト
-    @unpublished_posts = current_member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page]).per(10)
+    @unpublished_posts = current_member.posts.where(post_status: 'unpublished')
+                                             .order(created_at: :desc).page(params[:unpublished_page]).per(10)
     # 全ユーザーの（公開中）リスト
-    @all_published_posts = Post.where(post_status: 'published').order(created_at: :desc).page(params[:all_published_page]).per(10)
+    @all_published_posts = Post.where(post_status: 'published')
+                               .order(created_at: :desc).page(params[:all_published_page]).per(10)
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def edit
     @post = Post.find(params[:id])
     @member = current_member
     # タグの編集
     @tag_list = @post.tags.pluck(:tag_name).join(' ') # .join(' ') = タグをスペースで結合して表示
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def update
     @member = current_member
     @post = Post.find(params[:id])
@@ -88,14 +91,14 @@ class Public::PostsController < ApplicationController
       render :edit
     end
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to my_page_members_path
   end
-
-# タグ機能ここから------------------
+  # ------------------------------------------------------------------------------------------------------------------
+  # タグ機能ここから↓
   def tags
     # タグの一覧を取得
     @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
@@ -115,7 +118,7 @@ class Public::PostsController < ApplicationController
       @posts = Post.none
     end
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def tags_search
     # タグ一覧は常に取得
     @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
@@ -136,9 +139,8 @@ class Public::PostsController < ApplicationController
       @posts = Post.none
     end
   end
-
-# ここまで-------------------------
-
+  # ここまで↑
+  # ------------------------------------------------------------------------------------------------------------------
   private
   
   def post_params
@@ -155,5 +157,5 @@ class Public::PostsController < ApplicationController
       redirect_to posts_path
     end
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
 end

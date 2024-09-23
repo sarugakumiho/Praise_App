@@ -1,21 +1,21 @@
 Rails.application.routes.draw do
-
+  # ------------------------------------------------------------------------------------------------------------------
   # 会員新規登録・ログイン設定
   devise_for :members,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # 管理者ログイン設定
   devise_for :admin, skip: [:registrations, :passwords] , controllers: {
     sessions: "admin/sessions"
   }
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # ゲストログイン設定
   devise_scope :member do
     post 'members/guest_sign_in', to: 'public/sessions#guest_sign_in', as: 'guest_sign_in_member'
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # [Public側]
   # homesルーティング
   root 'public/homes#top'
@@ -57,7 +57,7 @@ Rails.application.routes.draw do
     # searchesルーティング
     get 'search', to: 'searches#search'
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # [Admin側]
   # homesルーティング
   get 'admin', to: 'admin/homes#top'
@@ -82,5 +82,5 @@ Rails.application.routes.draw do
     # searchesルーティング
     get 'search', to: 'searches#search'
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
 end

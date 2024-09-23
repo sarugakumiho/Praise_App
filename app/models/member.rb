@@ -3,7 +3,7 @@ class Member < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # ゲストログイン（アカウント自動生成）
   GUEST_MEMBER_EMAIL = "guest@example.com"
   
@@ -17,7 +17,7 @@ class Member < ApplicationRecord
   def guest_member?
     email == GUEST_MEMBER_EMAIL
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # アソシエーション
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
@@ -26,7 +26,7 @@ class Member < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followings, through: :active_relationships, source: :followed
-
+  # ------------------------------------------------------------------------------------------------------------------
   # フォローする
   def follow(member)
     active_relationships.create(followed_id: member.id)
@@ -41,13 +41,11 @@ class Member < ApplicationRecord
   def following?(member)
     followings.include?(member)
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # バリデーション
   validates :name, length: { minimum: 1, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 150 }
-  validates :email, uniqueness: true
-  validates :password, length: { minimum: 6 }
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # 検索機能（分岐）設定
   def self.search_for(content, method)
     if method == "perfect"
@@ -60,7 +58,7 @@ class Member < ApplicationRecord
       Member.where("name LIKE ?", "%" + content + "%")
     end
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # アイコン画像設定
   has_one_attached :profile_image
   
@@ -71,5 +69,5 @@ class Member < ApplicationRecord
     end
     profile_image.variant(resize_to_fit: [width, height]).processed
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
 end

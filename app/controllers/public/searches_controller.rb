@@ -1,6 +1,6 @@
 class Public::SearchesController < ApplicationController
   before_action :authenticate_member!
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def search
     @model = params[:model]
     @content = params[:content]
@@ -16,5 +16,5 @@ class Public::SearchesController < ApplicationController
     # @recordsがnilの場合、空の配列として扱う
     @records ||= []
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
 end
