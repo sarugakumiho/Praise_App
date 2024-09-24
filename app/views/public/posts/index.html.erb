@@ -1,22 +1,25 @@
-<div class="container">
+<div class="d-flex justify-content-center container mt-3">
   <div class="row">
-    <div class="col-md-6 offset-md-3">
+    <div>
+      
+      <div class="d-flex justify-content-end mb-3">
+        <a href="<%= new_post_path %>" class="pink_form_btn">新規投稿</a>
+      </div>
       
       <!--選択タブ-->
       <div class="tabs d-flex justify-content-between align-items-center">
         <ul class="nav nav-tabs" style="width: 100%; display: flex; justify-content: space-between;">
           <li class="nav-item" style="flex: 1; text-align: center;">
-            <a class="nav-link <%= 'active' if params[:tab] == 'all_published' %>" data-toggle="tab" href="#all_published"><strong>みんなのリスト（公開中）</strong></a>
+            <a class="nav-link <%= 'active' if params[:tab] == 'all_published' %>" data-toggle="tab" href="#all_published" ><strong>みんなのリスト<br>【公開中】</strong></a>
           </li>
           <li class="nav-item" style="flex: 1; text-align: center;">
-            <a class="nav-link <%= 'active' if params[:tab] == 'published' %>" data-toggle="tab" href="#published"><strong>自分のリスト（公開中）</strong></a>
+            <a class="nav-link <%= 'active' if params[:tab] == 'published' %>" data-toggle="tab" href="#published"><strong>自分のリスト<br>【公開中】</strong></a>
           </li>
           <!--選択タブがない場合は、このタブを表示（初期表示）-->
           <li class="nav-item" style="flex: 1; text-align: center;">
-            <a class="nav-link <%= 'active' if params[:tab] == 'unpublished' || params[:tab].blank? %>" data-toggle="tab" href="#unpublished"><strong>やることリスト(非公開)</strong></a>
+            <a class="nav-link <%= 'active' if params[:tab] == 'unpublished' || params[:tab].blank? %>" data-toggle="tab" href="#unpublished"><strong>やることリスト<br>【非公開】</strong></a>
           </li>
         </ul>
-        <a href="<%= new_post_path %>" class="new-post-btn btn btn-success ml-3" style="width: 90px; height: 35px; font-weight: bold; font-size: 13px;">新規投稿</a>
       </div>
     
       <!--各リストの一覧を表示-->

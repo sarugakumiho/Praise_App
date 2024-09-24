@@ -1,6 +1,23 @@
-<div class="container d-flex flex-column align-items-center mb-5">
+<div class="container d-flex flex-column align-items-center">
 
-  <h3 class="d-flex justify-content-center mb-4">
+  <!--エラーメッセージ-->
+  <% if @post.errors.any? %>
+    <div class="d-flex flex-column justify-content-center align-items-center text-center">
+      <div>
+        <i class="fa-solid fa-triangle-exclamation" style="color: #ff0000; font-size: 2rem;"></i>
+      </div>
+      <div  class="mb-3", style="margin-top: 10px;">
+        <strong>以下のエラーにより保存できませんでした。<br>内容を確認し、再度入力して下さい。&nbsp;<i class="fa-solid fa-person-praying"></i></strong>
+      </div>
+      <ul class="mb-4" style="color: #ff0000; list-style: none; padding: 0;">
+        <% @post.errors.full_messages.each do |message| %>
+          <li><strong><%= message %>。</strong></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <h3 class="d-flex justify-content-center mb-3">
     <i class="fa-solid fa-user-pen"></i>&nbsp;<strong>リスト編集</strong>
   </h3>
   
@@ -25,6 +42,7 @@
         </div>
       </div>
       <div class="form-group" style="margin-bottom: 30px;">
+        &nbsp;<i class="fa-regular fa-image"></i>
         <strong><%= f.label :関連写真 %></strong>
         <%= f.file_field :image, accept: "image/*", class: "w-100" %>
       </div>
@@ -75,12 +93,12 @@
     </div>
   
     <div class="row justify-content-center">
-      <div class="d-flex align-items-center mt-4">
+      <div class="d-flex align-items-center mt-2">
         <div class="form-group my-3 mr-5">
-          <%= link_to "戻る", posts_path, class: "btn btn-outline-secondary", style: "width: 200px; height: 40px; line-height: 30px;" %>
+          <%= link_to "戻る", posts_path, class: "green_form_btn" %>
         </div>
         <div class="form-group mt-3">
-          <%= f.submit "編集完了", class: "btn btn-outline-primary", style: "width: 200px; height: 40px;" %>
+          <%= f.submit "編集完了", class: "yellow_form_btn" %>
         </div>
       </div>
     </div>

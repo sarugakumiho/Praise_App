@@ -1,5 +1,23 @@
 <div class="container d-flex justify-content-center my-5">
   <div class="row d-flex flex-column align-items-center" style="width: 50%;">
+      
+    <!--エラーメッセージ-->
+    <% if @member.errors.any? %>
+      <div class="d-flex flex-column justify-content-center align-items-center text-center">
+        <div>
+          <i class="fa-solid fa-triangle-exclamation" style="color: #ff0000; font-size: 2rem;"></i>
+        </div>
+        <div  class="mb-3", style="margin-top: 10px;">
+          <strong>以下のエラーにより保存できませんでした。<br>内容を確認し、再度入力して下さい。&nbsp;<i class="fa-solid fa-person-praying"></i></strong>
+        </div>
+        <ul class="mb-4" style="color: #ff0000; list-style: none; padding: 0;">
+          <% @member.errors.full_messages.each do |message| %>
+            <li><strong><%= message %>。</strong></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     
     <h3><i class="fa-solid fa-user-pen"></i>&nbsp;<strong>プロフィール編集</strong></h3>
     
@@ -11,16 +29,18 @@
         <%= f.text_field :name, required: true, class: "form-control name" %>
       </div>
       <div class="form-group mb-4">
-        <strong><%= f.label :プロフィール写真 %>&nbsp;<i class="fa-regular fa-image"></i></strong><br>
+        <strong>
+          <%= f.label :profile_image, "プロフィール写真" %>
+          &nbsp;<i class="fa-regular fa-image"></i>
+        </strong><br>
         <%= f.file_field :profile_image, class: "form-control-file member_image", accept: 'image/*' %>
       </div>
       <div class="form-group">
         <strong><%= f.label :自己紹介 %></strong>
-        <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 210px;"  %>
+        <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 210px;" %>
       </div>
-      
       <div class="d-flex flex-column align-items-center">
-        <div class="d-flex justify-content-center mt-4 mb-4">
+        <div class="d-flex justify-content-center mt-2 mb-3">
           <div class="form-group" style="margin-right: 40px;">
             <%= link_to "戻る", my_page_members_path, class: "green_form_btn" %>
           </div>
@@ -28,7 +48,7 @@
             <%= f.submit "編集完了", class: "yellow_form_btn" %>
           </div>
         </div>
-        <div class="form-group mt-3">
+        <div class="form-group mt-1">
           <%= link_to "退会", check_member_path(@member), class: "red_form_btn" %>
         </div>
       </div>

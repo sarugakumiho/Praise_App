@@ -1,4 +1,4 @@
-<div class="container mt-3">
+<div class="container mt-5">
   <div class="row">
     <div class="col-md-8 offset-md-2">
       
@@ -15,17 +15,19 @@
             <% end %>
           </div>
           
-          <h2 class="card-title text-center mb-3" style="font-weight: bold; color: #343a40;"><%= @post.title %></h2>
+          <h2 class="card-title text-center mb-1" style="font-weight: bold; color: #343a40;"><%= @post.title %></h2>
           
-          <% if @post.memo.present? %>
-            <div class="d-flex justify-content-center">
+        <% if @post.memo.present? %>
+          <div class="d-flex justify-content-center">
+            <div style="width: 600px; text-align: center;">
               <p class="card-text" style="font-size: 1.1rem; line-height: 1.6; text-align: left;">
                 <%= simple_format(@post.memo) %>
               </p>
             </div>
-          <% else %>
-            <div class="mb-2"></div>
-          <% end %>
+          </div>
+        <% else %>
+          <div class="mb-2"></div>
+        <% end %>
           
           <% if @post.image.attached? %>
             <div class="text-center mb-4">
@@ -71,10 +73,10 @@
 
           <div class="text-center my-5">
             <% if @post.member == current_member %>
-              <%= link_to '編集する', edit_post_path(@post), class: "btn btn-outline-primary mx-2", style: "font-weight: bold;" %>
-              <%= link_to '削除する', post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-outline-danger mx-2", style: "font-weight: bold;" %>
+              <%= link_to '削除する', post_path(@post), method: :delete, class: "red_white_form_btn", data: { confirm: '本当に削除しますか？' } %>
+              <%= link_to '編集する', edit_post_path(@post), class: "yellow_form_btn" %>
             <% end %>
-            <%= link_to '戻る', posts_path(tab: params[:tab]), class: "btn btn-outline-secondary mx-2" %>
+            <%= link_to '戻る', posts_path(tab: params[:tab]), class: "green_form_btn" %>
           </div>
           
         </div>
@@ -98,7 +100,7 @@
         <div class="mt-4">
           <%= form_with model: [@post, PostComment.new], url: post_comments_path(@post), remote: true do |f| %>
             <%= f.text_area :comment, required: true, rows: '5', placeholder: "コメントをここに", style: "width: 500px;" %>
-            <%= f.submit "送信する", class: "btn btn-primary ml-2" %>
+            <%= f.submit "送信", class: "small_btn ml-2" %>
           <% end %>
         </div>
       <% end %>

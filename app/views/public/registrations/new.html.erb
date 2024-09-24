@@ -1,6 +1,21 @@
 <div class="container mt-5">
   
-  <%= render "public/shared/error_messages", resource: resource %>
+  <!--エラーメッセージ-->
+  <% if @member.errors.any? %>
+    <div class="d-flex flex-column justify-content-center align-items-center text-center">
+      <div>
+        <i class="fa-solid fa-triangle-exclamation" style="color: #ff0000; font-size: 2rem;"></i>
+      </div>
+      <div  class="mb-3", style="margin-top: 10px;">
+        <strong>以下のエラーにより保存できませんでした。<br>内容を確認し、再度入力して下さい。&nbsp;<i class="fa-solid fa-person-praying"></i></strong>
+      </div>
+      <ul class="mb-4" style="color: #ff0000; list-style: none; padding: 0;">
+        <% @member.errors.full_messages.each do |message| %>
+          <li><strong><%= message %>。</strong></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   
   <h2 class="text-center mb-4" style="font-weight: bold; color: #343a40;">新規登録</h2>
   

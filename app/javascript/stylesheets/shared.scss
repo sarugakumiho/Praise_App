@@ -2,20 +2,41 @@
   margin-top: 30px;
 }
 // -----------------------------------------------------------------------------------------------------------------
-.search_btn {
-  background-color: #b0c4de;
+// 登録ボタン
+.pink_form_btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #ffb6c1;
+  color: #2d3436;
+  font-weight: bold;
+  height: 40px;
+  width: 150px;
+  line-height: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+}
+
+.pink_form_btn:hover {
+  background-color: #ff99a8;
+  color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 // -----------------------------------------------------------------------------------------------------------------
-// 登録・編集ボタン
+// 編集ボタン
 .yellow_form_btn {
   padding: 10px 20px;
-  border-radius: 25px;
+  border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #ffff99;
   color: #2d3436;
   font-weight: bold;
   height: 40px;
-  width: 100px;
+  width: 150px;
   line-height: 20px;
   text-decoration: none;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -34,20 +55,19 @@
 // 戻る・画面遷移ボタン
 .green_form_btn {
   padding: 10px 20px;
-  border-radius: 25px;
+  border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #ccff99;
   color: #2d3436;
   font-weight: bold;
   height: 40px;
-  width: 100px;
+  width: 150px;
   line-height: 20px;
   text-decoration: none;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
-  border: none;
 }
 
 .green_form_btn:hover {
@@ -56,16 +76,40 @@
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 // -----------------------------------------------------------------------------------------------------------------
+// 削除ボタン
+.red_white_form_btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  color: #ff0000;
+  font-weight: bold;
+  height: 40px;
+  width: 150px;
+  line-height: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.red_white_form_btn:hover {
+  background-color: #ff0000;
+  color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------
 // 退会ボタン
 .red_form_btn {
   padding: 10px 20px;
-  border-radius: 25px;
+  border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #ff1745;
   color: #2d3436;
   font-weight: bold;
   height: 40px;
-  width: 230px !important;
+  width: 300px !important;
   line-height: 20px;
   text-decoration: none;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -79,3 +123,49 @@
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 // -----------------------------------------------------------------------------------------------------------------
+// スタンダードなボタン
+.standard_btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #b2d8ff;
+  color: #2d3436;
+  font-weight: bold;
+  height: 40px;
+  width: 100px;
+  line-height: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.standard_btn:hover {
+  background-color: #80bfff;
+  color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------
+// 小さめなボタン
+.small_btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fa8072;
+  color: #2d3436;
+  font-weight: bold;
+  line-height: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+}
+
+.small_btn:hover {
+  background-color: #fa5c4b;
+  color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
