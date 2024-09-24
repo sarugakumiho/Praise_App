@@ -95,6 +95,7 @@ class Public::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
+    flash[:notice] = "リストを削除しました。"
     redirect_to my_page_members_path
   end
   # ------------------------------------------------------------------------------------------------------------------
@@ -105,13 +106,14 @@ class Public::PostsController < ApplicationController
 
     if params[:tag_id].present?
       # 指定されたタグを取得
-      @tag = Tag.find_by(id: params[:tag_id])
+      @tag_list = @tag_list.where('tag_name LIKE ?', "%#{params[:search]}%")
+      @tag = @tag_list.first
 
       if @tag.present?
         # 該当するタグに紐づく公開中の投稿を取得
         @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
       else
-        @posts = Post.none
+
         flash.now[:alert] = "該当するタグが見つかりません。"
       end
     else
@@ -132,7 +134,7 @@ class Public::PostsController < ApplicationController
         # 該当するタグの投稿を取得
         @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc)
       else
-        @posts = Post.none
+   
         flash.now[:alert] = "該当するタグが見つかりません。"
       end
     else

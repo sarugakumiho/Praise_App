@@ -36,12 +36,14 @@
     <% if @posts.any? %>
       <% @posts.each do |post| %>
         <%= render 'public/posts/mypost', post: post %>
+      <% else %>
+        <p>該当する投稿がありません。</p>
       <% end %>
+
       <!-- ページネーション -->
       <div class="d-flex justify-content-center mt-4">
         <%= paginate @posts %>
       </div>
     <% end %>
   <% end %>
-  
 </div>
