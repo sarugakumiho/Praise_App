@@ -9,7 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
 Rails.start()
-Turbolinks.start()
+// Turbolinks.start()
 ActiveStorage.start()
 
 import "jquery";
@@ -22,3 +22,7 @@ import "../stylesheets/top"
 import "../stylesheets/about"
 import "../stylesheets/my_page"
 import "../stylesheets/check"
+
+// おしゃれなフラッシュメッセージ表示
+//= stub flash_window
+//= require_tree .

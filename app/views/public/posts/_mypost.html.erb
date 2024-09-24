@@ -1,5 +1,5 @@
-<div class="card mb-2 shadow-sm border-2" style="border-radius: 12px; overflow: hidden; max-width: 700px; margin: auto;">
-  <div class="col-md-12 py-4" style="padding-left: 20px; padding-right: 20px;">
+<div class="card mb-2 shadow-sm border-2" style="border-radius: 12px; max-width: 700px;">
+  <div class="col-md-12 py-4">
     
     <!--リスト一覧を表示-->
     <div class="d-flex align-items-center mb-3">
@@ -37,9 +37,9 @@
       <small class="text-muted">
         状況: 
         <% if post.situation_status == "from_now" %>
-          <span style="color: #1e90ff">これから！</span>
+          <span style="color: 7fbfff">これから！</span>
         <% else %>
-          <span style="color: #dc143c">達成済み！</span>
+          <span style="color: #ff7f7f">達成済み！</span>
         <% end %>
       </small>
     </p>
@@ -56,7 +56,7 @@
     </div>
     
     <div class="d-flex justify-content-between align-items-center">
-      <%= link_to '詳細を見る', post_path(post), class: "btn btn-primary" %>
+      <%= link_to '詳細', post_path(post), class: "standard_btn" %>
       <div class="text-muted">
         <%= post.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
       </div>

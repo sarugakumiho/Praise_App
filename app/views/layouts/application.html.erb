@@ -9,13 +9,18 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/8644edc9d3.js" crossorigin="anonymous"></script>
+    
+    <!--おしゃれなフラッシュメッセージ表示-->
+    <% if flash[:notice] %>
+      <%= javascript_pack_tag 'flash_window' %>
+    <% end %>
   </head>
 
   <body>
     <header class="mx-auto text-center text-white d-flex align-items-center">
       <!--ユーザーログイン後-->
       <% if member_signed_in? %>
-        <div class="d-flex justify-content-between align-items-center w-100 px-5 mt-4">
+        <div class="d-flex justify-content-between align-items-center w-100 px-5">
           <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
               <%= link_to my_page_members_path, class: "logo-image" do %>
@@ -28,7 +33,7 @@
             </h1>
           </div>
           <div>
-            <ul class="nav nav-pills justify-content-end mb-4">
+            <ul class="nav justify-content-end mb-4">
               <li>
                 <%= link_to new_post_path, class: "pink_btn-image" do %>
                   <i class="fa-solid fa-pen-to-square"></i> リスト登録
@@ -62,7 +67,7 @@
                   <div class="form-group mb-5" style="margin-right: 20px;">
                     <div class="d-flex align-items-center">
                       <%= f.text_field :search, required: true, class: "form-control", placeholder: "タグを入力", style: "width: 180px; height: 30px;" %>
-                      <%= f.submit "検索", class: "btn-sm btn-primary search_btn" %>
+                      <%= f.submit "検索" %>
                     </div>
                   </div>
                 <% end %>
@@ -75,7 +80,7 @@
                       <div class="form-group mb-3">
                         <div class="d-flex align-items-center">
                           <%= f.text_field :content, required: true, class: "form-control", placeholder: "検索ワードを入力", style: "width: 180px; height: 30px;" %>
-                          <%= f.submit "検索", class: "btn-sm btn-primary search_btn" %>
+                          <%= f.submit "検索" %>
                         </div>
                         <!--セレクトボタン-->
                         <div class="d-flex justify-content-start mt-1" style="gap: 5px;">
@@ -105,7 +110,7 @@
             </h1>
           </div>
           <div>
-            <ul class="nav nav-pills justify-content-end mb-4">
+            <ul class="nav justify-content-end mb-4">
               <li>
                 <%= link_to admin_members_path, class: "blue_btn-image", style: "width: 200px;" do %>
                   <i class="fa-solid fa-users"></i> 全ユーザー一覧
@@ -139,7 +144,7 @@
                   <div class="form-group mb-5" style="margin-right: 20px;">
                     <div class="d-flex align-items-center">
                       <%= f.text_field :search, required: true, class: "form-control", placeholder: "タグを入力", style: "width: 180px; height: 30px;" %>
-                      <%= f.submit "検索", class: "btn-sm btn-primary search_btn" %>
+                      <%= f.submit "検索" %>
                     </div>
                   </div>
                 <% end %>
@@ -152,7 +157,7 @@
                       <div class="form-group mb-3">
                         <div class="d-flex align-items-center">
                           <%= f.text_field :content, required: true, class: "form-control", placeholder: "検索ワードを入力", style: "width: 180px; height: 30px;" %>
-                          <%= f.submit "検索", class: "btn-sm btn-primary search_btn" %>
+                          <%= f.submit "検索" %>
                         </div>
                         <!--セレクトボタン-->
                         <div class="d-flex justify-content-start mt-1" style="gap: 5px;">
@@ -186,12 +191,12 @@
     </header>
     
     <main>
-      <!-- フラッシュメッセージを表示 -->
-      <% flash.each do |message_type, message| %>
-        <div class="flash-message <%= message_type %>"><%= message %></div>
-      <% end %>
-      <!-- ページのコンテンツを表示 -->
-      <%= yield %>
+      <div class="main">
+        <!-- おしゃれなフラッシュメッセージ表示 -->
+        <%= render partial: 'layouts/flash_window' %>
+        <!-- ページのコンテンツを表示 -->
+        <%= yield %>
+      </div>
     </main>
     
     <footer>

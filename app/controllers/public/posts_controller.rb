@@ -18,7 +18,7 @@ class Public::PostsController < ApplicationController
     if @post.start_on.present?
       sabun = (@post.start_on - Date.today).to_i
       unless sabun >= 0
-        flash[:error] = "開始日は本日以降で入力してください！"
+        flash[:error] = "開始日は本日以降で入力してください。"
         render :new and return
       end
     end
@@ -26,7 +26,7 @@ class Public::PostsController < ApplicationController
     if @post.start_on.present? && @post.end_on.present?
       sabun = (@post.end_on - @post.start_on).to_i
       unless sabun >= 0
-        flash[:error] = "終了日は開始日以降で設定してください！"
+        flash[:error] = "終了日は開始日以降で設定してください。"
         render :new and return
       end
     end
@@ -35,7 +35,7 @@ class Public::PostsController < ApplicationController
     if @post.save
       #タグも保存
       @post.save_tag(tag_list) 
-      flash[:notice] = "投稿が保存されました！"
+      flash[:notice] = "リストが保存されました！"
       redirect_to post_path(@post) and return
     else
       render :new
@@ -43,7 +43,7 @@ class Public::PostsController < ApplicationController
   end
   # ------------------------------------------------------------------------------------------------------------------
   def show
-   @post = Post.find_by(params[:id])
+   @post = Post.find(params[:id])
    @member = @post.member
    @post_tags = @post.tags
    @post_comment = PostComment.new

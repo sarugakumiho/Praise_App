@@ -1,23 +1,50 @@
+// 吹き出し
 .speech-bubble {
   position: relative;
   background-color: #f0f8ff;
   border-radius: 0.4em;
   padding: 1rem;
-  max-width: 400px;
-  margin-top: 10px;
+  max-width: 600px;
+  margin-left: 30px;
 }
-// -----------------------------------------------------------------------------------------------------------------
-.speech-bubble::after {
+
+.speech-bubble::before {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 20%;
+  top: 50%;
+  left: -20px;
+  transform: translateY(-50%);
   width: 0;
   height: 0;
   border: 20px solid transparent;
-  border-top-color: #f0f8ff;
-  border-bottom: 0;
-  margin-left: -20px;
-  margin-bottom: -20px;
+  border-right-color: #f0f8ff;
+  border-left: 0;
+  margin-right: -10px;
+}
+// -----------------------------------------------------------------------------------------------------------------
+// フォローボタン・プロフィール編集ボタン
+.my_page_btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #e8e8e8;
+  color: #2d3436;
+  font-weight: bold;
+  height: 40px;
+  width: 250px;
+  font-weight: bold;
+  line-height: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+}
+
+.my_page_btn:hover {
+  background-color: #b3b3b3;
+  color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 // -----------------------------------------------------------------------------------------------------------------
