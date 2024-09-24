@@ -8,7 +8,7 @@ class Public::PostCommentsController < ApplicationController
     if @post_comment.save
       respond_to do |format|
         # 通常のHTMLリクエストの場合
-        format.html { redirect_to post_path(@post) }
+        format.html { redirect_to post_path(@post), notice: 'コメントしました。' }
         # JavaScriptリクエスト（非同期処理/Ajax）の場合
         format.js
       end

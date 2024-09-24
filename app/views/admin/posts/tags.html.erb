@@ -1,7 +1,7 @@
 <div class="container my-4">
   
   <div class="tags-section mb-5">
-    <h4 class="text-center py-2 mb-4" style="font-weight: 600; background-color: #c6e2ff; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
+    <h4 class="text-center py-2 mb-4" style="font-weight: 600; background-color: #a6eda6; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
       全タグ一覧
     </h4>
     
@@ -22,7 +22,7 @@
         <div class="d-flex align-items-center my-1">
           <%= link_to "##{list.tag_name}", tags_admin_posts_path(tag_id: list.id), class: "badge badge-secondary mx-3", style: "font-size: 1.1rem;" %>
           <span style="font-size: 1.4rem; margin-left: -1rem;"><%= "(#{list.posts.count})" %></span>
-          <%= link_to '削除', destroy_tag_admin_posts_path(list), method: :delete, data: { confirm: 'このタグを削除してもよろしいですか？' }, class: 'btn btn-danger btn-sm mr-2', style: 'height: 25px; padding: 0 8px; line-height: 1.6;' %>
+          <%= link_to '削除', destroy_tag_admin_posts_path(list), method: :delete, class: 'mini_btn mr-2', style: "font-size: 15px;", data: { confirm: 'このタグを削除してもよろしいですか？' } %>
         </div>
       <% end %>
     </div>
@@ -43,10 +43,14 @@
         <%= paginate @posts %>
       </div>
     <% else %>
-      <p class="text-center text-muted">該当するリストがありません。</p>
+      <div class="d-flex justify-content-center">
+        <p class="text-center">該当するリストがありません。</p>
+      </div>
     <% end %>
   <% else %>
-    <p class="text-center text-danger">指定されたタグが見つかりません。</p>
+    <div class="d-flex justify-content-center">
+      <p class="text-center">指定されたタグが見つかりません。</p>
+    </div>
   <% end %>
   
 </div>

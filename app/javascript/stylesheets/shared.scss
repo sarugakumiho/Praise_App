@@ -5,7 +5,7 @@
 // 登録ボタン
 .pink_form_btn {
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #ffb6c1;
   color: #2d3436;
@@ -30,7 +30,7 @@
 // 編集ボタン
 .yellow_form_btn {
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #ffff99;
   color: #2d3436;
@@ -55,7 +55,7 @@
 // 戻る・画面遷移ボタン
 .green_form_btn {
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #ccff99;
   color: #2d3436;
@@ -79,7 +79,7 @@
 // 削除ボタン
 .red_white_form_btn {
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
   color: #ff0000;
@@ -103,7 +103,7 @@
 // 退会ボタン
 .red_form_btn {
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #ff1745;
   color: #2d3436;
@@ -126,7 +126,7 @@
 // スタンダードなボタン
 .standard_btn {
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #b2d8ff;
   color: #2d3436;
@@ -150,7 +150,7 @@
 // 小さめなボタン
 .small_btn {
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #fa8072;
   color: #2d3436;
@@ -169,3 +169,28 @@
   color: #ffffff;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
+// -----------------------------------------------------------------------------------------------------------------
+// さらに小さめな削除ボタン
+.mini_btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  color: #ff0000;
+  font-weight: bold;
+  line-height: normal;
+  text-decoration: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  width: 50px;
+}
+
+.mini_btn:hover {
+  background-color: #ff0000;
+  color: #ffffff;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+// -----------------------------------------------------------------------------------------------------------------

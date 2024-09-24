@@ -18,7 +18,7 @@ class Admin::MembersController < ApplicationController
   def update
     @member = Member.find(params[:id])
     if @member.update(member_params)
-      puts @member.errors.full_messages
+      flash[:notice] = "ユーザーのプロフィールを修正しました。"
       redirect_to admin_member_path(@member.id)
     else
       render :edit
