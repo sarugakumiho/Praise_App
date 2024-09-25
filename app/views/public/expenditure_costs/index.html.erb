@@ -1,0 +1,54 @@
+<div class="container mt-4 mb-5" style="box-sizing: border-box;">
+  
+  <h4 class="text-center py-2 mb-3" style="font-weight: 600; background-color: #f6ad49; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
+    家計簿（支出）一覧
+  </h4>
+  
+  <div class="mb-2">
+    <a href="<%= new_expenditure_cost_path %>" class="pink_form_btn", style="width: 400px;">支出登録</a>
+  </div>
+  
+  <!--支出一覧を表示-->
+  <div class="row mt-3">
+    <table class="table table-bordered text-center" style="border-color: black; border: 1px solid black; width: 100%; table-layout: fixed;">
+      <% if @expenditure_costs.present? %>
+        <thead>
+          <tr style="background-color: #f6ad49;">
+            <th class="col-1" style="border: 1px solid black;">支出日</th>
+            <th class="col-1" style="border: 1px solid black;">カテゴリ</th>
+            <th class="col-3" style="border: 1px solid black;">支出項目</th>
+            <th class="col-2" style="border: 1px solid black;">金額</th>
+            <th class="col-1" style="border: 1px solid black;"></th>
+            <th class="col-1" style="border: 1px solid black;"></th>
+          </tr>
+        </thead>
+        <% @expenditure_costs.each do |expenditure_cost| %>
+          <tbody>
+            <tr style="border: 1px solid black;">
+              <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle; word-wrap: break-word;"><%= expenditure_cost.date %></td>
+              <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle; word-wrap: break-word;"><%= expenditure_cost.category %></td>
+              <td class="col-3" style="border: 1px solid black; text-align: center; vertical-align: middle; word-wrap: break-word; white-space: normal;"><%= expenditure_cost.expenses_name %></td>
+              <td class="col-2" style="border: 1px solid black; text-align: center; vertical-align: middle; white-space: normal;"><%= number_with_delimiter(expenditure_cost.price) %><span>円</span></td>
+              <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;">
+                <%= link_to '編集', edit_expenditure_cost_path(expenditure_cost), class: "yellow_form_btn", style: "width: 65px; font-size: 12px;" %>
+              </td>
+              <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;">
+                <%= link_to '削除', expenditure_cost_path(expenditure_cost), method: :delete, class: "red_white_form_btn", style: "width: 65px; font-size: 12px;", data: { confirm: '本当に削除しますか？' } %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+      <% else %>
+        <div style="width: 100%;">
+          <p class="d-flex justify-content-center">支出の登録がありません。</p>
+        </div>
+      <% end %>
+    </table>
+  </div>
+  
+  <!--ページネーション-->
+  <div class="d-flex justify-content-center">
+    <%= paginate @expenditure_costs %>
+  </div>
+  
+</div>

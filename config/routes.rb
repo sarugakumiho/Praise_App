@@ -56,6 +56,8 @@ Rails.application.routes.draw do
     delete '/posts/:post_id/favorites/:id', to: 'favorites#destroy', as: 'favorites_destroy'
     # searchesルーティング
     get 'search', to: 'searches#search'
+    # expenditure_costsルーティング
+    resources :expenditure_costs, only: [:create, :new, :index, :edit, :update, :destroy] 
   end
   # ------------------------------------------------------------------------------------------------------------------
   # [Admin側]

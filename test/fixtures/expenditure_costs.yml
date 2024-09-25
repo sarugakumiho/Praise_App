@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: 1
+  expenses_name: MyString
+  price: 1
+  date: 2024-09-25
+
+two:
+  category: 1
+  expenses_name: MyString
+  price: 1
+  date: 2024-09-25

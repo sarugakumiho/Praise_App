@@ -8,13 +8,13 @@ class Public::PostsController < ApplicationController
     @post = Post.new
     @post = @member.posts.new
   end
-# ------------------------------------------------------------------------------------------------------------------
+  # ------------------------------------------------------------------------------------------------------------------
   def create
     @member = current_member
     @post = @member.posts.new(post_params)
     tag_list = params[:post][:tag_name].split(nil)
     
-    # 投稿フォーム（日付・期間）の設定処理
+    # （日付・期間）の設定処理
     if @post.start_on.present?
       sabun = (@post.start_on - Date.today).to_i
       unless sabun >= 0
@@ -31,7 +31,7 @@ class Public::PostsController < ApplicationController
       end
     end
   
-    # 投稿保存処理
+    # 保存処理
     if @post.save
       #タグも保存
       @post.save_tag(tag_list) 
@@ -84,7 +84,6 @@ class Public::PostsController < ApplicationController
       
       # 新しいタグを保存
       @post.save_tag(tag_list)
-      
       flash[:notice] = "編集しました！"
       redirect_to post_path(@post.id) and return
     else

@@ -1,0 +1,65 @@
+<div class="container d-flex flex-column align-items-center mt-3">
+
+  <!--エラーメッセージ-->
+  <% if @expenditure_cost.errors.any? %>
+    <div class="d-flex flex-column justify-content-center align-items-center text-center">
+      <div>
+        <i class="fa-solid fa-triangle-exclamation" style="color: #ff0000; font-size: 2rem;"></i>
+      </div>
+      <div  class="mb-3", style="margin-top: 10px;">
+        <strong>以下のエラーにより保存できませんでした。<br>内容を確認し、再度入力して下さい。&nbsp;<i class="fa-solid fa-person-praying"></i></strong>
+      </div>
+      <ul class="mb-4" style="color: #ff0000; list-style: none; padding: 0;">
+        <% @expenditure_cost.errors.full_messages.each do |message| %>
+          <li><strong><%= message %>。</strong></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h3 class="d-flex justify-content-center mb-2">
+    <i class="fa-solid fa-user-pen"></i>&nbsp;<strong>支出の登録</strong>
+  </h3>
+  
+  <!--支出の登録フォーム-->
+  <%= form_with model: @expenditure_cost, method: :post do |f| %>
+    <div class="card" style="width: 40rem; height: 22rem; padding: 20px;">
+      <div class="form-group">
+        <span style="color: red;">*</span>
+        <strong><%= f.label :支出日 %></strong><br>
+        <%= f.date_field :date, required: true %>
+      </div>
+      <div class="form-group">
+        <span style="color: red;">*</span>
+        <strong><%= f.label :カテゴリ %></strong><br>
+          <%= f.select :category, ExpenditureCost.categories.keys.map { |category| [category, category] } %>
+      </div>
+      <div class="form-group">
+        <span style="color: red;">*</span>
+        <strong><%= f.label :支出項目 %></strong>
+        <%= f.text_field :expenses_name, required: true, class: "form-control", placeholder: "例）きゅうり" %>
+      </div>
+      <div class="form-group">
+        <span style="color: red;">*</span>
+        <strong><%= f.label :金額 %></strong>
+        <span style="font-size: 12px;">※半角数字で入力してください。</span>
+        <div class="d-flex justify-content-start">
+          <%= f.text_field :price, required: true, placeholder: "例）100", class:"form-control", style: "width: 170px;" %>
+          <span class="mt-2 ml-1">円</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="d-flex align-items-center mt-2">
+        <div class="form-group my-3 mr-5">
+          <%= link_to "戻る", expenditure_costs_path, class: "green_form_btn" %>
+        </div>
+        <div class="form-group my-3">
+          <%= f.submit '登録', class: "pink_form_btn" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>
