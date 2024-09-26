@@ -27,7 +27,6 @@ import "../stylesheets/check"
 // 管理者関係
 import "../stylesheets/admin_top"
 
-
 // おしゃれなフラッシュメッセージ表示
 //= stub flash_window
 //= require_tree .
