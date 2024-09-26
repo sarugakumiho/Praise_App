@@ -3,14 +3,14 @@
     家計簿（支出）一覧
   </h4>
   
-  <!-- 月ごとの支出グラフ -->
+  <!-- 月毎の支出グラフ -->
   <div style="margin-top: 50px;">
     <canvas id="monthlyExpenditureChart" width="300" height="300"></canvas>
   </div>
 
   <div class="d-flex justify-content-between">
 
-    <!-- ソート機能・登録ボタン -->
+    <!-- ソート機能 -->
     <div class="mt-3">
       <div class="d-flex align-items-center" style="width: 100%;">
         <div>
@@ -90,29 +90,29 @@
   </div>
 </div>
 
-<!-- Chart.js のスクリプトを読み込む -->
+<!-- Chart.js のスクリプトの読み込み -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- Chart.js のグラフ描画コード -->
+<!-- Chart.js のグラフ -->
 <script>
   var ctx = document.getElementById('monthlyExpenditureChart').getContext('2d');
   var monthlyExpenditureChart = new Chart(ctx, {
     type: 'bar', // グラフの種類
     data: {
-      labels: <%= @monthly_expenditure.keys.to_json.html_safe %>, // 月ごとのラベル
+      labels: <%= @monthly_expenditure.keys.to_json.html_safe %>, // 月毎のラベル
       datasets: [{
         label: '月ごとの支出額',
-        data: <%= @monthly_expenditure.values.to_json.html_safe %>, // 月ごとの支出金額
+        data: <%= @monthly_expenditure.values.to_json.html_safe %>, // 月毎の支出金額
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1
       }]
     },
     options: {
-      aspectRatio: 6, // 縦横比を設定
+      aspectRatio: 6,
       scales: {
         y: {
-          beginAtZero: true // Y軸の最小値を0に設定
+          beginAtZero: true
         }
       }
     }
