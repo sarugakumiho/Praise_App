@@ -16,7 +16,12 @@ class Public::ExpenditureCostsController < ApplicationController
   end
   # ------------------------------------------------------------------------------------------------------------------
   def index
-    @expenditure_costs = ExpenditureCost.all.order(date: :desc).page(params[:page]).per(50)
+    # ソート設定
+    sort_order = params[:sort_order] == 'asc' ? 'asc' : 'desc'
+    @expenditure_costs = ExpenditureCost.all.order(date: sort_order).page(params[:page]).per(50)
+    
+    # SQLiteでは strftime を使って月ごとに集計
+    @monthly_expenditure = ExpenditureCost.group("strftime('%Y-%m', date)").sum(:price)
   end
   # ------------------------------------------------------------------------------------------------------------------
   def edit
