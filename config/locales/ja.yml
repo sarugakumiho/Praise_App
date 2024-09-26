@@ -24,7 +24,11 @@ ja:
       post:
         title: タスク名
         memo: メモ
-          
+      expenditure_cost: 
+        expenses_name: 支出項目
+        price: 金額
+        date: 支出日
+      
   date:
     abbr_day_names:
     - 日

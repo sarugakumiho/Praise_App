@@ -1,4 +1,4 @@
-<div class="container d-flex flex-column align-items-center">
+<div class="container d-flex flex-column align-items-center mt-3">
 
   <!--エラーメッセージ-->
   <% if @post.errors.any? %>
@@ -17,21 +17,21 @@
     </div>
   <% end %>
   
-  <h3 class="d-flex justify-content-center mb-3">
+  <h3 class="d-flex justify-content-center mb-2">
     <i class="fa-solid fa-user-pen"></i>&nbsp;<strong>リスト編集</strong>
   </h3>
   
   <!--リスト編集フォーム-->
   <%= form_with url: post_path, model: @post, method: :patch do |f| %>
-    <div class="card" style="width: 30rem; height: 51rem; border: 2px solid darkslategray; padding: 20px;">
+    <div class="card" style="width: 40rem; height: 41rem; padding: 20px;">
       <div class="form-group">
         <span style="color: red;">*</span>
         <strong><%= f.label :タスク名 %></strong>
-        <%= f.text_field :title, class: "form-control title",required: true, placeholder: "入力してください", style: "width: 100%; box-sizing: border-box;" %>
+        <%= f.text_field :title, class: "form-control title", required: true, placeholder: "入力してください", style: "width: 100%; box-sizing: border-box;" %>
       </div>
       <div class="form-group">
         <div style="display: flex; justify-content: flex-start; align-items: center;">
-          <div style="margin-right: -30px;">
+          <div style="margin-right: 30px;">
             <strong><%= f.label :期限（開始日） %></strong>
             <%= f.date_field :start_on %>
           </div>
@@ -42,18 +42,18 @@
         </div>
       </div>
       <div class="form-group" style="margin-bottom: 30px;">
-        &nbsp;<i class="fa-regular fa-image"></i>
-        <strong><%= f.label :関連写真 %></strong>
+        &nbsp;<i class="fa-regular fa-image mt-1"></i>
+        <strong class="ml-2"><%= f.label :関連写真 %></strong>
         <%= f.file_field :image, accept: "image/*", class: "w-100" %>
       </div>
       <div class="form-group">
-        <%= f.text_area :memo, class: "form-control", rows: "10", placeholder: "メモ・コメント" %>
+        <%= f.text_area :memo, class: "form-control", rows: "5", placeholder: "メモ・コメント" %>
       </div>
       <div class="form-group" style="display: flex; align-items: center;">
         <div style="margin-right: 0px;">
           <strong class="mr-2"><%= f.label :タグ %></strong>
           <span style="font-size: 12px;">※半角スペースを入力することで複数のタグを付けることができます。</span>
-          <%= f.text_field :tag_name, value: @tag_list, class:"form-control", style: "width: 210px;" %>
+          <%= f.text_field :tag_name, value: @tag_list, placeholder: "例）タグ名 タグ名 タグ名", class:"form-control", style: "width: 600px;" %>
         </div>
       </div>
       <div class="form-group">
@@ -74,15 +74,15 @@
         <div style="display: flex; align-items: center;">
           <div>
             <div style="display: inline-block;">
-              <%= f.radio_button :post_status, '0', id: 'post_status_unpublished', checked: true %> 非公開
+              <%= f.radio_button :post_status, '0', id: 'post_status_unpublished', checked: true %> 【非公開】
             </div>
             <div style="display: inline-block;">
               <label for="status_unpublished" style="font-size: 15px;">やることリストへ登録</label>
             </div>
           </div>
-          <div>
+          <div class="ml-4">
             <div style="display: inline-block;">
-              <%= f.radio_button :post_status, '1', id: 'post_status_published' %> 公開
+              <%= f.radio_button :post_status, '1', id: 'post_status_published' %> 【公開】
             </div>
             <div style="display: inline-block;">
               <label for="post_status_published" style="font-size: 15px;">やること・達成したことを共有</label>

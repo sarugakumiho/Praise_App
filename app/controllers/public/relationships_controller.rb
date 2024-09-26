@@ -4,12 +4,14 @@ class Public::RelationshipsController < ApplicationController
   def create
     member = Member.find(params[:member_id])
     current_member.follow(member)
+    flash[:notice] = "フォローしました！"
     redirect_to request.referer
   end
   # ------------------------------------------------------------------------------------------------------------------
   def destroy
     member = Member.find(params[:member_id])
     current_member.unfollow(member)
+    flash[:notice] = "フォローを解除しました。"
     redirect_to request.referer
   end
   # ------------------------------------------------------------------------------------------------------------------

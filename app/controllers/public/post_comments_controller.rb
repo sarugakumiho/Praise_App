@@ -8,9 +8,9 @@ class Public::PostCommentsController < ApplicationController
     if @post_comment.save
       respond_to do |format|
         # 通常のHTMLリクエストの場合
-        format.html { redirect_to post_path(@post), notice: 'コメントしました。' }
+        format.html { redirect_to post_path(@post), notice: 'コメントしました！' }
         # JavaScriptリクエスト（非同期処理/Ajax）の場合
-        format.js
+        format.js { redirect_to post_path(@post), notice: 'コメントしました！' }
       end
     else
       render 'public/posts/show'
@@ -26,7 +26,7 @@ class Public::PostCommentsController < ApplicationController
         # 通常のHTMLリクエストの場合
         format.html { redirect_to post_path(@post), notice: 'コメントを削除しました。' }
         # JavaScriptリクエスト（非同期処理/Ajax）の場合
-        format.js
+        format.js { redirect_to post_path(@post), notice: 'コメントを削除しました。' }
       end
     else
       redirect_to post_path(@post), alert: 'コメントの削除に失敗しました。'
