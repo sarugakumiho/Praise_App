@@ -1,37 +1,36 @@
-<div class="container mt-5">
-  <div class="app_title_section">
-    <h1>Praise!_App</h1>
+<div class="background-image-container">
+  <div class="main_container welcome_text welcome_section mt-3">
+    <h1 class="fade-in"><strong>Praise! App</strong></h1>
+    <h5 class="welcome_text mt-3 fade-in-delayed">
+      <strong>PraiseAppへようこそ！</strong><br>
+      こちらは、タスク管理サポートアプリです！<br>
+      また、あなたの日常の努力や成果をシェアし、<br>
+      他のユーザーと共にモチベーションを高めるための
+      <span class="default-font">SNS</span>プラットフォームです！<br>
+      目標を達成するたびに、他のユーザーと喜びを共有し、新しい挑戦を始めましょう♫<br>
+      ぜひ！日々様々なことに取り組み、頑張った仲間に優しい声、労いの声をかけてあげましょう<span class="default-font">(^-^)b</span><br>
+    </h5>
+  </div>
+
+  <div class="main_container button_section mt-3">
+      <%= link_to "新規登録", new_member_registration_path, class: "orange-btn mb-3" %>
+      <%= link_to "ログイン", new_member_session_path, class: "orange-btn mb-3" %>
+    <%= link_to "ゲストログイン（閲覧用）", guest_sign_in_member_path, method: :post, class: "orange-btn" %>
   </div>
 </div>
 
-<div class="main_container">
-  <div class="welcome_section">
-    <strong>PraiseAppへようこそ！</strong><br>
-    こちらは、タスク管理サポートアプリです！<br>
-    また、あなたの日常の努力や成果をシェアし、<br>
-    他のユーザーと共にモチベーションを高めるためのSNSプラットフォームです！<br>
-    目標を達成するたびに、他のユーザーと喜びを共有し、新しい挑戦を始めましょう♫<br>
-    ぜひ！日々様々なことに取り組み、頑張った仲間に優しい声、労いの声をかけてあげましょう(^-^)b<br><br>
-    <small>※ 可能性は低いですが、ポートフォリオのため、予告なく消す可能性があります。その時はすみませんm(_ _)m</small><br>
-    <small>また、レイアウトや装飾につきましては現在整備中です！<br>今後グレードアップしていきますので暖かく見守っていただけると嬉しいです(*^^*)</small>
-  </div>
+<div class="sub_container left-slide-section">
+  <h4>Image素材</h4>
+  <p>
+    提供: <a href="https://pixabay.com/ja/" target="_blank">Pixabay</a><br>
+    提供: <a href="https://www.pakutaso.com/" target="_blank">PAKUTASO</a><br>
+    提供: <a href="https://stock.adobe.com/jp/" target="_blank">Adobe Stock</a><br>
+    提供: <a href="https://illust-ryokka.jp/" target="_blank">イラスト緑花（RYOKKA)</a><br>
+  </p>
 </div>
 
-<div class="main_container">
-  <div class="button_section">
-    <%= link_to "新規登録", new_member_registration_path, class: "btn my-2" %>
-    <%= link_to "ログイン", new_member_session_path, class: "btn my-2" %>
-    <%= link_to "ゲストログイン（閲覧用）", guest_sign_in_member_path, method: :post, class: "btn" %>
-  </div>
-</div>
-<div class="main_container">
-  <div class="image_credits_section">
-    <h2>Image素材</h2>
-    <ul style="list-style-type: none;">
-      <li> 提供: <a href="https://pixabay.com/ja/" target="_blank">Pixabay</a></li>
-      <li> 提供: <a href="https://www.pakutaso.com/" target="_blank">PAKUTASO</a></li>
-      <li> 提供: <a href="https://stock.adobe.com/jp/" target="_blank">Adobe Stock</a></li>
-      <li> 提供: <a href="https://illust-ryokka.jp/" target="_blank">イラスト緑花（RYOKKA)</a></li>
-    </ul>
-  </div>
+<div class="sub_container right-slide-section">
+  <h4>⚠注意⚠</h4>
+  <small>※ このアプリはポートフォリオのため、可能性は低いですが、予告なく削除される可能性があります。<br>
+  ご了承いただきますようお願いします。</small>
 </div>
