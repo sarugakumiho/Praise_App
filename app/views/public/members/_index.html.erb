@@ -5,7 +5,7 @@
     <table class="table table-bordered text-center" style="border-color: black; border: 1px solid black; width: 100%;">
       <thead>
         <tr style="background-color: #c6e2ff;">
-          <th class="col-1" style="border: 1px solid black;">名前</th>
+          <th class="col-1" style="border: 1px solid black;">ニックネーム</th>
           <th class="col-5" style="border: 1px solid black;">自己紹介</th>
           <th class="col-1" style="border: 1px solid black;">投稿数</th>
           <th class="col-1" style="border: 1px solid black;">フォロー数</th>
@@ -19,14 +19,16 @@
             <tr>
               <td class="col-1" style="border: 1px solid black; text-align: center; vertical-align: middle;">
                 <%= link_to member_path(member) do %>
-                  <%= member.name %><br>
-                  <%= image_tag member.get_profile_image(400, 400), class: "rounded-circle border border-primary shadow", style: "width: 100px; height: 100px; border: 3px solid #000; object-fit: cover;" %><br>
+                  <span style="color: black;"><%= member.name %></span>
+                  <%= image_tag member.get_profile_image(400, 400), class: "rounded-circle border shadow", style: "width: 100px; height: 100px; border: 3px solid #000; object-fit: cover;" %><br>
                 <% end %>
                 <div class="my-3">
                   <%= render "public/relationships/btn", member: member, options: { class: "follow-link" } %>
                 </div>
               </td>
-              <td class="col-5" style="border: 1px solid black; vertical-align: middle;"><%= simple_format(member.introduction) %></td>
+              <td class="col-5" style="border: 1px solid black; vertical-align: middle;">
+                <%= simple_format(member.introduction.present? ? member.introduction : "よろしくお願いします。") %>
+              </td>
               <td class="col-1" style="border: 1px solid black; vertical-align: middle;">
                 <%= link_to member_path(member) do %>
                   <!--公開中のリスト数のみ-->

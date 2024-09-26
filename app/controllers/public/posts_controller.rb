@@ -2,23 +2,23 @@ class Public::PostsController < ApplicationController
   before_action :authenticate_member!
   # ログインユーザーのみ操作可能
   before_action :ensure_correct_member, only: [:edit, :update, :destroy]
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def new
     @member = current_member
     @post = Post.new
     @post = @member.posts.new
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def create
     @member = current_member
     @post = @member.posts.new(post_params)
     tag_list = params[:post][:tag_name].split(nil)
     
-    # 投稿フォーム（日付・期間）の設定処理
+    # （日付・期間）の設定処理
     if @post.start_on.present?
       sabun = (@post.start_on - Date.today).to_i
       unless sabun >= 0
-        flash[:error] = "開始日は本日以降で入力してください！"
+        flash[:error] = "開始日は本日以降で入力してください。"
         render :new and return
       end
     end
@@ -26,45 +26,48 @@ class Public::PostsController < ApplicationController
     if @post.start_on.present? && @post.end_on.present?
       sabun = (@post.end_on - @post.start_on).to_i
       unless sabun >= 0
-        flash[:error] = "終了日は開始日以降で設定してください！"
+        flash[:error] = "終了日は開始日以降で設定してください。"
         render :new and return
       end
     end
   
-    # 投稿保存処理
+    # 保存処理
     if @post.save
       #タグも保存
       @post.save_tag(tag_list) 
-      flash[:notice] = "投稿が保存されました！"
+      flash[:notice] = "リストが保存されました！"
       redirect_to post_path(@post) and return
     else
       render :new
     end
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def show
    @post = Post.find(params[:id])
    @member = @post.member
    @post_tags = @post.tags
    @post_comment = PostComment.new
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def index
     # ログインユーザーの（公開中）リスト
-    @published_posts = current_member.posts.where(post_status: 'published').order(created_at: :desc).page(params[:published_page]).per(10)
+    @published_posts = current_member.posts.where(post_status: 'published')
+                                           .order(created_at: :desc).page(params[:published_page]).per(10)
     # ログインユーザーの(非公開)やることリスト
-    @unpublished_posts = current_member.posts.where(post_status: 'unpublished').order(created_at: :desc).page(params[:unpublished_page]).per(10)
+    @unpublished_posts = current_member.posts.where(post_status: 'unpublished')
+                                             .order(created_at: :desc).page(params[:unpublished_page]).per(10)
     # 全ユーザーの（公開中）リスト
-    @all_published_posts = Post.where(post_status: 'published').order(created_at: :desc).page(params[:all_published_page]).per(10)
+    @all_published_posts = Post.where(post_status: 'published')
+                               .order(created_at: :desc).page(params[:all_published_page]).per(10)
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def edit
     @post = Post.find(params[:id])
     @member = current_member
     # タグの編集
     @tag_list = @post.tags.pluck(:tag_name).join(' ') # .join(' ') = タグをスペースで結合して表示
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def update
     @member = current_member
     @post = Post.find(params[:id])
@@ -81,41 +84,42 @@ class Public::PostsController < ApplicationController
       
       # 新しいタグを保存
       @post.save_tag(tag_list)
-      
       flash[:notice] = "編集しました！"
       redirect_to post_path(@post.id) and return
     else
       render :edit
     end
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
+    flash[:notice] = "リストを削除しました。"
     redirect_to my_page_members_path
   end
-
-# タグ機能ここから------------------
+  # ------------------------------------------------------------------------------------------------------------------
+  # タグ機能ここから↓
   def tags
     # タグの一覧を取得
     @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
 
     if params[:tag_id].present?
       # 指定されたタグを取得
-      @tag = Tag.find_by(id: params[:tag_id])
+      @tag_list = @tag_list.where('tag_name LIKE ?', "%#{params[:search]}%")
+      @tag = @tag_list.first
 
       if @tag.present?
         # 該当するタグに紐づく公開中の投稿を取得
         @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
       else
-        @posts = Post.none
+
         flash.now[:alert] = "該当するタグが見つかりません。"
       end
     else
       @posts = Post.none
     end
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def tags_search
     # タグ一覧は常に取得
     @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
@@ -129,16 +133,15 @@ class Public::PostsController < ApplicationController
         # 該当するタグの投稿を取得
         @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc)
       else
-        @posts = Post.none
+   
         flash.now[:alert] = "該当するタグが見つかりません。"
       end
     else
       @posts = Post.none
     end
   end
-
-# ここまで-------------------------
-
+  # ここまで↑
+  # ------------------------------------------------------------------------------------------------------------------
   private
   
   def post_params
@@ -155,5 +158,5 @@ class Public::PostsController < ApplicationController
       redirect_to posts_path
     end
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
 end

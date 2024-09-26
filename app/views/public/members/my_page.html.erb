@@ -1,27 +1,31 @@
-<div class="d-flex justify-content-center">
-  <div class="card" style="width: 68rem; border: 2px solid darkslategray;">
+<div class="container d-flex justify-content-center" style="margin-top: 30px;" >
+  <div class="card" style="width: 68rem; border: 1px solid #583822;">
     
     <!-- ログインユーザーのプロフィールを表示 -->
     <div class="d-flex my-4 mx-4">
-      <div class="d-flex flex-column ml-4">
+      <div class="d-flex flex-column" style="margin-left: 40px;">
         <%= link_to member_path(@member), class: "text-decoration-none w-100" do %>
           <h3 class="card-name d-flex justify-content-center" style="color: black;"><strong><%= @member.name %></strong></h3>
           <div class="d-flex justify-content-center align-items-center">
-            <%= image_tag @member.get_profile_image(400, 600), class: "rounded-circle border border-primary shadow", style: "width: 180px; height: 180px; border: 3px solid #000; object-fit: cover;" %>
+            <%= image_tag @member.get_profile_image(400, 600), class: "rounded-circle border shadow", style: "width: 180px; height: 180px; border: 3px solid #000000; object-fit: cover;" %>
           </div>
         <% end %>
       </div>
 
       <div class="d-flex flex-column justify-content-center" style="width: 450px; margin-left: auto; padding-right: 5px;">
-        <p class="card-text"><%= simple_format(@member.introduction) %></p>
+        <div class="speech-bubble">
+          <p class="card-text">
+            <%= simple_format(@member.introduction.present? ? @member.introduction : "よろしくお願いします。") %>
+          </p>
+        </div>
       </div>
 
-      <div class="d-flex flex-column justify-content-center" style="width: 300px; margin-left: auto; padding-right: 20px;">
-        <%= link_to "フォロー中", followings_path(@member), class: "btn btn-outline-primary mb-3", style: "font-weight: bold;" %>
-        <%= link_to "フォロワー", followers_path(@member), class: "btn btn-outline-primary mb-5", style: "font-weight: bold;" %>
+      <div class="d-flex flex-column justify-content-center" style="width: 300px; margin-left: auto; padding-right: 20px; font-weight: bold;">
+        <%= link_to "フォロー中", followings_path(@member), class: "my_page_btn mb-3" %>
+        <%= link_to "フォロワー", followers_path(@member), class: "my_page_btn mb-5" %>
         <% unless @member.guest_member? %>
           <% if @member == current_member %>
-            <%= link_to "プロフィール編集", edit_member_information_path(@member), class: "btn btn-outline-info mb-2", style: " font-weight: bold;" %>
+            <%= link_to "プロフィール編集", edit_member_information_path, class: "my_page_btn mb-2" %>
           <% end %>
         <% end %>
       </div>
@@ -37,9 +41,9 @@
     <div class="col-md-6">
       <div class="card" style="width: 100%;">
         
-        <h5 class="card-header text-center" style="background-color: lightskyblue; color: black;">
+        <h5 class="card-header text-center" style="background-color: #8f6552; color: #ffffff;">
           <i class="fa-solid fa-rectangle-list"></i>
-          &#12288;<strong>フォローメンバーのタイムライン</strong>
+          &#12288;フォローメンバーのタイムライン
         </h5>
         
         <div class="card-body">
@@ -61,20 +65,20 @@
     <div class="col-md-6">
       <div class="card" style="width: 100%;">
         
-        <h5 class="card-header text-center" style="background-color: lightskyblue; color: black;">
+        <h5 class="card-header text-center" style="background-color: #8f6552; color: #ffffff;">
           <i class="fa-solid fa-rectangle-list"></i>
-          &#12288;<strong>自分のリスト</strong>
+          &#12288;自分のリスト
         </h5>
         
         <div class="card-body">
           <!--選択タブ-->
           <ul class="nav nav-tabs" style="margin-bottom: 0;">
             <li class="nav-item">
-              <a class="nav-link <%= 'active' if params[:tab] == 'published' %>" data-toggle="tab" href="#published"><strong>投稿リスト（公開中）</strong></a>
+              <a class="nav-link <%= 'active' if params[:tab] == 'published' %>" data-toggle="tab" href="#published"><strong>投稿リスト【公開中】</strong></a>
             </li>
             <!--選択タブがない場合は、このタブを表示（初期表示）-->
             <li class="nav-item">
-              <a class="nav-link <%= 'active' if params[:tab] == 'unpublished' || params[:tab].blank? %>" data-toggle="tab" href="#unpublished"><strong>やることリスト(非公開)</strong></a>
+              <a class="nav-link <%= 'active' if params[:tab] == 'unpublished' || params[:tab].blank? %>" data-toggle="tab" href="#unpublished"><strong>やることリスト【非公開】</strong></a>
             </li>
           </ul>
           

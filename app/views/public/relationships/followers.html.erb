@@ -1,15 +1,18 @@
 <div class="container">
   
-  <h4 class="text-center py-2 mb-4" style="font-weight: 600; font-size: 1.5rem; background-color: #c6e2ff; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
+  <h4 class="text-center py-2 mb-4" style="font-weight: 600; background-color: #c6e2ff; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
     現在フォローしてくれているメンバー：<%= @total_followers_count %>人
   </h4>
-  
+
   <!--フォローしてくれているユーザーを表示-->
   <% if @members.exists? %>
     <%= render "public/members/index", members: @members %>
   <% else %>
-    <p>ユーザーはいません</p>
+  <div class="d-flex justify-content-center">
+    <p>ユーザーはいません。</p>
+  </div>
   <% end %>
+    
   <!--ページネーション-->
   <div class="d-flex justify-content-center mt-4">
     <%= paginate @members %>

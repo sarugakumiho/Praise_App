@@ -1,26 +1,27 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  # ------------------------------------------------------------------------------------------------------------------
   # ログイン制限
   before_action :reject_member, only: [:create]  
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # ログイン時の遷移先
   def after_sign_in_path_for(resource)
     my_page_members_path
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   # ログアウト後の遷移先
   def after_sign_out_path_for(resource)
     about_path
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   # ゲストログイン設定
   def guest_sign_in
     member = Member.guest
     sign_in member
     redirect_to my_page_members_path(member), notice: "ゲストとしてログインしました！"
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
     protected
   # ログイン制限
   def reject_member
@@ -36,7 +37,7 @@ class Public::SessionsController < Devise::SessionsController
       redirect_to new_member_session_path and return
     end
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   # GET /resource/sign_in
   # def new
   #   super

@@ -1,24 +1,25 @@
 class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def show
     @post = Post.find(params[:id])
     @post_tags = @post.tags
     @member = @post.member
   end
-
+  # ------------------------------------------------------------------------------------------------------------------
   def index
     # 全ユーザーの（公開中）リスト
     @all_published_posts = Post.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
+    flash[:notice] = "リストが削除されました。"
     redirect_to admin_posts_path
   end
-
-# タグ機能ここから------------------
+  # ------------------------------------------------------------------------------------------------------------------
+  # タグ機能ここから↓
   def tags
     # 公開中リストに関連付けられたタグ
     @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
@@ -36,7 +37,7 @@ class Admin::PostsController < ApplicationController
       @posts = Post.none
     end
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def destroy_tag
     @tag = Tag.find(params[:id])
     
@@ -49,7 +50,7 @@ class Admin::PostsController < ApplicationController
     end
     redirect_to admin_posts_tags_search_path
   end
-  
+  # ------------------------------------------------------------------------------------------------------------------
   def tags_search
     # 検索ワードが存在しているかの確認
     if params[:search].present?
@@ -64,5 +65,6 @@ class Admin::PostsController < ApplicationController
       @posts = Post.none
     end
   end
-  # ここまで-------------------------
+  # ここまで↑
+  # ------------------------------------------------------------------------------------------------------------------
 end

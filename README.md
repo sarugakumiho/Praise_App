@@ -24,7 +24,10 @@
 - 頑張りを見てほしい時
 
 ## 設計書
-- 後ほど作成予定
+- UIFlows（https://drive.google.com/file/d/1icYtayzsdnWbaC9cQNIoh5EbMAktMCLA/view?usp=sharing）
+- ER図（https://drive.google.com/file/d/1PEZDUcvJWm7WwwfGpVHMY2AXtaxuEux1/view?usp=sharing）
+- テーブル定義書（https://docs.google.com/spreadsheets/d/1Yzo56HFe6cfD_NYRVpJYbnHwYEeLOvr-kQ3q_dwY_1I/edit?usp=sharing）
+- アプリケーション詳細設計書（https://docs.google.com/spreadsheets/d/1gYUrWf2Bgy48twtBXILvwrKbREYofrxbdVyjqud8xio/edit?usp=sharing）
 
 ## 開発環境
 - OS：Linux(CentOS)
@@ -34,8 +37,8 @@
 - IDE：Cloud9
 
 ## 使用素材
-- 後ほど追加予定
 - フリーイラスト素材として以下を使用
   * Pixabay (https://pixabay.com/ja/)
   * PAKUTASO (https://www.pakutaso.com/)
-  * Adobe Stock（https://stock.adobe.com/jp/）
+  * Adobe Stock（https://stock.adobe.com/jp/)
+  * イラスト緑花（RYOKKA)(https://illust-ryokka.jp/)

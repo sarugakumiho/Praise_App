@@ -1,8 +1,8 @@
 <!--フォローボタンを表示-->
 <% if current_member.present? && current_member != member %>
   <% if current_member.following?(member) %>
-    <%= link_to "フォローを外す", relationships_destroy_path(member.id), method: :delete, class: "btn btn-info", style: "font-size: 13px;" %>
+    <%= link_to "フォロー解除", relationships_destroy_path(member.id), method: :delete, class: "standard_btn", style: "font-size: 10px;" %>
   <% else %>
-    <%= link_to "フォローする", relationships_create_path(member.id), method: :post, class: "btn btn-info", style: "font-size: 13px;" %>
+    <%= link_to "フォローする", relationships_create_path(member.id), method: :post, class: "standard_btn", style: "font-size: 10px;" %>
   <% end %>
 <% end %>

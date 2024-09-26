@@ -1,39 +1,36 @@
-<div class="container text-center">
-  <div class="row d-flex flex-column align-items-center">
-    <h1 style="font-family: 'Helvetica', sans-serif; font-weight: 700; color: #1e90ff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);">Praise!_App</h1>
-    <%= image_tag 'notebook-5448295_1280.jpg', class: 'img-fluid rounded shadow', style: 'max-width: 50%; height: auto;' %>
-  </div>
-</div>
-
-<div class="container text-center my-5">
-  <div class="row d-flex flex-column align-items-center">
-    <%= link_to "新規登録", new_member_registration_path, class: "btn my-2", style: "background-color: #f7dc6f; color: #2d3436; font-weight: bold; font-size: 1.2rem; padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" %>
-    <%= link_to "ログイン", new_member_session_path, class: "btn my-2", style: "background-color: #ff9ff3; color: #2d3436; font-weight: bold; font-size: 1.2rem; padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" %>
-    <%= link_to "ゲストログイン（閲覧用）", guest_sign_in_member_path, method: :post, class: "btn", style: "background-color: #7fffbf; color: #202020; font-weight: bold; font-weight: bold; font-size: 1.2rem; padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" %>
-  </div>
-</div>
-
-<div class="container my-5">
-  <div class="description text-center" style="background-color: #f1f2f6; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-    <p style="font-size: 1.2rem; line-height: 1.8; font-family: 'Arial', sans-serif; color: #2d3436;">
+<div class="background-image-container">
+  <div class="main_container welcome_text welcome_section mt-3">
+    <h1 class="fade-in"><strong>Praise! App</strong></h1>
+    <h5 class="welcome_text mt-3 fade-in-delayed">
       <strong>PraiseAppへようこそ！</strong><br>
       こちらは、タスク管理サポートアプリです！<br>
-      また、あなたの日常の努力や成果をシェアし、<br>他のユーザーと共にモチベーションを高めるためのSNSプラットフォームです！<br>
+      また、あなたの日常の努力や成果をシェアし、<br>
+      他のユーザーと共にモチベーションを高めるための
+      <span class="default-font">SNS</span>プラットフォームです！<br>
       目標を達成するたびに、他のユーザーと喜びを共有し、新しい挑戦を始めましょう♫<br>
-　　　ぜひ！日々様々なことに取り組み、頑張った仲間に優しい声、労いの声をかけてあげましょう(^-^)b<br><br>
-      <small>※ 可能性は低いですが、ポートフォリオのため、予告なく消す可能性があります。その時はすみませんm(_ _)m</small><br>
-      <small>また、レイアウトや装飾につきましては現在整備中です！<br>今後グレードアップしていきますので暖かく見守っていただけると嬉しいです(*^^*)</small>
-    </p>
+      ぜひ！日々様々なことに取り組み、頑張った仲間に優しい声、労いの声をかけてあげましょう<span class="default-font">(^-^)b</span><br>
+    </h5>
+  </div>
+
+  <div class="main_container button_section mt-3">
+      <%= link_to "新規登録", new_member_registration_path, class: "orange-btn mb-3" %>
+      <%= link_to "ログイン", new_member_session_path, class: "orange-btn mb-3" %>
+    <%= link_to "ゲストログイン（閲覧用）", guest_sign_in_member_path, method: :post, class: "orange-btn" %>
   </div>
 </div>
 
-<div class="container text-center my-5">
-  <div class="resources">
-    <h2 style="color: black; font-family: 'Helvetica', sans-serif; font-weight: bold;">　image素材</h2>
-    <ul style="list-style-type: none;">
-      <li> 提供: <a href="https://pixabay.com/ja/" target="_blank">Pixabay</a></li>
-      <li> 提供: <a href="https://www.pakutaso.com/" target="_blank">PAKUTASO</a></li>
-      <li> 提供: <a href="https://stock.adobe.com/jp/" target="_blank">Adobe Stock</a></li>
-    </ul>
-  </div>
+<div class="sub_container left-slide-section">
+  <h4>Image素材</h4>
+  <p>
+    提供: <a href="https://pixabay.com/ja/" target="_blank">Pixabay</a><br>
+    提供: <a href="https://www.pakutaso.com/" target="_blank">PAKUTASO</a><br>
+    提供: <a href="https://stock.adobe.com/jp/" target="_blank">Adobe Stock</a><br>
+    提供: <a href="https://illust-ryokka.jp/" target="_blank">イラスト緑花（RYOKKA)</a><br>
+  </p>
+</div>
+
+<div class="sub_container right-slide-section">
+  <h4>⚠注意⚠</h4>
+  <small>※ このアプリはポートフォリオのため、可能性は低いですが、予告なく削除される可能性があります。<br>
+  ご了承いただきますようお願いします。</small>
 </div>
