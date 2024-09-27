@@ -34,22 +34,13 @@
       タグ: <%= @tag.tag_name %> のリスト一覧
     </h3>
 
-    <% if @posts.any? %>
-      <% @posts.each do |post| %>
-        <%= render 'admin/posts/all_published_post', post: post %>
-      <% end %>
-      <!--ページネーション-->
-      <div class="d-flex justify-content-center mt-4">
-        <%= paginate @posts %>
-      </div>
-    <% else %>
-      <div class="d-flex justify-content-center">
-        <p class="text-center">該当するリストがありません。</p>
-      </div>
+    <% @posts.each do |post| %>
+      <%= render 'admin/posts/all_published_post', post: post %>
     <% end %>
-  <% else %>
-    <div class="d-flex justify-content-center">
-      <p class="text-center">指定されたタグが見つかりません。</p>
+    
+    <!--ページネーション-->
+    <div class="d-flex justify-content-center mt-4">
+      <%= paginate @posts %>
     </div>
   <% end %>
   

@@ -234,67 +234,65 @@ main {
   padding: 20px;
   font-family: Rubik;
   margin-top: 120px;
-  // おしゃれなフラッシュメッセージ表示ここから---------------------------------------
-  .main {
-    .flash-window  {
-      height: 50px;
-      padding: 10px;
-      color: white;
-      background: black;
-      border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: 0.5s 0s ease;
-      position: fixed;
-      top: 120px;
-      left: 0;
-      right: 0;
-      margin: auto;
+}
 
-      p {
-        margin: 0;
-        display: flex;
-        align-items: center;
+.flash-window {
+  height: 50px;
+  padding: 10px;
+  color: white;
+  background: black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: -100px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin: auto;
+  opacity: 0;
+  transition: top 1s ease, opacity 1s ease;
+}
 
-        span {
-          margin-left: 1vw;
-          color: white;
+.flash-window p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
 
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      }
+.flash-window p span {
+  margin-left: 1vw;
+  color: white;
+}
 
-      &.hidden {
-        opacity: 0;
-        top: 0px;
-      }
-    }
+.flash-window p span:hover {
+  cursor: pointer;
+}
+
+.flash-window.slide-down {
+  top: 120px;
+  opacity: 1;
+}
+
+.flash-window.hidden {
+  top: -100px;
+  opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .flash-window {
+    width: 100%;
   }
 }
 
-@media (min-width: PC, タブレット共通) {
-  main {
-    .main {
-      .flash-window  {
-        width: 500px;
-      }
-    }
+@media (max-width: 767px) {
+  .flash-window {
+    width: 90%;
   }
-}
 
-@media (min-width: スマホ) {
-  main {
-    .main {
-      .flash-window  {
-        width: 90%;
-        p {
-          font-size: 4vw;
-        }
-      }
-    }
+  .flash-window p {
+    font-size: 4vw;
   }
 }
 // ここまで-------------------------------------------------------------------------

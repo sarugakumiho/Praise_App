@@ -52,19 +52,25 @@ class Admin::PostsController < ApplicationController
   end
   # ------------------------------------------------------------------------------------------------------------------
   def tags_search
-    # 検索ワードが存在しているかの確認
-    if params[:search].present?
-      # タグを検索して該当するものがあるか確認
-      @tag_list = Tag.where('tag_name LIKE ?', "%#{params[:search]}%").distinct # .distinct ＝ 重複するタグがある場合、一意なタグのみを取得
-      # 該当するタグがあるか確認し、最初のタグを取得
-      @tag = @tag_list.first if @tag_list.any?
-      # 該当するタグに関連する投稿を取得し、投稿がない場合は空のリストを返す
-      @posts = @tag.present? ? @tag.posts.order(created_at: :desc) : Post.none
+  # 検索ワードが存在しているかの確認
+  if params[:search].present?
+    # タグを検索して該当するものがあるか確認
+    @tag_list = Tag.where('tag_name LIKE ?', "%#{params[:search]}%").distinct
+    # 該当するタグがあるか確認し、最初のタグを取得
+    @tag = @tag_list.first if @tag_list.any?
+
+    if @tag.present?
+      # 該当するタグに関連するリストを取得
+      @posts = @tag.posts.order(created_at: :desc)
     else
-      @tag_list = Tag.all
+      flash.now[:alert] = "該当するタグが見つかりません。"
       @posts = Post.none
     end
+  else
+    @tag_list = Tag.all
+    @posts = Post.none
   end
+end
   # ここまで↑
   # ------------------------------------------------------------------------------------------------------------------
 end

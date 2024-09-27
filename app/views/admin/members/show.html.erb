@@ -53,38 +53,75 @@
         <% @published_posts.each do |post| %>
           <div class="card mb-3 shadow-sm" style="border: 1px solid #ddd; border-radius: 10px;">
             <div class="card-body my-3 mx-4">
-              <h4 class="card-title mb-3"><strong><%= post.title %></strong></h4>
-              <p class="card-text mb-4"><%= simple_format(post.memo) %></p>
-              <% if post.image.attached? %>
-                <%= image_tag post.image, class: "img-fluid" %>
+              
+              <h2 class="card-title text-center mb-1" style="font-weight: bold; color: #343a40;"><%= post.title %></h2>
+              
+              <% if post.memo.present? %>
+                <div class="d-flex justify-content-center">
+                  <div style="width: 600px; text-align: center;">
+                    <p class="card-text" style="font-size: 1.1rem; line-height: 1.6; text-align: left;">
+                      <%= simple_format(post.memo) %>
+                    </p>
+                  </div>
+                </div>
+              <% else %>
+                <div class="mb-2"></div>
               <% end %>
-              <div class="mt-3">
+              
+              <div class="text-center mb-4">
+                <% if post.image.attached? %>
+                  <%= image_tag post.image, class: "img-fluid rounded shadow-lg", style: "max-width: 300px; height: auto;" %>
+                <% end %>
+              </div>
+              
+              <div class="text-center mb-2">
                 <% post.tags.each do |tag| %>
                   <%= link_to "##{tag.tag_name}", tags_admin_posts_path(tag_id: tag.id), class: "badge badge-secondary" %>
                 <% end %>
               </div>
-              <p class="card-text mt-3">
-                <small class="text-muted">
-                  状況: 
-                  <% if post.situation_status == "from_now" %>
-                    <span style="color: #1e90ff">これから！</span>
-                  <% else %>
-                    <span style="color: #dc143c">達成済み！</span>
-                  <% end %>
-                </small>
-              </p>
+              
+              <div class="d-flex justify-content-center mb-2">
+                <p class="card-text mb-0" style="font-size: 20px;">
+                  <small class="text-muted">
+                    状況: 
+                    <% if post.situation_status == "from_now" %>
+                      <span style="color: #1e90ff">これから！</span>
+                    <% else %>
+                      <span style="color: #dc143c">達成済み！</span>
+                    <% end %>
+                  </small>
+                </p>
+              </div>
+              
+              <% if post.start_on.present? || post.end_on.present? %>
+                <div class="d-flex justify-content-center align-items-center my-2">
+                  <div class="card-text mb-0 d-flex align-items-center">
+                    <p class="text-muted pr-3">取り組み期限:</p>
+                    <% if post.start_on.present? %>
+                      <p class="text-muted pr-3"><%= post.start_on.strftime('%Y年%m月%d日') %></p>
+                    <% end %>
+                    <% if post.end_on.present? %>
+                      <p class="text-muted pr-3">〜</p>
+                      <p class="text-muted"><%= post.end_on.strftime('%Y年%m月%d日') %></p>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+              
               <div class="d-flex justify-content-start align-items-center">
                 <!-- いいねボタン表示 -->
                 <p><%= link_to "いいね件数： #{post.favorites.count}", admin_post_path(post), class: "text-decoration-none" %></p>
                 <!-- コメント数表示 -->
                 <p class="ml-4"><%= link_to "コメント件数： #{post.post_comments.count}", admin_post_path(post), class: "text-decoration-none" %></p>
               </div>
+              
               <div class="d-flex justify-content-between align-items-center">
-                <%= link_to '詳細を見る', admin_post_path(post), class: "btn btn-primary" %>
+                <%= link_to '詳細', admin_post_path(post), class: "standard_btn" %>
                 <div>
                   <%= post.created_at.strftime('%Y年%m月%d日 %H時%M分') %>
                 </div>
               </div>
+              
             </div>  
           </div>
         <% end %>

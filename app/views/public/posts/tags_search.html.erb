@@ -1,17 +1,10 @@
-<div class="container my-4">
-  
-  <!--エラーメッセージ-->
-  <% if flash[:alert].present? %>
-    <div class="d-flex justify-content-center">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
+<div class="container my-5">
   
   <div class="tags-section mb-5">
     <h3 class="mb-4" style="font-weight: bold; color: #343a40; border-bottom: 3px solid #6c757d; display: inline-block; padding-bottom: 10px;">
       タグリスト
     </h3>
-
+    
     <!-- タグ検索フォーム -->
     <%= form_with url: posts_tags_search_path, method: :get, local: true do |f| %>
       <div class="form-group">
