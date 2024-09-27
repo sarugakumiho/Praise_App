@@ -1,8 +1,8 @@
 .sub_container {
   background-color: #fff;
   padding: 20px;
-  margin: 20px auto;
-  max-width: 800px;
+  margin: 30px auto;
+  max-width: 1000px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -123,22 +123,23 @@
   }
 }
 // -----------------------------------------------------------------------------------------------------------------
-// 初期状態は非表示
+/* 初期状態は非表示 */
 .left-slide-section, .right-slide-section {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
 }
 // -----------------------------------------------------------------------------------------------------------------
-// スクロールした際に表示する
+/* 左から表示されるアニメーション */
 .left-slide-section.visible {
-  animation: slideInLeft 1.5s ease forwards;
+  animation: slideInLeft 2s ease forwards;
   opacity: 1;
   visibility: visible;
 }
 // -----------------------------------------------------------------------------------------------------------------
+/* 右から表示されるアニメーション */
 .right-slide-section.visible {
-  animation: slideInRight 1.5s ease forwards;
+  animation: slideInRight 2s ease forwards;
   opacity: 1;
   visibility: visible;
 }
