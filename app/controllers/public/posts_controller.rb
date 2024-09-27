@@ -97,7 +97,7 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     flash[:notice] = "リストを削除しました。"
-    redirect_to my_page_members_path
+    redirect_to posts_path
   end
   # ------------------------------------------------------------------------------------------------------------------
   # タグ機能ここから↓
