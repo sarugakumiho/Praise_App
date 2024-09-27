@@ -9,31 +9,31 @@ class Public::PostsController < ApplicationController
     @post = @member.posts.new
   end
   # ------------------------------------------------------------------------------------------------------------------
-def create
-  @member = current_member
-  @post = @member.posts.new(post_params)
-  tag_list = params[:post][:tag_name].split(nil)
-  
-  # 終了日が開始日以降かどうかを確認
-  if @post.start_on.present? && @post.end_on.present?
-    sabun = (@post.end_on - @post.start_on).to_i
-    unless sabun >= 0
-      flash.now[:alert] = "終了日は開始日以降で設定してください。" 
-      render :new and return
+  def create
+    @member = current_member
+    @post = @member.posts.new(post_params)
+    tag_list = params[:post][:tag_name].split(nil)
+    
+    # 終了日が開始日以降かどうかを確認
+    if @post.start_on.present? && @post.end_on.present?
+      sabun = (@post.end_on - @post.start_on).to_i
+      unless sabun >= 0
+        flash.now[:alert] = "終了日は開始日以降で設定してください。" 
+        render :new and return
+      end
+    end
+    
+    # 保存処理
+    if @post.save
+      # タグも保存
+      @post.save_tag(tag_list) 
+      flash[:notice] = "リストが保存されました！"
+      redirect_to post_path(@post) and return
+    else
+      flash.now[:alert] = "リストの保存に失敗しました。"
+      render :new
     end
   end
-  
-  # 保存処理
-  if @post.save
-    # タグも保存
-    @post.save_tag(tag_list) 
-    flash[:notice] = "リストが保存されました！"
-    redirect_to post_path(@post) and return
-  else
-    flash.now[:alert] = "リストの保存に失敗しました。"
-    render :new
-  end
-end
   # ------------------------------------------------------------------------------------------------------------------
   def show
    @post = Post.find(params[:id])
