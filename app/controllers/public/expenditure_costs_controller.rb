@@ -21,7 +21,11 @@ class Public::ExpenditureCostsController < ApplicationController
     @expenditure_costs = ExpenditureCost.all.order(date: sort_order).page(params[:page]).per(50)
     
     # 各月ごとに金額を集計
-    @monthly_expenditure = ExpenditureCost.group("strftime('%Y-%m', date)").sum(:price)
+    if Rails.env.development?
+      @monthly_expenditure = ExpenditureCost.group("strftime('%Y-%m', date)").sum(:price)
+    else
+      @monthly_expenditure = ExpenditureCost.group("DATE_FORMAT(date, '%Y-%m')").sum(:price)
+    end
   end
   # ------------------------------------------------------------------------------------------------------------------
   def edit

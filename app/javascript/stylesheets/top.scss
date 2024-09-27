@@ -1,14 +1,12 @@
-/* コンテナのスタイル */
 .sub_container {
-  background-color: #fff; /* 白背景でコントラストを強調 */
+  background-color: #fff;
   padding: 20px;
-  margin: 0 auto;
+  margin: 20px auto;
   max-width: 800px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* 背景画像を設定 */
 .background-image-container {
   background-image: url('../images/240_F_565480957_LdrB4XhrrJtyQNxbuPV85O60wwgMxJoN.jpg');
   background-size: cover;
@@ -22,14 +20,13 @@
   position: relative;
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* タイトルやボタンの位置を調整 */
 .app_title_section, .welcome_section, .button_section {
   position: relative;
   text-align: center;
   z-index: 1;
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* 背景を薄くするためのオーバーレイ */
+// 背景を薄くする
 .background-image-container::before {
   content: "";
   position: absolute;
@@ -41,7 +38,6 @@
   z-index: 0;
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* ボタンのスタイル */
 .orange-btn {
   background-color: #f6ad49;
   border-radius: 5px;
@@ -63,7 +59,7 @@
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* 可愛いフォントを適用 */
+// 可愛いフォント
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
 
 .welcome_text {
@@ -73,14 +69,14 @@
   color: #ffffea;
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* デフォルトフォントに戻す */
+// デフォルトにフォントに戻す
 .default-font {
   font-family: Arial, sans-serif;
   font-size: inherit;
   color: inherit;
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* フェードインアニメーション */
+// フェードインアニメーション
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -103,7 +99,7 @@
   animation-delay: 2s; 
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* 左からスライドするアニメーション */
+// 左からスライドするアニメーション
 @keyframes slideInLeft {
   from {
     transform: translateX(-100%);
@@ -115,7 +111,7 @@
   }
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* 右からスライドするアニメーション */
+// 右からスライドするアニメーション
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
@@ -127,14 +123,14 @@
   }
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* 初期状態で非表示に設定 */
+// 初期状態は非表示
 .left-slide-section, .right-slide-section {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 }
 // -----------------------------------------------------------------------------------------------------------------
-/* スクロールした際に表示させる */
+// スクロールした際に表示する
 .left-slide-section.visible {
   animation: slideInLeft 1.5s ease forwards;
   opacity: 1;
@@ -143,20 +139,7 @@
 // -----------------------------------------------------------------------------------------------------------------
 .right-slide-section.visible {
   animation: slideInRight 1.5s ease forwards;
-  animation-delay: 0.5s; /* 遅延表示 */
   opacity: 1;
   visibility: visible;
-}
-
-
-// -----------------------------------------------------------------------------------------------------------------
-/* コンテナのスタイル */
-.sub_container {
-  background-color: #fff;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 800px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 // -----------------------------------------------------------------------------------------------------------------

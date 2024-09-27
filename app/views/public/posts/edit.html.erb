@@ -1,4 +1,4 @@
-<div class="container d-flex flex-column align-items-center mt-3">
+<div class="container d-flex flex-column align-items-center mt-5">
 
   <!--エラーメッセージ-->
   <% if @post.errors.any? %>
@@ -49,12 +49,10 @@
       <div class="form-group">
         <%= f.text_area :memo, class: "form-control", rows: "5", placeholder: "メモ・コメント" %>
       </div>
-      <div class="form-group" style="display: flex; align-items: center;">
-        <div style="margin-right: 0px;">
-          <strong class="mr-2"><%= f.label :タグ %></strong>
-          <span style="font-size: 12px;">※半角スペースを入力することで複数のタグを付けることができます。</span>
-          <%= f.text_field :tag_name, value: @tag_list, placeholder: "例）タグ名 タグ名 タグ名", class:"form-control", style: "width: 600px;" %>
-        </div>
+      <div class="form-group">
+        <strong class="mr-2"><%= f.label :タグ %></strong>
+        <span style="font-size: 12px;">※半角スペースを入力することで複数のタグを付けることができます。</span>
+        <%= f.text_field :tag_name, value: @tag_list, placeholder: "例）タグ名 タグ名 タグ名", class:"form-control", style: "width: 600px;" %>
       </div>
       <div class="form-group">
         <strong><%= f.label :状況 %></strong>
