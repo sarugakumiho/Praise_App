@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_09_25_101158) do
+ActiveRecord::Schema.define(version: 2024_09_27_171802) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,12 +53,14 @@ ActiveRecord::Schema.define(version: 2024_09_25_101158) do
   end
 
   create_table "expenditure_costs", force: :cascade do |t|
+    t.integer "member_id", null: false
     t.integer "category", null: false
     t.string "expenses_name", null: false
     t.integer "price", null: false
     t.date "date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_expenditure_costs_on_member_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -134,6 +136,7 @@ ActiveRecord::Schema.define(version: 2024_09_25_101158) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "expenditure_costs", "members"
   add_foreign_key "favorites", "members"
   add_foreign_key "favorites", "posts"
   add_foreign_key "post_comments", "members"

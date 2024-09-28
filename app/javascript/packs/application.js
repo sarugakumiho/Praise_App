@@ -31,27 +31,29 @@ import "../stylesheets/admin_top"
 //= stub flash_window
 //= require_tree .
 
-// トップページのスライド
+// トップページのスライド（アニメーション）
 document.addEventListener("DOMContentLoaded", function () {
-  const leftSlide = document.querySelector(".left-slide-section");
-  const rightSlide = document.querySelector(".right-slide-section");
+  const leftSlides = document.querySelectorAll(".left-slide-section");
+  const rightSlides = document.querySelectorAll(".right-slide-section");
 
-  // 要素がビューポートに入ったかどうかをチェック
   function checkVisibility() {
-    const triggerPoint = window.innerHeight * 0.75; // ビューポートの75%がトリガーポイント
-    const leftSlideTop = leftSlide.getBoundingClientRect().top;
-    const rightSlideTop = rightSlide.getBoundingClientRect().top;
+    const triggerPoint = window.innerHeight * 0.75;
 
-    if (leftSlideTop < triggerPoint) {
-      leftSlide.classList.add("visible");
-    }
+    leftSlides.forEach((leftSlide) => {
+      const leftSlideTop = leftSlide.getBoundingClientRect().top;
+      if (leftSlideTop < triggerPoint) {
+        leftSlide.classList.add("visible");
+      }
+    });
 
-    if (rightSlideTop < triggerPoint) {
-      rightSlide.classList.add("visible");
-    }
+    rightSlides.forEach((rightSlide) => {
+      const rightSlideTop = rightSlide.getBoundingClientRect().top;
+      if (rightSlideTop < triggerPoint) {
+        rightSlide.classList.add("visible");
+      }
+    });
   }
 
-  // スクロール時にチェック
   window.addEventListener("scroll", checkVisibility);
-  checkVisibility(); // ページ読み込み時に最初のチェック
+  checkVisibility();
 });
