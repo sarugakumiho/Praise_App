@@ -20,31 +20,31 @@
 </div>
 
 <div class="sub_container left-slide-section">
-　<h4>【主な機能】</h4>
-   <p>
-　　◼︎リスト（今後やること・達成したこと）登録機能<br>
+　<h4>【主な機能】</h4><br>
+   <p class="mb-5">
+　　<strong>◼︎リスト（今後やること・達成したこと）登録機能</strong><br>
 　　　リストを登録（編集、削除）することにより、簡単にタスクを管理することができます。<br>
-　　　また、その内容を一覧で表示します。<br>
-　　◼︎リストの公開及び非公開機能<br>
+　　　また、その内容を一覧で表示します。<br><br>
+　　<strong>◼︎リストの公開及び非公開設定機能</strong><br>
 　　　リストの閲覧権限を変えることができます。<br>
-　　　公開の場合：他ユーザーも閲覧が可能<br>
-　　　非公開の場合：ログインユーザーのみ閲覧可能<br>
-　　◼︎タイムライン機能<br>
-　　　フォローしているユーザーの１週間分の最新公開リストが表示されます。<br>
-　　◼︎家計簿(支出)管理機能<br>
+　　　公開の場合：他のユーザーも閲覧が可能<br>
+　　　非公開の場合：ログインユーザーのみ閲覧可能<br><br>
+　　<strong>◼︎タイムライン機能</strong><br>
+　　　フォローしているユーザーの１週間分の最新公開リストが表示されます。<br><br>
+　　<strong>◼︎家計簿(支出)管理機能</strong><br>
 　　　支出内容の登録（編集、削除）ができます。<br>
 　　　また、その内容を一覧で表示します。<br>
 　　　ソート機能を使い、一覧の表示順（新しい順・古い順）を変更することができます。<br>
-　　　各月毎の合計支出額を集計し、その数値をグラフで表示します。<br>
-　　◼︎フォロー機能<br>
-　　　お気に入りのユーザーをフォローすることができ、一覧や詳細で確認することができます。<br>
-　　◼︎お気に入り登録機能<br>
-　　　気に入った投稿をお気に入りすることができ、一覧で確認することができます。<br>
-　　◼︎コメント機能<br>
-　　　公開リストにコメントを残す（削除）ことができます。<br>
-　　◼︎検索機能(キーワード検索)<br>
-　　　公開リストやユーザーを検索窓から検索することができます。<br>
-　　◼︎タグ機能<br>
+　　　各月毎の合計支出額を集計し、その数値をグラフで表示します。<br><br>
+　　<strong>◼︎フォロー機能</strong><br>
+　　　お気に入りのユーザーをフォローすることができ、一覧や詳細で確認することができます。<br><br>
+　　<strong>◼︎お気に入り登録機能</strong><br>
+　　　気に入った投稿をお気に入りすることができ、一覧で確認することができます。<br><br>
+　　<strong>◼︎コメント機能</strong><br>
+　　　公開リストにコメントを残す（削除）ことができます。<br><br>
+　　<strong>◼︎検索機能(キーワード検索)</strong><br>
+　　　公開リストやユーザーを検索窓から検索することができます。<br><br>
+　　<strong>◼︎タグ機能</strong><br>
 　　　リストにタグ付けすることができます。<br>
 　　　また、登録されたタグのついた公開リストを検索窓から検索することができます。<br>
   </p>
@@ -53,37 +53,100 @@
 
 
 <div class="sub_container right-slide-section">
-　　<h4>【使い方】</h4>
-　　<div>
-　　  <p>　1. 新規登録を行います。<br>　　　※新規登録がお済みの場合は、ログインをしてください。</p>
+  <h4 class="mt-4">【使い方】</h4>
+　<div class="row ml-4">
+　  <p style="margin-right: 50px;"><strong>1. 新規登録</strong><br>
+　  ※新規登録がお済みの場合は、ログインをしてください。<br>
+　  任意のニックネーム、メールアドレス、パスワードを入力してください。</p>
+　  　<%= image_tag '1.jpg', style: 'max-width: 40%; height: auto;' %>
+  </div>
+  
+  <div class="row my-4 ml-4">
+    <p style="margin-right: 50px;"><strong>2. リストの登録（編集及び削除）</strong><br>
+    　 「リスト登録」画面から今後やることや達成したことなどのタスクの登録を行うことができます。</p>
+    <%= image_tag '2.jpg', class: 'mr-5', style: 'max-width: 40%; height: auto;' %><br>
+    <div class="d-flex align-items-center">
+      <span class="mr-5">→</span>
     </div>
-  
-  <div>
-    <p>　2. タスクを追加及び進捗を管理をします。</p><br>
+    <%= image_tag '3.jpg', style: 'max-width: 40%; height: auto;' %>
   </div>
   
-  <div>
-    <p>　3. 家計簿に支出の登録をします。</p><br>
+  <div class="row my-4 ml-4">
+    <p style="margin-right: 50px;"><br>
+    　登録したリストは、一覧で表示され、「リスト一覧」から確認することができます。<br>
+    　公開設定で【公開】を選択した場合、他のユーザーもそのリストを見ることができます。<br>
+    　【非公開】を選択した場合は、ログインユーザーのみがそのリストを見ることができます。</p>
+    <%= image_tag '4.jpg', class: 'mr-5', style: 'max-width: 40%; height: auto;' %>
+    <%= image_tag '5.jpg', style: 'max-width: 40%; height: auto;' %>
   </div>
   
-  <div>
-    <p>　4. 気に入った公開リストをお気に入りする。</p><br>
+  <div class="row my-5 ml-4">
+    <p style="margin-right: 50px;">
+    　 マイページには、フォローしているユーザーの１週間分の最新公開リストが<br>
+     　「現在フォローしているユーザーのタイムライン」に表示されます。<br>
+     　また、自身の公開リストと非公開リストも表示されます。
+    </p>
+    <%= image_tag '6.jpg', style: 'max-width: 40%; height: auto;' %>
   </div>
   
-  <div>
-    <p>　5. 公開リストにコメントを残せます。</p><br>
+  <div class="row my-4 ml-4">
+    <p style="margin-right: 50px;"><strong>3. 気に入った公開リストをお気に入り登録</strong><br>
+     　 ♡いいねボタンをクリックすることで、お気に入り登録をすることができます。<br>
+    　 また、「いいね一覧」からお気に入り登録した公開リストを確認することができます。
+    </p>
+    <%= image_tag '7.jpg', class: 'mr-3', style: 'max-width: 40%; height: auto;' %>
+    <div class="d-flex align-items-center">
+      <span class="mr-3">→</span>
+    </div>
+    <%= image_tag '8.jpg', style: 'max-width: 50%; height: auto;' %>
   </div>
   
-  <div>
-    <p>　6. 公開リスト及びユーザーをキーワードで検索することができます。</p><br>
+  <div class="my-5 ml-4">
+    <p><strong>4. 公開リストにコメントする</strong><br>
+    　 公開リストの詳細画面でリストに対してコメントすることができます。
+    </p>
+    
+    <%= image_tag '9.jpg', style: 'max-width: 40%; height: auto;' %>
   </div>
   
-  <div>
-    <p>　7. 気になるタグを検索することができます。</p><br>
+  <div class="row my-4 ml-4">
+    <p style="margin-right: 50px;"><strong>5.  家計簿に支出の登録(編集及び削除)</strong><br>
+    　「家計簿（支出）一覧」から支出内容を登録し、記録を残すことができます。<br>
+    　 また、各月毎の合計支出額を自動で算出し、グラフと表で表示します。
+    </p><br>
+    <%= image_tag '10.jpg', class: 'mr-3', style: 'max-width: 40%; height: auto;' %>
+    <div class="d-flex align-items-center">
+      <span class="mr-3">→</span>
+    </div>
+    <%= image_tag '11.jpg', style: 'max-width: 50%; height: auto;' %>
   </div>
   
-  <div>
-     <p>　8. ログアウトをします。</p><br>
+  <div class="my-4 ml-4">
+    <p style="margin-right: 50px;"><strong>6. 他のユーザーをフォロー</strong><br>
+    　 お気に入りのユーザーをフォローすることができます。</p>
+    <%= image_tag '12.jpg', style: 'max-width: 40%; height: auto;' %>
+  </div>
+ 
+  <div class=" my-4 ml-4">
+    <p style="margin-right: 50px;"><strong>7. キーワード検索（公開リスト及びユーザー）</strong><br>
+    　 ヘッターに設置されている検索窓から、公開リスト及びユーザーのキーワード検索ができます。
+    </p>
+    <%= image_tag '13.jpg', style: 'max-width: 40%; height: auto;' %>
+  </div>
+  
+  <div class="my-4 ml-4">
+    <p style="margin-right: 50px;"><strong>8. タグ名で検索</strong><br>
+     　 ヘッターやタグ一覧画面上に設置されている検索窓から、<br>
+    　 検索したタグと紐づく公開リストを検索することができます。
+    </p>
+    <%= image_tag '14.jpg', style: 'max-width: 40%; height: auto;' %>
+  </div>
+  
+  <div class="my-4 ml-4">
+     <p style="margin-right: 50px;"><strong>9. ログアウト</strong><br>
+      　「ログアウト」ボタンから退出することができます。<br>
+    　   ※次回入室する時は、ログインが必要です。</p>
+     <%= image_tag '15.jpg', style: 'max-width: 40%; height: auto;' %>
   </div>
 </div>
 
