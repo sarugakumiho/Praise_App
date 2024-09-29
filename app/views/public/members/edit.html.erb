@@ -31,13 +31,14 @@
       <div class="form-group mb-4">
         <strong>
           <%= f.label :profile_image, "プロフィール写真" %>
+          <span>画像の拡張子：jpgまたはpngのみ</span>
           &nbsp;<i class="fa-regular fa-image"></i>
         </strong><br>
-        <%= f.file_field :profile_image, class: "form-control-file member_image", accept: 'image/*' %>
+        <%= f.file_field :profile_image, class: "form-control-file member_image", accept: 'image/jpg, image/png, image/jpeg' %>
       </div>
       <div class="form-group">
         <strong><%= f.label :自己紹介 %></strong>
-        <%= f.text_area :introduction, class: "form-control introduction", accept: 'image/*', style: "height: 210px;" %>
+        <%= f.text_area :introduction, class: "form-control introduction", style: "height: 210px;" %>
       </div>
       <div class="d-flex flex-column align-items-center">
         <div class="d-flex justify-content-center mt-2 mb-3">
