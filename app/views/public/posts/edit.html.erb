@@ -44,7 +44,7 @@
       <div class="form-group" style="margin-bottom: 30px;">
         &nbsp;<i class="fa-regular fa-image mt-1"></i>
         <strong class="ml-2"><%= f.label :関連写真 %></strong>
-        <%= f.file_field :image, accept: "image/*", class: "w-100" %>
+        <%= f.file_field :image, accept: 'image/jpg, image/png, image/jpeg', class: "w-100" %>
       </div>
       <div class="form-group">
         <%= f.text_area :memo, class: "form-control", rows: "5", placeholder: "メモ・コメント" %>
