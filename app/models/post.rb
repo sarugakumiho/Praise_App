@@ -1,4 +1,8 @@
 class Post < ApplicationRecord
+  
+   # ------------------------------------------------------------------------------------------------------------------
+  # 投稿画像設定
+  has_one_attached :image
   # ------------------------------------------------------------------------------------------------------------------
   # アソシエーション
   belongs_to :member
@@ -12,6 +16,7 @@ class Post < ApplicationRecord
   validates :memo, length: { maximum: 100 }
   validates :situation_status, presence: true
   validates :post_status, presence: true
+  validates :image, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], size_range: 1..5.megabytes }
   # ------------------------------------------------------------------------------------------------------------------
   # enum設定
   enum situation_status: { from_now: 0, accomplished: 1 }
@@ -55,8 +60,6 @@ class Post < ApplicationRecord
   scope :from_last_week, -> { where("created_at >= ?", 1.week.ago) }
   # ------------------------------------------------------------------------------------------------------------------
   # 投稿画像設定
-  has_one_attached :image
-  
   def get_image
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

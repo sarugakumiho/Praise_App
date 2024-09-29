@@ -23,7 +23,7 @@ class Member < ApplicationRecord
   # バリデーション
   validates :name, length: { minimum: 1, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 150 }
-  validates :profile_image, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], size_range: 1..5.megabytes }
+  validates :profile_image, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], size_range: 1..5.megabytes }, on: :update
   # ------------------------------------------------------------------------------------------------------------------
   # 検索機能（分岐）設定
   def self.search_for(content, method)
