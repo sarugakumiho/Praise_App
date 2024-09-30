@@ -1,6 +1,5 @@
 class Post < ApplicationRecord
-  
-   # ------------------------------------------------------------------------------------------------------------------
+  # ------------------------------------------------------------------------------------------------------------------
   # 投稿画像設定
   has_one_attached :image
   # ------------------------------------------------------------------------------------------------------------------
@@ -16,7 +15,7 @@ class Post < ApplicationRecord
   validates :memo, length: { maximum: 100 }
   validates :situation_status, presence: true
   validates :post_status, presence: true
-  validates :image, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], size_range: 1..5.megabytes }
+  validates :image, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], size_range: 1..5.megabytes }
   # ------------------------------------------------------------------------------------------------------------------
   # enum設定
   enum situation_status: { from_now: 0, accomplished: 1 }
