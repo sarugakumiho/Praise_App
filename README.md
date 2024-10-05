@@ -25,7 +25,7 @@
 
 ## 設計書
 - UIFlows（https://drive.google.com/file/d/1icYtayzsdnWbaC9cQNIoh5EbMAktMCLA/view?usp=sharing）
-- ER図（https://drive.google.com/file/d/1PEZDUcvJWm7WwwfGpVHMY2AXtaxuEux1/view?usp=sharing）
+- ER図（https://drive.google.com/file/d/1ocnIo5z2VKyuzVKjnzGdTO3nFvrC5ewX/view?usp=sharing）
 - テーブル定義書（https://docs.google.com/spreadsheets/d/1Yzo56HFe6cfD_NYRVpJYbnHwYEeLOvr-kQ3q_dwY_1I/edit?usp=sharing）
 - アプリケーション詳細設計書（https://docs.google.com/spreadsheets/d/1gYUrWf2Bgy48twtBXILvwrKbREYofrxbdVyjqud8xio/edit?usp=sharing）
 
