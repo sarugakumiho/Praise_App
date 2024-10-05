@@ -44,7 +44,7 @@
 - IDE：Cloud9
 
 ## 使用素材
-- フリーイラスト素材として以下を使用
+- フリー素材として以下を使用
   * Pixabay (https://pixabay.com/ja/)
   * PAKUTASO (https://www.pakutaso.com/)
   * Adobe Stock（https://stock.adobe.com/jp/)
