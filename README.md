@@ -45,7 +45,7 @@
 
 ## 使用素材
 - フリーイラスト素材として以下を使用
- * Pixabay (https://pixabay.com/ja/)
- * PAKUTASO (https://www.pakutaso.com/)
- * Adobe Stock（https://stock.adobe.com/jp/)
- * イラスト緑花（RYOKKA)(https://illust-ryokka.jp/)
+  * Pixabay (https://pixabay.com/ja/)
+  * PAKUTASO (https://www.pakutaso.com/)
+  * Adobe Stock（https://stock.adobe.com/jp/)
+  * イラスト緑花（RYOKKA)(https://illust-ryokka.jp/)
