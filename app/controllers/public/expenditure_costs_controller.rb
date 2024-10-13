@@ -24,9 +24,12 @@ class Public::ExpenditureCostsController < ApplicationController
     @expenditure_costs = ExpenditureCost.where(member: current_member).order(date: sort_order).page(params[:page]).per(50)
   
     # 各月ごとに金額を集計
+      # 現在の環境を確認
     if Rails.env.development?
+      # （開発環境）SQLiteに対応した記述
       @monthly_expenditure = ExpenditureCost.where(member: current_member).group("strftime('%Y-%m', date)").sum(:price)
     else
+      # （本番環境）MySQLに対応した記述
       @monthly_expenditure = ExpenditureCost.where(member: current_member).group("DATE_FORMAT(date, '%Y-%m')").sum(:price)
     end
   end
