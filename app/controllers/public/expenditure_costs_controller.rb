@@ -1,13 +1,13 @@
 class Public::ExpenditureCostsController < ApplicationController
   before_action :authenticate_member!
-    # ログインユーザーのみ操作可能
+  # ログインユーザーのみ操作可能
   before_action :ensure_correct_member, only: [:edit, :update, :destroy]
   # ------------------------------------------------------------------------------------------------------------------
   def new
     @expenditure_cost = ExpenditureCost.new
   end
   # ------------------------------------------------------------------------------------------------------------------
-   def create
+  def create
     @expenditure_cost = ExpenditureCost.new(expenditure_cost_params)
     @expenditure_cost.member = current_member
     if @expenditure_cost.save

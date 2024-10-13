@@ -3,7 +3,9 @@ class Admin::SearchesController < ApplicationController
   # ------------------------------------------------------------------------------------------------------------------
   def search
     @model = params[:model]
+    # @content=検索キーワード
     @content = params[:content]
+    # @method=検索方法
     @method = params[:method]
     
     # 検索モデルが「Member」の時とそうでない場合の時「Post」の処理
@@ -13,14 +15,11 @@ class Admin::SearchesController < ApplicationController
         flash.now[:alert] = "検索結果がありません。"
       end
     else
-      @records = Post.search_for(@content, @method).page(params[:page]).per(10)
-      if @records.empty?
+      @posts = Post.search_for(@content, @method).page(params[:page]).per(10)
+      if @posts.empty?
         flash.now[:alert] = "検索結果がありません。"
       end
     end
-    
-    # @recordsがnilの場合、空の配列として扱う
-    @records ||= []
   end
   # ------------------------------------------------------------------------------------------------------------------
 end
