@@ -10,7 +10,8 @@ class Public::FavoritesController < ApplicationController
     @post = Post.find(params[:post_id])
     favorite = current_member.favorites.new(post_id: @post.id)
     favorite.save
-
+    
+    # フォーマットに応じて異なるレスポンスを返す
     respond_to do |format|
       # 通常のHTMLリクエストの場合
       format.html { redirect_to post_path(@post) }
@@ -24,6 +25,7 @@ class Public::FavoritesController < ApplicationController
     favorite = current_member.favorites.find_by(post_id: @post.id)
     favorite.destroy
 
+    # フォーマットに応じて異なるレスポンスを返す
     respond_to do |format|
       # 通常のHTMLリクエストの場合
       format.html { redirect_to post_path(@post) }
