@@ -21,7 +21,7 @@
         <% elsif @model == 'Post' %>
           <h3 class="text-center" style="margin-bottom: 30px;">"<%= @content %>"の検索結果はこちら</h3>
           
-          <% @records.each do |post| %>
+          <% @posts.each do |post| %>
             <div class="d-flex justify-content-center">
               <div class="col-md-6">
                 <%= render 'admin/posts/all_published_post', post: post %>
@@ -31,7 +31,7 @@
           
           <!--ページネーション-->
           <div class="d-flex justify-content-center mt-4">
-            <%= paginate @records %>
+            <%= paginate @posts %>
           </div>
         <% end %>
       <% end %>

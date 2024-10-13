@@ -102,43 +102,48 @@ class Public::PostsController < ApplicationController
   # ------------------------------------------------------------------------------------------------------------------
   # タグ機能ここから↓
   def tags
-    # タグの一覧を取得
+    # TagモデルとPostモデルを結合し、公開中リストに関連付けられたタグを一覧で取得
     @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
-
+    
+    # リクエストでtag_idが指定されているかを確認
+    # 指定されていれば以下の処理（タグの取得と投稿の表示）へ進む
     if params[:tag_id].present?
       # 指定されたタグを取得
       @tag = Tag.find_by(id: params[:tag_id])
-
+      # 上記タグが存在するかを確認
       if @tag.present?
-        # 該当するタグに紐づく公開中の投稿を取得
+        # 存在する場合、指定されたタグを取得し、関連する公開中の投稿を表示
         @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc).page(params[:page]).per(10)
       else
+        # 存在しても、実際にはデータベースにそのIDに対応するタグが存在しない場合がある。
+        # その場合は空の投稿リストを返す。
         @posts = Post.none
-        flash.now[:alert] = "該当するタグが見つかりません。"
       end
     else
+      # @tagをnilに設定することで、「現在表示するタグは存在しない」という状態を明示的に示す
+      @tag = nil
+      # 存在しないタグに対応する投稿リストが空であることを示す
       @posts = Post.none
     end
   end
   # ------------------------------------------------------------------------------------------------------------------
   def tags_search
-    # タグ一覧は常に取得
+    # TagモデルとPostモデルを結合し、公開中リストに関連付けられたタグを一覧で取得
     @tag_list = Tag.joins(:posts).where(posts: { post_status: 'published' }).distinct
-  
+    
+    # 検索ワードが存在しているかの確認
     if params[:search].present?
-      # 検索されたタグを取得
+      # 検索ワードを含むタグを部分一致で取得
       @tag_list = @tag_list.where('tag_name LIKE ?', "%#{params[:search]}%")
+      # 複数のタグが見つかった場合に最初のタグを選択し、それに関連する投稿を表示するため、最初のタグを@tagに設定
       @tag = @tag_list.first
-  
+      # 検索結果として@tagが設定されているかを確認
       if @tag.present?
-        # 該当するタグの投稿を取得
+        # 該当するタグに関連する公開リストを取得
         @posts = @tag.posts.where(post_status: 'published').order(created_at: :desc)
       else
-        @posts = Post.none
         flash.now[:alert] = "該当するタグが見つかりません。"
       end
-    else
-      @posts = Post.none
     end
   end
   # ここまで↑
