@@ -56,13 +56,11 @@ class Public::PostsController < ApplicationController
   # ------------------------------------------------------------------------------------------------------------------
   def edit
     @post = Post.find(params[:id])
-    @member = current_member
     # リストに関連付けられているタグの一覧を取得
     @tag_list = @post.tags.pluck(:tag_name).join(' ') 
   end
   # ------------------------------------------------------------------------------------------------------------------
   def update
-    @member = current_member
     @post = Post.find(params[:id])
     
     # tagの編集と削除
