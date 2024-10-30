@@ -8,10 +8,23 @@
         <% if @model == 'Member' %>
           <h3 class="text-center">"<%= @content %>"の検索結果はこちら</h3>
           
-          <% @members.each do |member| %>
-            <%= render 'admin/members/index', members: @members %>
-          <% end %>
-          
+          <table class="table table-bordered text-center" style="border-color: black; border: 1px solid black; width: 100%;">
+            <thead>
+              <tr style="background-color: #c6e2ff;">
+                <th class="col-1" style="border: 1px solid black;">ニックネーム</th>
+                <th class="col-5" style="border: 1px solid black;">自己紹介</th>
+                <th class="col-1" style="border: 1px solid black;">投稿数</th>
+                <th class="col-1" style="border: 1px solid black; font-size: 15px;">フォロー数</th>
+                <th class="col-1" style="border: 1px solid black; font-size: 15px;">フォロワー数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @members.each do |member| %>
+                <%= render 'admin/members/index', member: member %>
+              <% end %>
+            </tbody>
+          </table>
+   
           <!--ページネーション-->
           <div class="d-flex justify-content-center mt-4">
             <%= paginate @members %>

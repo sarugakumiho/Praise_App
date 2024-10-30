@@ -1,14 +1,28 @@
 <div class="container mt-4">
-  
   <h4 class="text-center py-2 mb-4" style="font-weight: 600; background-color: #c6e2ff; color: #000000; border-radius: 12px; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); letter-spacing: 0.5px;">
     ユーザー 一覧
   </h4>
   
-  <!--一覧部分テンプレート-->
-  <%= render "public/members/index", members: @members %>
-  <!--ページネーション-->
+  <!-- 一覧部分テンプレート -->
+  <table class="table table-bordered text-center" style="border-color: black; border: 1px solid black; width: 100%;">
+    <thead>
+      <tr style="background-color: #c6e2ff;">
+        <th class="col-1" style="border: 1px solid black;">ニックネーム</th>
+        <th class="col-5" style="border: 1px solid black;">自己紹介</th>
+        <th class="col-1" style="border: 1px solid black;">投稿数</th>
+        <th class="col-1" style="border: 1px solid black;">フォロー数</th>
+        <th class="col-1" style="border: 1px solid black;">フォロワー数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @members.each do |member| %>
+        <%= render 'public/members/index', member: member %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- ページネーション -->
   <div class="d-flex justify-content-center">
     <%= paginate @members %>
   </div>
-  
 </div>
